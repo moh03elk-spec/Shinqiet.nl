@@ -214,4 +214,112 @@ document.addEventListener('DOMContentLoaded', () => {
       window.location.href = `mailto:stichtingsseo@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
   }
+
+  // === Activiteiten – modals & tabs ===
+  const modalOverlay = document.getElementById('activity-modal');
+  if (!modalOverlay) return;
+
+  const modal = modalOverlay.querySelector('.activity-modal');
+  const modalContents = modalOverlay.querySelectorAll('[data-modal-content]');
+  const triggers = document.querySelectorAll('[data-open-modal]');
+  const closeButtons = modalOverlay.querySelectorAll('[data-close-modal]');
+
+  const tabButtons = modalOverlay.querySelectorAll('.activity-tab');
+  const tabPanels = modalOverlay.querySelectorAll('.activity-tab-panel');
+
+  let lastFocusedElement = null;
+
+  function setActiveModalContent(targetName) {
+    modalContents.forEach((content) => {
+      const isTarget = content.dataset.modalContent === targetName;
+      content.classList.toggle('is-active', isTarget);
+    });
+
+    // Onderwijs: zorg dat er altijd een tab actief is
+    if (targetName === 'onderwijs') {
+      const defaultTab = modalOverlay.querySelector('.activity-tab[data-tab="taal"]');
+      if (defaultTab) {
+        setActiveTab(defaultTab.dataset.tab);
+      }
+    }
+  }
+
+  function openModal(targetName) {
+    lastFocusedElement = document.activeElement;
+
+    setActiveModalContent(targetName);
+
+    modalOverlay.classList.add('is-visible');
+    modalOverlay.setAttribute('aria-hidden', 'false');
+
+    const activeHeading = modalOverlay.querySelector(
+      '.activity-modal-content.is-active h3'
+    );
+    if (activeHeading && typeof activeHeading.focus === 'function') {
+      activeHeading.focus();
+    }
+  }
+
+  function closeModal() {
+    modalOverlay.classList.remove('is-visible');
+    modalOverlay.setAttribute('aria-hidden', 'true');
+
+    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+      lastFocusedElement.focus();
+    }
+  }
+
+  // Tabs functionaliteit voor Onderwijs
+  function setActiveTab(tabName) {
+    tabButtons.forEach((btn) => {
+      const isActive = btn.dataset.tab === tabName;
+      btn.classList.toggle('is-active', isActive);
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    tabPanels.forEach((panel) => {
+      const isActive = panel.dataset.tabPanel === tabName;
+      panel.classList.toggle('is-active', isActive);
+    });
+  }
+
+  tabButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const tabName = btn.dataset.tab;
+      if (!tabName) return;
+      setActiveTab(tabName);
+    });
+  });
+
+  // Klik op kaarten
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      const targetName = trigger.dataset.openModal;
+      if (!targetName) return;
+      openModal(targetName);
+    });
+  });
+
+  // Sluitknoppen
+  closeButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      closeModal();
+    });
+  });
+
+  // Klik buiten modal sluit hem
+  modalOverlay.addEventListener('click', (event) => {
+    if (event.target === modalOverlay) {
+      closeModal();
+    }
+  });
+
+  // Escape sluit modal
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && modalOverlay.classList.contains('is-visible')) {
+      closeModal();
+    }
+  });
+
 });

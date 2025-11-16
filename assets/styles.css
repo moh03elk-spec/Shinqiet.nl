@@ -561,3 +561,408 @@ ul { list-style: none; margin: 0; padding: 0; }
 .vision-statement {
   text-align: center;
 }
+
+/* === ACTIVITEITEN – GLASSY CARDS === */
+
+.section-highlight-activities {
+  position: relative;
+}
+
+.activity-card-grid {
+  gap: var(--space-6, 1.5rem);
+}
+
+.activity-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  padding: 2.1rem 2.4rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  text-align: left;
+  cursor: pointer;
+  isolation: isolate;
+  transition:
+    transform 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease,
+    background 0.35s ease;
+}
+
+.activity-card-glow {
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(182, 56, 46, 0.35), transparent 55%),
+    radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.3), transparent 60%);
+  opacity: 0;
+  transform: translate3d(0, 10px, 0) scale(1.1);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  z-index: -1;
+}
+
+.activity-card-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.activity-card-kicker {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.8;
+}
+
+.activity-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.activity-card-text {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  max-width: 26rem;
+}
+
+/* Extra varianten per kaart */
+.activity-card--sport .activity-card-glow {
+  background:
+    radial-gradient(circle at 0% 100%, rgba(182, 56, 46, 0.35), transparent 55%),
+    radial-gradient(circle at 100% 0%, rgba(0, 0, 0, 0.32), transparent 60%);
+}
+
+.activity-card--bijles .activity-card-glow {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(182, 56, 46, 0.4), transparent 55%),
+    radial-gradient(circle at 0% 100%, rgba(0, 0, 0, 0.26), transparent 60%);
+}
+
+/* Hover/focus states – laten schreeuwen "klik mij" maar toch netjes */
+.activity-card:hover,
+.activity-card:focus-visible {
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  border-color: rgba(182, 56, 46, 0.9);
+  background: rgba(255, 255, 255, 0.02); /* More transparent background to enhance glow */
+}
+
+/* Subtiele pulserende animatie zodat ze de aandacht trekken */
+.activity-card {
+  animation: activityCardPulse 10s ease-in-out infinite;
+}
+
+ @keyframes activityCardPulse {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+  }
+}
+
+
+/* === MODAL OVERLAY + GLOW === */
+
+.activity-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 10% 0%, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.85));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 999;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.activity-modal-overlay::before {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(182, 56, 46, 0.35), transparent 60%),
+    radial-gradient(circle at 85% 90%, rgba(90, 43, 32, 0.6), transparent 65%);
+  mix-blend-mode: screen;
+  opacity: 0.8;
+  pointer-events: none;
+  filter: blur(14px);
+  animation: activityGlowDrift 16s ease-in-out infinite alternate;
+}
+
+ @keyframes activityGlowDrift {
+  0% {
+    transform: translate3d(-25px, 12px, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(10px, -10px, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(20px, 25px, 0) scale(1.02);
+  }
+}
+
+.activity-modal-overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* === MODAL VENSTER === */
+
+.activity-modal {
+  background: var(--color-surface, #ffffff);
+  border-radius: 28px;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.45);
+  width: min(75vw, 1120px);
+  max-height: 82vh;
+  overflow: auto;
+  padding: var(--space-8, 2rem) var(--space-10, 2.5rem);
+  position: relative;
+  transform: translateY(12px) scale(0.96);
+  opacity: 0;
+  transition:
+    transform 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+    opacity 0.35s ease;
+}
+
+.activity-modal-overlay.is-visible .activity-modal {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.activity-modal-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.4rem;
+  border: none;
+  background: #ffffff;
+  border-radius: 999px;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.activity-modal-close:hover {
+  background: #B6382E;
+  color: #ffffff;
+}
+
+/* Content-switching */
+.activity-modal-content {
+  display: none;
+}
+
+.activity-modal-content.is-active {
+  display: block;
+}
+
+/* Header + tabs */
+
+.activity-modal-header {
+  margin-bottom: var(--space-6, 1.5rem);
+}
+
+.activity-modal-header h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.activity-tabs {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.3rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.activity-tab {
+  flex: 1;
+  border: none;
+  background: transparent;
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.8rem;
+  line-height: 1.3;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.activity-tab::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(182, 56, 46, 0.9),
+    rgba(255, 255, 255, 0.25)
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: -1;
+}
+
+.activity-tab:hover {
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(182, 56, 46, 0.4);
+}
+
+.activity-tab.is-active {
+  color: #ffffff;
+  box-shadow: 0 14px 32px rgba(182, 56, 46, 0.55);
+}
+
+.activity-tab.is-active::before {
+  opacity: 1;
+}
+
+/* Tab panels */
+
+.activity-tab-panels {
+  margin-top: var(--space-4, 1rem);
+}
+
+.activity-tab-panel {
+  display: none;
+}
+
+.activity-tab-panel.is-active {
+  display: block;
+}
+
+/* Layouts */
+
+.activity-modal-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.35fr);
+  gap: var(--space-6, 1.5rem);
+  margin-top: var(--space-6, 1.5rem);
+}
+
+.activity-modal-layout--reverse {
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 2fr);
+}
+
+.activity-modal-layout--sport {
+  align-items: center;
+}
+
+.activity-modal-layout--bijles {
+  align-items: flex-start;
+}
+
+.activity-text p + p {
+  margin-top: 0.75rem;
+}
+
+.activity-images {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 1rem);
+}
+
+.activity-images--stacked {
+  justify-content: stretch;
+}
+
+.activity-images--columns {
+  flex-direction: row;
+}
+
+.media-placeholder {
+  border-radius: 16px;
+  border: 1px dashed rgba(0, 0, 0, 0.18);
+  padding: 1.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+  font-style: italic;
+  background: linear-gradient(
+    135deg,
+    rgba(182, 56, 46, 0.07),
+    rgba(255, 255, 255, 0.96)
+  );
+}
+
+.media-placeholder--wide {
+  width: 100%;
+  margin-top: var(--space-6, 1.5rem);
+}
+
+.activity-video {
+  margin-top: var(--space-6, 1.5rem);
+}
+
+/* Responsive */
+
+ @media (max-width: 900px) {
+  .activity-modal {
+    width: 92vw;
+    max-height: 88vh;
+    padding: 1.6rem 1.4rem;
+  }
+
+  .activity-modal-layout,
+  .activity-modal-layout--reverse,
+  .activity-modal-layout--sport,
+  .activity-modal-layout--bijles {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-images--columns {
+    flex-direction: column;
+  }
+
+  .activity-tabs {
+    flex-direction: column;
+  }
+}
+
+/* Scrollbar Styling */
+/* For Webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 10px; /* width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: var(--sandstone-light); /* color of the tracking area */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary); /* color of the scroll thumb */
+  border-radius: 10px;
+  border: 2px solid var(--sandstone-light); /* creates padding around thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark); /* color of the scroll thumb on hover */
+}
+
+/* For Firefox (modern versions) */
+html {
+  scrollbar-width: thin; /* "auto" or "thin" */
+  scrollbar-color: var(--primary) var(--sandstone-light); /* thumb and track color */
+}
