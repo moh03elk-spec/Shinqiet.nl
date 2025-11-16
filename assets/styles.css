@@ -387,8 +387,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 
 .welcome-title .letter:hover {
-  transform: scale(1.2) translateY(-5px); /* Enlarge and lift slightly */
-  color: var(--primary-dark); /* Optional: change color on hover */
+  transform: scale(1.5); /* More pronounced zoom */
   cursor: pointer;
 }
 
