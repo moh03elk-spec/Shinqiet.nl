@@ -13,16 +13,70 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Dropdown Menu Logic ---
   const dropdownToggle = document.querySelector('.dropdown-toggle');
   if (dropdownToggle) {
-    dropdownToggle.addEventListener('click', (e) => {
-      const isExpanded = dropdownToggle.getAttribute('aria-expanded') === 'true';
-      dropdownToggle.setAttribute('aria-expanded', !isExpanded);
-      // Close dropdown if clicking outside
-      document.addEventListener('click', (event) => {
-        if (!dropdownToggle.parentElement.contains(event.target)) {
-          dropdownToggle.setAttribute('aria-expanded', 'false');
+    const dropdownContainer = dropdownToggle.parentElement; // li.has-dropdown
+    const dropdown = dropdownToggle.nextElementSibling;
+    const panels = dropdown.querySelectorAll('.dropdown-panel');
+
+    const setDropdownHeight = (targetPanel) => {
+      if (targetPanel) {
+        const panelHeight = targetPanel.offsetHeight;
+        dropdown.style.height = `${panelHeight}px`;
+      }
+    };
+
+    dropdownContainer.addEventListener('mouseenter', () => {
+      dropdownToggle.setAttribute('aria-expanded', 'true');
+      const activePanel = dropdown.querySelector('.dropdown-panel.is-active');
+      setDropdownHeight(activePanel);
+    });
+
+    dropdownContainer.addEventListener('mouseleave', () => {
+      dropdownToggle.setAttribute('aria-expanded', 'false');
+      // Reset to level 1 when closing, after the transition
+      setTimeout(() => {
+        panels.forEach(panel => {
+          const level = panel.dataset.level;
+          if (level === '1') {
+            panel.classList.add('is-active');
+          } else {
+            panel.classList.remove('is-active');
+          }
+        });
+      }, 300); // Match transition duration
+    });
+
+    // --- Multi-level Dropdown Logic (remains click-based) ---
+    const submenuToggles = dropdown.querySelectorAll('.dropdown-submenu-toggle');
+    const backButtons = dropdown.querySelectorAll('.dropdown-back');
+
+    submenuToggles.forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent the dropdown from closing
+        const targetLevel = toggle.dataset.targetLevel;
+        const currentPanel = toggle.closest('.dropdown-panel');
+        const targetPanel = dropdown.querySelector(`[data-level="${targetLevel}"]`);
+
+        if (currentPanel && targetPanel) {
+          currentPanel.classList.remove('is-active');
+          targetPanel.classList.add('is-active');
+          setDropdownHeight(targetPanel);
         }
-      }, { once: true });
-      e.stopPropagation();
+      });
+    });
+
+    backButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent the dropdown from closing
+        const targetLevel = button.dataset.targetLevel;
+        const currentPanel = button.closest('.dropdown-panel');
+        const targetPanel = dropdown.querySelector(`[data-level="${targetLevel}"]`);
+        
+        if (currentPanel && targetPanel) {
+          currentPanel.classList.remove('is-active');
+          targetPanel.classList.add('is-active');
+          setDropdownHeight(targetPanel);
+        }
+      });
     });
   }
 
@@ -32,39 +86,51 @@ document.addEventListener('DOMContentLoaded', () => {
     yearSpan.textContent = new Date().getFullYear();
   }
 
-  // --- Letter-by-letter animation for welcome title ---
+  // --- Animation for welcome title ---
   const welcomeTitle = document.querySelector('.welcome-title');
   if (welcomeTitle) {
     const nodes = [...welcomeTitle.childNodes];
     welcomeTitle.innerHTML = '';
     let charIndex = 0;
 
-    const createLetterSpan = (letter, isColored = false) => {
-      const span = document.createElement('span');
-      if (letter === ' ') {
-        span.innerHTML = '&nbsp;'; // Preserve space
-      } else {
-        span.textContent = letter;
-        span.className = 'letter';
-        if (isColored) {
-          span.classList.add('colored');
+    const processText = (text, isColored = false) => {
+      // Use regex to split by space but keep the space
+      const words = text.split(/(\s+)/);
+      words.forEach(part => {
+        if (part.trim() === '') {
+          // It's a space or multiple spaces
+          welcomeTitle.append(document.createTextNode(part));
+        } else if (part) {
+          // It's a word
+          const wordSpan = document.createElement('span');
+          wordSpan.className = 'word';
+          if (isColored) {
+            wordSpan.classList.add('no-hover-color');
+          }
+
+          part.split('').forEach(letter => {
+            const letterSpan = document.createElement('span');
+            letterSpan.textContent = letter;
+            letterSpan.className = 'letter';
+            if (isColored) {
+              letterSpan.classList.add('colored');
+            }
+            letterSpan.style.animationDelay = `${charIndex * 0.05}s`;
+            charIndex++;
+            wordSpan.appendChild(letterSpan);
+          });
+          welcomeTitle.appendChild(wordSpan);
         }
-        span.style.animationDelay = `${charIndex * 0.05}s`;
-        charIndex++;
-      }
-      return span;
+      });
     };
 
     nodes.forEach(node => {
       if (node.nodeType === Node.TEXT_NODE) {
-        node.textContent.split('').forEach(letter => {
-          welcomeTitle.appendChild(createLetterSpan(letter));
-        });
-      } else if (node.nodeType === Node.ELEMENT_NODE) {
-        // This is the original colored span
-        node.textContent.split('').forEach(letter => {
-          welcomeTitle.appendChild(createLetterSpan(letter, true)); // Pass true for isColored
-        });
+        processText(node.textContent);
+      } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName !== 'BR') {
+        processText(node.textContent, true);
+      } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'BR') {
+        welcomeTitle.appendChild(document.createElement('br'));
       }
     });
   }

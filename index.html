@@ -27,18 +27,38 @@
 
       <nav class="main-nav" aria-label="Hoofdmenu">
         <ul id="nav-list">
-          <li><a href="#over">Over</a></li>
-          <li><a href="#over-ons">Over ons</a></li>
           <li class="has-dropdown">
             <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Activiteiten</button>
-            <ul class="dropdown" role="menu">
-              <li role="none"><a role="menuitem" href="#activiteiten">Arabisch</a></li>
-              <li role="none"><a role="menuitem" href="#activiteiten">Koran</a></li>
-              <li role="none"><a role="menuitem" href="#activiteiten">Islam</a></li>
-              <li role="none"><a role="menuitem" href="#contact">Afmelden activiteiten</a></li>
-            </ul>
+            <div class="dropdown" role="menu">
+              <!-- Level 1 Panel -->
+              <ul class="dropdown-panel is-active" data-level="1">
+                <li>
+                  <button class="dropdown-submenu-toggle" data-target-level="2">
+                    <span>Onderwijs</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  </button>
+                </li>
+                <li><a role="menuitem" href="#sport">Sportactiviteiten en excursies</a></li>
+                <li><a role="menuitem" href="#bijles">Bijles en boekenclub</a></li>
+              </ul>
+
+              <!-- Level 2 Panel (Onderwijs) -->
+              <ul class="dropdown-panel" data-level="2">
+                <li>
+                  <button class="dropdown-back" data-target-level="1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    <span>Terug naar Onderwijs</span>
+                  </button>
+                </li>
+                <li role="separator"></li>
+                <li><a role="menuitem" href="#activiteiten">Taalonderwijs voor diverse niveaus</a></li>
+                <li><a role="menuitem" href="#activiteiten">Lezen, memoriseren en tajweed</a></li>
+                <li><a role="menuitem" href="#activiteiten">Geloofsleer en fiqh</a></li>
+              </ul>
+            </div>
           </li>
           <li><a href="#gebedstijden">Gebedstijden</a></li>
+          <li><a href="#over-ons">Over ons</a></li>
           <li><a href="#doneren" class="btn btn-donate">Doneren</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
@@ -56,7 +76,7 @@
         <div class="hero-copy">
           <h1 class="welcome-title">Welkom bij <span>Stichting Shinqiet</span><br> Educatie & Opvoeding - SSEO</h1>
           <div class="hero-cta">
-            <a href="#activiteiten" class="btn">Bekijk activiteiten</a>
+            <a href="#activiteiten" class="btn">Bekijk alle activiteiten</a>
             <a href="#doneren" class="btn btn-outline">Steun met een donatie</a>
           </div>
         </div>
@@ -66,30 +86,7 @@
       </div>
     </section>
 
-    <section id="over" class="section">
-      <div class="container grid-2">
-        <div>
-          <h2>Over de stichting</h2>
-          <p>Shinqiet zet zich in voor kwalitatief onderwijs, maatschappelijke betrokkenheid en het behoud van cultureel erfgoed. Wij bieden programma's voor kinderen, jongeren en volwassenen.</p>
-        </div>
-        <div class="card">
-          <h3>Kernwaarden</h3>
-          <ul class="checklist">
-            <li>Toegankelijk onderwijs</li>
-            <li>Respect & verantwoordelijkheid</li>
-            <li>Gemeenschapsdienst</li>
-          </ul>
-        </div>
-      </div>
-    </section>
 
-    <section id="over-ons" class="section">
-      <div class="container">
-        <h2 class="section-title">Over ons</h2>
-        <p>Hier komt de inhoud van de "Over ons" sectie. Dit kan informatie bevatten over de missie, visie, geschiedenis en het team van Stichting Shinqiet.</p>
-        <p>We streven ernaar om een positieve impact te hebben op de gemeenschap door middel van educatie en maatschappelijke projecten.</p>
-      </div>
-    </section>
 
     <section id="activiteiten" class="section neutral">
       <div class="container">
@@ -146,6 +143,18 @@
             <li>Projectgebonden donaties</li>
             <li>Veilige betalingen via Stripe</li>
           </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="over-ons" class="section">
+      <div class="container">
+        <h2 class="section-title">Over ons</h2>
+        <div class="vision-statement">
+          <h3></h3>
+          <p>De stichting zet zich in om jongeren te inspireren tot liefde voor (islamitische) kennis en tot het verrichten van goed en zinvol werk.</p>
+          <p>Wij begeleiden hen bij het ontwikkelen van een levenshouding die rust op waardigheid, respect en verantwoordelijkheid.</p>
+          <p>We versterken morele en spirituele waarden, en stimuleren samenwerking en positiviteit als een weg naar persoonlijke groei en maatschappelijke hervorming.</p>
         </div>
       </div>
     </section>
