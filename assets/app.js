@@ -11,8 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Dropdown Menu Logic ---
-  const dropdownToggle = document.querySelector('.dropdown-toggle');
-  if (dropdownToggle) {
+  // --- Dropdown Menu Logic ---
+  const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+
+  dropdownToggles.forEach(dropdownToggle => {
     const dropdownContainer = dropdownToggle.parentElement; // li.has-dropdown
     const dropdown = dropdownToggle.nextElementSibling;
     const panels = dropdown.querySelectorAll('.dropdown-panel');
@@ -24,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
+    // Hover logic for the main dropdown
     dropdownContainer.addEventListener('mouseenter', () => {
       dropdownToggle.setAttribute('aria-expanded', 'true');
       const activePanel = dropdown.querySelector('.dropdown-panel.is-active');
@@ -42,43 +45,50 @@ document.addEventListener('DOMContentLoaded', () => {
             panel.classList.remove('is-active');
           }
         });
+        // Reset height to 0 or auto if needed, but usually hidden by CSS
       }, 300); // Match transition duration
     });
 
-    // --- Multi-level Dropdown Logic (remains click-based) ---
-    const submenuToggles = dropdown.querySelectorAll('.dropdown-submenu-toggle');
-    const backButtons = dropdown.querySelectorAll('.dropdown-back');
+    // --- Multi-level Dropdown Logic (Event Delegation) ---
+    dropdown.addEventListener('click', (e) => {
+      const toggle = e.target.closest('.dropdown-submenu-toggle');
+      const backBtn = e.target.closest('.dropdown-back');
 
-    submenuToggles.forEach(toggle => {
-      toggle.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent the dropdown from closing
+      if (toggle) {
+        e.preventDefault();
+        e.stopPropagation();
         const targetLevel = toggle.dataset.targetLevel;
         const currentPanel = toggle.closest('.dropdown-panel');
-        const targetPanel = dropdown.querySelector(`[data-level="${targetLevel}"]`);
+        const targetPanel = dropdown.querySelector(`.dropdown-panel[data-level="${targetLevel}"]`);
 
         if (currentPanel && targetPanel) {
           currentPanel.classList.remove('is-active');
           targetPanel.classList.add('is-active');
-          setDropdownHeight(targetPanel);
-        }
-      });
-    });
 
-    backButtons.forEach(button => {
-      button.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent the dropdown from closing
-        const targetLevel = button.dataset.targetLevel;
-        const currentPanel = button.closest('.dropdown-panel');
-        const targetPanel = dropdown.querySelector(`[data-level="${targetLevel}"]`);
-        
+          // Force a reflow/recalc if needed, or just set height immediately
+          // Use scrollHeight as fallback if offsetHeight is 0 (e.g. during transition)
+          const height = targetPanel.offsetHeight || targetPanel.scrollHeight;
+          dropdown.style.height = `${height}px`;
+        }
+      }
+
+      if (backBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const targetLevel = backBtn.dataset.targetLevel;
+        const currentPanel = backBtn.closest('.dropdown-panel');
+        const targetPanel = dropdown.querySelector(`.dropdown-panel[data-level="${targetLevel}"]`);
+
         if (currentPanel && targetPanel) {
           currentPanel.classList.remove('is-active');
           targetPanel.classList.add('is-active');
-          setDropdownHeight(targetPanel);
+
+          const height = targetPanel.offsetHeight || targetPanel.scrollHeight;
+          dropdown.style.height = `${height}px`;
         }
-      });
+      }
     });
-  }
+  });
 
   // --- Dynamic Year in Footer ---
   const yearSpan = document.getElementById('year');
@@ -135,12 +145,229 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Prayer Times Placeholder ---
-  const prayerTimes = { fajr: '05:00', dhuhr: '13:30', asr: '16:00', maghrib: '18:45', isha: '20:00' };
-  Object.entries(prayerTimes).forEach(([key, value]) => {
-    const el = document.querySelector(`[data-pt="${key}"]`);
-    if (el) el.textContent = value;
-  });
+  /* --- PRAYER TIMES LOGIC (New) --- */
+  (function () {
+    const settings = {
+      city: 'utrecht',
+      reminder: {}
+    };
+
+    // Dummy Data for API simulation
+    const prayerData = {
+      utrecht: {
+        date: 'Vandaag', // Will be dynamic
+        times: {
+          Fajr: '06:15',
+          Dhuhr: '12:30',
+          Asr: '14:45',
+          Maghrib: '18:10',
+          Isha: '19:45'
+        },
+        next: 'Maghrib'
+      },
+      default: {
+        Fajr: '06:00', Dhuhr: '12:30', Asr: '14:45', Maghrib: '18:00', Isha: '19:30'
+      }
+    };
+
+    // Icons SVG paths
+    const icons = {
+      Fajr: '<path d="M12 4V2M12 22V20M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M2 12H4M20 12H22M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22M12 16C9.79 16 8 14.21 8 12C8 9.79 9.79 8 12 8C14.21 8 16 9.79 16 12C16 14.21 14.21 16 12 16Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+      Dhuhr: '<circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+      Asr: '<path d="M17 18H21M3 18H14M17 18C17 14.6863 14.3137 12 11 12M11 12C7.68629 12 5 14.6863 5 18M11 12V3M11 3L8 6M11 3L14 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+      Maghrib: '<path d="M17 18H22M2 18H14M17 18C17 14.6863 14.3137 12 11 12C7.686 12 5 14.686 5 18M22 22L2 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+      Isha: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'
+    };
+
+    const elements = {
+      grid: document.getElementById('ssepray-grid'),
+      citySelect: document.getElementById('ssepray-city-select'),
+      dateDisplay: document.getElementById('ssepray-current-date'),
+      nextName: document.getElementById('ssepray-next-name'),
+      nextTime: document.getElementById('ssepray-next-time'),
+      countdown: document.getElementById('ssepray-countdown'),
+      progress: document.getElementById('ssepray-progress-fill'),
+      updateTime: document.getElementById('ssepray-update-ts'),
+      reminderBtn: document.getElementById('ssepray-reminder-btn'),
+      drawer: document.getElementById('ssepray-drawer'),
+      reminderForm: document.getElementById('ssepray-reminder-form'),
+      saveBtn: document.getElementById('ssepray-save-btn'),
+      successMsg: document.getElementById('ssepray-success-msg')
+    };
+
+    function init() {
+      if (!elements.grid) return; // Guard if section missing
+
+      // Set date
+      const now = new Date();
+      const options = { weekday: 'long', day: 'numeric', month: 'long' };
+      elements.dateDisplay.textContent = now.toLocaleDateString('nl-NL', options);
+
+      // Initial render
+      renderCards(settings.city);
+      renderReminderToggles();
+
+      // Listeners
+      if (elements.citySelect) {
+        elements.citySelect.addEventListener('change', (e) => {
+          settings.city = e.target.value;
+          renderCards(settings.city);
+        });
+      }
+
+      if (elements.reminderBtn) {
+        elements.reminderBtn.addEventListener('click', () => {
+          const isHidden = elements.drawer.hidden;
+          elements.drawer.hidden = !isHidden;
+          elements.reminderBtn.setAttribute('aria-expanded', isHidden);
+        });
+      }
+
+      if (elements.saveBtn) {
+        elements.saveBtn.addEventListener('click', () => {
+          elements.successMsg.hidden = false;
+          setTimeout(() => elements.successMsg.hidden = true, 3000);
+        });
+      }
+
+      // Start timer
+      setInterval(updateTimer, 1000);
+      updateTimer(); // run immediately
+    }
+
+    function renderCards(city) {
+      const data = prayerData[city] || prayerData.utrecht;
+      const times = data.times;
+
+      elements.grid.innerHTML = '';
+
+      Object.keys(times).forEach(prayer => {
+        const time = times[prayer];
+
+        const btn = document.createElement('button');
+        btn.className = 'ssepray-card';
+        btn.setAttribute('role', 'button');
+        btn.setAttribute('aria-pressed', 'false');
+        btn.dataset.prayer = prayer;
+
+        btn.innerHTML = `
+        <svg class="ssepray-card-icon" viewBox="0 0 24 24" width="32" height="32" fill="none">
+          ${icons[prayer] || icons.Dhuhr}
+        </svg>
+        <span class="ssepray-card-name">${prayer}</span>
+        <span class="ssepray-card-time">${time}</span>
+        <span class="ssepray-status-chip"></span>
+      `;
+
+        btn.addEventListener('click', () => {
+          elements.grid.querySelectorAll('.ssepray-card').forEach(b => {
+            if (b !== btn) b.setAttribute('aria-pressed', 'false');
+          });
+          const pressed = btn.getAttribute('aria-pressed') === 'true';
+          btn.setAttribute('aria-pressed', !pressed);
+        });
+
+        elements.grid.appendChild(btn);
+      });
+
+      updateActiveCard();
+      if (elements.updateTime) elements.updateTime.textContent = new Date().toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function renderReminderToggles() {
+      if (!elements.reminderForm) return;
+      const prayers = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+      elements.reminderForm.innerHTML = prayers.map(p => `
+      <label class="ssepray-toggle-label">
+        <input type="checkbox" class="ssepray-checkbox" name="${p}">
+        <span>${p}</span>
+      </label>
+    `).join('');
+    }
+
+    function updateActiveCard() {
+      const now = new Date();
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+      const times = (prayerData[settings.city] || prayerData.utrecht).times;
+      let nextPrayer = null;
+      let minDiff = Infinity;
+
+      let foundNext = false;
+      Object.entries(times).forEach(([name, timeStr]) => {
+        const [h, m] = timeStr.split(':').map(Number);
+        const pMinutes = h * 60 + m;
+
+        let diff = pMinutes - currentMinutes;
+        if (diff > 0 && diff < minDiff) {
+          minDiff = diff;
+          nextPrayer = { name, time: timeStr, minutes: pMinutes };
+          foundNext = true;
+        }
+      });
+
+      if (!foundNext) {
+        const [h, m] = times.Fajr.split(':').map(Number);
+        nextPrayer = { name: 'Fajr', time: times.Fajr, minutes: (24 * 60) + (h * 60 + m) };
+      }
+
+      // Update Highlights
+      if (nextPrayer) {
+        if (elements.nextName) elements.nextName.textContent = nextPrayer.name;
+        if (elements.nextTime) elements.nextTime.textContent = nextPrayer.time;
+
+        const cards = elements.grid.querySelectorAll('.ssepray-card');
+        cards.forEach(card => {
+          const pName = card.dataset.prayer;
+          const chip = card.querySelector('.ssepray-status-chip');
+          if (!chip) return;
+
+          card.classList.remove('active', 'next');
+          chip.textContent = '';
+
+          if (pName === nextPrayer.name) {
+            card.classList.add('next');
+            chip.textContent = 'Volgend';
+          }
+        });
+      }
+    }
+
+    function updateTimer() {
+      const now = new Date();
+
+      // Quick next logic derived again for simplicity (or store from updateActiveCard)
+      // For demo, targeting Maghrib 18:10 fixed roughly
+      let target = new Date();
+      target.setHours(18, 10, 0);
+      if (now > target) {
+        target.setHours(19, 45, 0);
+        if (now > target) {
+          target.setHours(6, 15, 0);
+          target.setDate(target.getDate() + 1);
+        }
+      }
+
+      const diff = target - now;
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      if (elements.countdown) elements.countdown.textContent =
+        `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+      if (elements.progress) {
+        const totalWindow = 2 * 60 * 60 * 1000;
+        const passed = totalWindow - diff;
+        const pct = Math.max(0, Math.min(100, (passed / totalWindow) * 100));
+        elements.progress.style.width = `${pct}%`;
+      }
+
+      if (now.getSeconds() === 0) updateActiveCard();
+    }
+
+    init();
+  })();
 
   // --- Stripe Donation Logic ---
   // 1. Simple Payment Link
@@ -152,12 +379,39 @@ document.addEventListener('DOMContentLoaded', () => {
   // 2. Dynamic Checkout Session
   const donationForm = document.getElementById('donation-form');
   const donateButton = document.getElementById('donate-button');
+  const amountInput = document.getElementById('amount');
+  const presetButtons = document.querySelectorAll('.btn-preset');
+
+  if (presetButtons.length > 0 && amountInput) {
+    presetButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all
+        presetButtons.forEach(b => b.classList.remove('is-active'));
+        // Add active class to clicked
+        btn.classList.add('is-active');
+        // Update input
+        amountInput.value = btn.dataset.amount;
+      });
+    });
+
+    // Also update active state if user types manually
+    amountInput.addEventListener('input', () => {
+      const val = amountInput.value;
+      presetButtons.forEach(btn => {
+        if (btn.dataset.amount === val) {
+          btn.classList.add('is-active');
+        } else {
+          btn.classList.remove('is-active');
+        }
+      });
+    });
+  }
+
   if (donationForm && donateButton) {
     donationForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       donateButton.setAttribute('disabled', 'true');
       try {
-        const amountInput = document.getElementById('amount');
         const amount = Number(amountInput.value) || 10;
 
         const res = await fetch('/api/create-checkout-session', {
@@ -167,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (!res.ok) throw new Error('Server response not ok');
-        
+
         const data = await res.json();
         if (data.url) {
           window.location.href = data.url;
@@ -215,111 +469,599 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // === Activiteiten – modals & tabs ===
-  const modalOverlay = document.getElementById('activity-modal');
-  if (!modalOverlay) return;
+  /* --- SSEACT MODAL & ACTIVITIES LOGIC (Redesign) --- */
+  const sseactOverlay = document.getElementById('sseact-modal-overlay');
 
-  const modal = modalOverlay.querySelector('.activity-modal');
-  const modalContents = modalOverlay.querySelectorAll('[data-modal-content]');
-  const triggers = document.querySelectorAll('[data-open-modal]');
-  const closeButtons = modalOverlay.querySelectorAll('[data-close-modal]');
+  // content dictionary
+  const sseactContent = {
+    onderwijs: {
+      title: "Onderwijs",
+      desc: "Taalonderwijs, memoriseren en geloofsleer zijn de kern van onze aanpak. Wij bieden gestructureerde lessen voor kinderen en jongeren, waarbij persoonlijke aandacht centraal staat.",
+      list: ["Gekwalificeerde docenten", "Kleine groepen voor focus", "Integratie van taal en identiteit"],
+      media: ["assets/class1.jpg", "assets/class2.jpg"] // Placeholders really
+    },
+    sport: {
+      title: "Sport & Excursies",
+      desc: "Beweging is essentieel voor een gezonde geest. We organiseren wekelijkse voetbaltrainingen, zwemlessen en uitstapjes naar natuurgebieden om broederschap en fitheid te bevorderen.",
+      list: ["Wekelijkse zaalvoetbal", "Zwemvaardigheid", "Survival weekends"],
+      media: []
+    },
+    bijles: {
+      title: "Bijles & Club",
+      desc: "Naast regulier onderwijs bieden we huiswerkbegeleiding en een warme plek waar jongeren elkaar kunnen ontmoeten, vragen kunnen stellen en samen kunnen werken aan hun schoolprestaties.",
+      list: ["Huiswerkbegeleiding op maat", "Mentorgesprekken", "Warme sfeer en thee"],
+      media: []
+    }
+  };
 
-  const tabButtons = modalOverlay.querySelectorAll('.activity-tab');
-  const tabPanels = modalOverlay.querySelectorAll('.activity-tab-panel');
+  if (sseactOverlay) {
+    const sseactCloseBtn = document.getElementById('sseact-modal-close');
+    const sseactTabs = sseactOverlay.querySelectorAll('.sseact-tab');
+    const modalTitle = document.getElementById('sseact-modal-title');
+    const modalDesc = document.getElementById('sseact-modal-desc');
+    let lastFocusedElement;
 
-  let lastFocusedElement = null;
+    function openSseactModal(id) {
+      lastFocusedElement = document.activeElement;
 
-  function setActiveModalContent(targetName) {
-    modalContents.forEach((content) => {
-      const isTarget = content.dataset.modalContent === targetName;
-      content.classList.toggle('is-active', isTarget);
-    });
-
-    // Onderwijs: zorg dat er altijd een tab actief is
-    if (targetName === 'onderwijs') {
-      const defaultTab = modalOverlay.querySelector('.activity-tab[data-tab="taal"]');
-      if (defaultTab) {
-        setActiveTab(defaultTab.dataset.tab);
+      // Populate Content
+      const data = sseactContent[id];
+      if (data) {
+        if (modalTitle) modalTitle.textContent = data.title;
+        if (modalDesc) modalDesc.textContent = data.desc;
+        // Reset tabs to first
+        resetTabs();
       }
+
+      // Show
+      sseactOverlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+
+      // Trap Focus
+      const focusable = sseactOverlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length) focusable[0].focus();
     }
+
+    function closeSseactModal() {
+      sseactOverlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocusedElement) lastFocusedElement.focus();
+    }
+
+    function resetTabs() {
+      sseactTabs.forEach((tab, index) => {
+        const panelId = tab.getAttribute('aria-controls');
+        const panel = document.getElementById(panelId);
+        if (index === 0) {
+          tab.classList.add('is-active');
+          tab.setAttribute('aria-selected', 'true');
+          if (panel) panel.classList.add('is-active');
+        } else {
+          tab.classList.remove('is-active');
+          tab.setAttribute('aria-selected', 'false');
+          if (panel) panel.classList.remove('is-active');
+        }
+      });
+    }
+
+    // Event Listeners
+    document.querySelectorAll('[data-sseact-id]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-sseact-id');
+        openSseactModal(id);
+      });
+    });
+
+    if (sseactCloseBtn) sseactCloseBtn.addEventListener('click', closeSseactModal);
+
+    sseactOverlay.addEventListener('click', (e) => {
+      if (e.target === sseactOverlay) closeSseactModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && sseactOverlay.getAttribute('aria-hidden') === 'false') {
+        closeSseactModal();
+      }
+    });
+
+    // Tab Logic
+    sseactTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Deactivate all
+        sseactTabs.forEach(t => {
+          t.classList.remove('is-active');
+          t.setAttribute('aria-selected', 'false');
+          const pId = t.getAttribute('aria-controls');
+          document.getElementById(pId)?.classList.remove('is-active');
+        });
+
+        // Activate clicked
+        tab.classList.add('is-active');
+        tab.setAttribute('aria-selected', 'true');
+        const panelId = tab.getAttribute('aria-controls');
+        document.getElementById(panelId)?.classList.add('is-active');
+      });
+    });
   }
 
-  function openModal(targetName) {
-    lastFocusedElement = document.activeElement;
+  const appointmentModal = document.getElementById("appointment-modal");
+  const appointmentForm = document.getElementById("appointment-form");
+  const openAppointmentButtons = document.querySelectorAll("[data-open-appointment]");
+  const closeAppointmentButtons = document.querySelectorAll("[data-close-appointment]");
+  const emailDestination = "stichtingsseo@gmail.com";
 
-    setActiveModalContent(targetName);
-
-    modalOverlay.classList.add('is-visible');
-    modalOverlay.setAttribute('aria-hidden', 'false');
-
-    const activeHeading = modalOverlay.querySelector(
-      '.activity-modal-content.is-active h3'
-    );
-    if (activeHeading && typeof activeHeading.focus === 'function') {
-      activeHeading.focus();
-    }
+  function openAppointmentModal() {
+    appointmentModal.classList.add("is-open");
+    appointmentModal.setAttribute("aria-hidden", "false");
+    const firstInput = appointmentModal.querySelector("input, select, textarea");
+    if (firstInput) firstInput.focus();
   }
 
-  function closeModal() {
-    modalOverlay.classList.remove('is-visible');
-    modalOverlay.setAttribute('aria-hidden', 'true');
-
-    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
-      lastFocusedElement.focus();
-    }
+  function closeAppointmentModal() {
+    appointmentModal.classList.remove("is-open");
+    appointmentModal.setAttribute("aria-hidden", "true");
   }
 
-  // Tabs functionaliteit voor Onderwijs
-  function setActiveTab(tabName) {
-    tabButtons.forEach((btn) => {
-      const isActive = btn.dataset.tab === tabName;
-      btn.classList.toggle('is-active', isActive);
-      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+  openAppointmentButtons.forEach((btn) => {
+    btn.addEventListener("click", openAppointmentModal);
+  });
+
+  closeAppointmentButtons.forEach((btn) => {
+    btn.addEventListener("click", closeAppointmentModal);
+  });
+
+  appointmentModal.addEventListener("click", function (event) {
+    if (event.target === appointmentModal) {
+      closeAppointmentModal();
+    }
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && appointmentModal.classList.contains("is-open")) {
+      closeAppointmentModal();
+    }
+  });
+
+  appointmentForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const data = new FormData(appointmentForm);
+    const voornaam = data.get("voornaam") || "";
+    const achternaam = data.get("achternaam") || "";
+    const naam = (voornaam + " " + achternaam).trim();
+
+    const afspraakDatum = data.get("afspraak_datum") || "";
+    const afspraakTijd = data.get("afspraak_tijd") || "";
+    const email = data.get("email") || "";
+    const telefoon = data.get("telefoon") || "";
+    const activiteit = data.get("activiteit") || "";
+    const bericht = data.get("bericht") || "";
+
+    const subject =
+      "Afspraak plannen - " + (naam || "nieuwe aanmelding");
+
+    const bodyLines = [
+      "Er is een nieuwe afspraakaanvraag via de website:",
+      "",
+      "Naam: " + (naam || "-"),
+      "E-mail: " + (email || "-"),
+      "Telefoon: " + (telefoon || "-"),
+      "",
+      "Gewenste datum: " + (afspraakDatum || "-"),
+      "Gewenste tijd: " + (afspraakTijd || "-"),
+      "Activiteit: " + (activiteit || "-"),
+      "",
+      "Opmerkingen:",
+      bericht || "-",
+      "",
+      "Verzonden via: Plan afspraak formulier op de website."
+    ];
+
+    const mailtoUrl =
+      "mailto:" +
+      encodeURIComponent(emailDestination) +
+      "?subject=" +
+      encodeURIComponent(subject) +
+      "&body=" +
+      encodeURIComponent(bodyLines.join("\n"));
+
+
+
+    window.location.href = mailtoUrl;
+
+    appointmentForm.reset();
+    closeAppointmentModal();
+  });
+
+  /* --- SSE Luxury Form Validation --- */
+  const sseForm = document.getElementById('sse-aanmeld-form');
+  if (sseForm) {
+    const inputs = sseForm.querySelectorAll('.sse-input');
+    const submitBtn = document.getElementById('sse-submit-btn');
+    const successBanner = document.getElementById('sse-success-message');
+
+    // Validators
+    const validators = {
+      voornaam: (val) => val.trim().length >= 2,
+      achternaam: (val) => val.trim().length >= 2,
+      geboortedatum: (val) => val !== '',
+      email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val),
+      telefoon: (val) => /^[0-9\+\s]{8,}$/.test(val),
+      activiteit: (val) => val !== '',
+      bericht: (val) => val === '' || val.trim().length >= 10
+    };
+
+    const setSelectError = (input, show) => {
+      if (input.classList.contains('sse-select')) {
+        const wrapper = input.parentElement;
+        const msg = wrapper.nextElementSibling;
+        if (msg) show ? msg.classList.add('show') : msg.classList.remove('show');
+      }
+    };
+
+    inputs.forEach(input => {
+      // Validate on blur
+      input.addEventListener('blur', () => {
+        const name = input.name;
+        if (validators[name]) {
+          const isValid = validators[name](input.value);
+          if (!isValid) {
+            input.classList.add('sse-error');
+            setSelectError(input, true);
+          } else {
+            input.classList.remove('sse-error');
+            setSelectError(input, false);
+          }
+        }
+      });
+
+      // Clear error on input
+      input.addEventListener('input', () => {
+        if (input.classList.contains('sse-error')) {
+          const name = input.name;
+          if (validators[name] && validators[name](input.value)) {
+            input.classList.remove('sse-error');
+            setSelectError(input, false);
+          }
+        }
+      });
     });
 
-    tabPanels.forEach((panel) => {
-      const isActive = panel.dataset.tabPanel === tabName;
-      panel.classList.toggle('is-active', isActive);
+    sseForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let isValid = true;
+      let firstInvalid = null;
+
+      inputs.forEach(input => {
+        const name = input.name;
+        if (validators[name]) {
+          if (!validators[name](input.value)) {
+            isValid = false;
+            input.classList.add('sse-error');
+            setSelectError(input, true);
+            if (!firstInvalid) firstInvalid = input;
+          } else {
+            input.classList.remove('sse-error');
+            setSelectError(input, false);
+          }
+        }
+      });
+
+      if (!isValid) {
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
+
+      // Valid submission
+      submitBtn.disabled = true;
+      submitBtn.classList.add('loading');
+
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+        sseForm.reset();
+        successBanner.classList.add('show');
+        // Scroll to banner
+        successBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        setTimeout(() => {
+          successBanner.classList.remove('show');
+        }, 5000);
+      }, 900);
     });
   }
+  /* --- SSEIMP STATS INTERACTION (Redesign) --- */
+  const sseimpCards = document.querySelectorAll('.sseimp-card');
+  sseimpCards.forEach(card => {
+    // Mouse
+    card.addEventListener('mousedown', () => card.classList.add('is-pressed'));
+    ['mouseup', 'mouseleave'].forEach(evt => {
+      card.addEventListener(evt, () => card.classList.remove('is-pressed'));
+    });
 
-  tabButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const tabName = btn.dataset.tab;
-      if (!tabName) return;
-      setActiveTab(tabName);
+    // Keyboard (Enter/Space)
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault(); // Prevent scrolling for Space
+        card.classList.add('is-pressed');
+        // Visual feedback time
+        setTimeout(() => card.classList.remove('is-pressed'), 200);
+      }
+    });
+
+    // Optional: Click handler if we wanted to open something, but user said "klikbaar zonder echte link"
+    card.addEventListener('click', () => {
+      // Just a visual ripple effect handled by CSS or pressed state
     });
   });
 
-  // Klik op kaarten
-  triggers.forEach((trigger) => {
-    trigger.addEventListener('click', (event) => {
-      event.preventDefault();
-      const targetName = trigger.dataset.openModal;
-      if (!targetName) return;
-      openModal(targetName);
-    });
-  });
+  /* --- SSEDON FORM LOGIC --- */
+  const ssedonForm = document.getElementById('ssedon-form');
+  if (ssedonForm) {
+    // Elements
+    const inputAmount = document.getElementById('ssedon-input-amount');
+    const rangeAmount = document.getElementById('ssedon-slider');
+    const chips = document.querySelectorAll('.ssedon-chip');
 
-  // Sluitknoppen
-  closeButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      closeModal();
-    });
-  });
+    // Toggles
+    const freqRadios = document.querySelectorAll('input[name="ssedon-freq"]');
+    const destRadios = document.querySelectorAll('.ssedon-chip-dest'); // Note: These are BUTTONS now, or inputs?
+    // Wait, HTML lines 407-412 show <button class="ssedon-chip-dest" data-dest="...">
+    // So destRadios logic needs to handle buttons, not inputs.
 
-  // Klik buiten modal sluit hem
-  modalOverlay.addEventListener('click', (event) => {
-    if (event.target === modalOverlay) {
-      closeModal();
+    const checkRound = document.getElementById('ssedon-roundup');
+    const checkDouble = document.getElementById('ssedon-double');
+
+    // Outputs
+    const calcVal1 = document.getElementById('calc-val-1');
+    const calcVal2 = document.getElementById('calc-val-2');
+    const calcVal3 = document.getElementById('calc-val-3');
+
+    const storyText = document.getElementById('ssedon-mini-story');
+    const freqMsg = document.getElementById('ssedon-freq-msg');
+    const monthlyBtn = document.getElementById('ssedon-btn-monthly');
+    const submitBtn = document.getElementById('ssedon-btn-primary');
+    const ctaText = submitBtn ? submitBtn.querySelector('.btn-text') : null;
+    const errorMsg = document.getElementById('ssedon-error');
+
+    // Dest Buttons Handling (since they are buttons, not radios in HTML view)
+    // HTML: <button ... data-dest="algemeen">
+    const destButtons = document.querySelectorAll('.ssedon-chip-dest');
+    let currentDest = 'algemeen';
+
+    // 1. Sync Amount
+    function updateAmount(val, source) {
+      if (val === 'custom') return; // Handled by click listener
+
+      let numVal = parseInt(val) || 0;
+      if (source !== 'input') inputAmount.value = numVal;
+      if (source !== 'range') rangeAmount.value = numVal;
+
+      // Update chips
+      chips.forEach(c => c.classList.remove('is-active'));
+      let match = false;
+      chips.forEach(c => {
+        if (c.dataset.amount == numVal) {
+          c.classList.add('is-active');
+          match = true;
+        }
+      });
+
+      // If no match, highlight custom (if specific logic needed, or just leave unhighlighted)
+      if (!match) {
+        const customBtn = document.querySelector('.ssedon-chip[data-amount="custom"]');
+        if (customBtn) customBtn.classList.add('is-active');
+      }
+
+      updateImpact();
     }
-  });
 
-  // Escape sluit modal
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && modalOverlay.classList.contains('is-visible')) {
-      closeModal();
+    chips.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const amt = btn.dataset.amount;
+        if (amt === 'custom') {
+          updateAmount(inputAmount.value, 'preset'); // Keep value, just highlight
+          inputAmount.focus();
+        } else {
+          updateAmount(amt, 'preset');
+        }
+      });
+    });
+
+    if (rangeAmount) rangeAmount.addEventListener('input', (e) => updateAmount(e.target.value, 'range'));
+    if (inputAmount) inputAmount.addEventListener('input', (e) => updateAmount(e.target.value, 'input'));
+
+    // 2. Round Up
+    if (checkRound) {
+      checkRound.addEventListener('change', () => {
+        if (checkRound.checked) {
+          let val = parseInt(inputAmount.value) || 0;
+          let rem = val % 5;
+          if (rem !== 0) {
+            let next = val + (5 - rem);
+            updateAmount(next, 'preset');
+          }
+        }
+      });
     }
-  });
 
+    // 3. Impact Calculation
+    function updateImpact() {
+      let val = parseInt(inputAmount.value) || 0;
+      let displayVal = val;
+
+      if (checkDouble && checkDouble.checked) {
+        // Logic: Double update? 
+        // User request: "Verdubbel mijn gift toggle: Fantasy feature... adjusts impact display"
+        // So we just multiply calculation base, not donation amount.
+        displayVal = val * 2;
+      }
+
+      const isMonthly = document.getElementById('freq-monthly').checked;
+      const multiplier = isMonthly ? 12 : 1;
+      const totalVal = displayVal * multiplier;
+
+      // Simple formulas matching the icons:
+      // Book (Lesuren) ~ 12 eur/hr?
+      if (calcVal1) calcVal1.textContent = Math.max(1, Math.floor(totalVal / 12));
+      // Box (Pakketten) ~ 25 eur/pkg?
+      if (calcVal2) calcVal2.textContent = Math.max(1, Math.floor(totalVal / 25));
+      // Heart (Momenten) ~ 50 eur?
+      if (calcVal3) calcVal3.textContent = Math.max(1, Math.floor(totalVal / 50));
+    }
+
+    if (checkDouble) checkDouble.addEventListener('change', updateImpact);
+
+    // 4. Frequency
+    freqRadios.forEach(r => {
+      r.addEventListener('change', () => {
+        if (r.value === 'monthly' && r.checked) {
+          if (freqMsg) freqMsg.classList.remove('hidden');
+          if (monthlyBtn) monthlyBtn.classList.add('hidden');
+          if (ctaText) ctaText.textContent = "Doneer maandelijks met Stripe";
+        } else if (r.value === 'once' && r.checked) {
+          if (freqMsg) freqMsg.classList.add('hidden');
+          if (monthlyBtn) monthlyBtn.classList.remove('hidden');
+          if (ctaText) ctaText.textContent = "Doneer nu met Stripe";
+        }
+        updateImpact();
+      });
+    });
+
+    if (monthlyBtn) {
+      monthlyBtn.addEventListener('click', () => {
+        const m = document.getElementById('freq-monthly');
+        if (m) {
+          m.checked = true;
+          m.dispatchEvent(new Event('change'));
+        }
+      });
+    }
+
+    // 5. Destination Logic (Buttons)
+    const stories = {
+      algemeen: "Samen bouwen we aan een sterke basis voor de toekomst van onze kinderen.",
+      onderwijs: "Met uw steun financieren we boeken, digitale leermiddelen en professionele docenten.",
+      jeugd: "We organiseren sportdagen, excursies en mentor-trajecten die jongeren inspireren.",
+      moskee: "Onderhoud en faciliteiten van de moskee worden direct door uw bijdrage ondersteund.",
+      nood: "Voor gezinnen die het moeilijk hebben, bieden we directe voedsel- en basishulp."
+    };
+
+    destButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Active state
+        destButtons.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+
+        currentDest = btn.dataset.dest;
+
+        // Update story
+        if (storyText) {
+          storyText.style.opacity = 0;
+          setTimeout(() => {
+            storyText.textContent = stories[currentDest] || stories.algemeen;
+            storyText.style.opacity = 1;
+          }, 200);
+        }
+
+        // Update Impact Panel Color/Style? (Optional, per design)
+      });
+    });
+
+    // 6. Character Count
+    const noteArea = document.getElementById('ssedon-note');
+    const charCount = document.getElementById('ssedon-char-count');
+    if (noteArea && charCount) {
+      noteArea.addEventListener('input', () => {
+        charCount.textContent = `${noteArea.value.length}/140`;
+      });
+    }
+
+    // 7. Fake Submit
+    ssedonForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = parseInt(inputAmount.value) || 0;
+
+      if (val < 5) {
+        if (errorMsg) errorMsg.textContent = "Het minimale donatiebedrag is €5.";
+        return;
+      }
+      if (errorMsg) errorMsg.textContent = "";
+
+      if (submitBtn) {
+        submitBtn.classList.add('loading');
+        submitBtn.disabled = true;
+      }
+      if (ctaText) {
+        ctaText.style.opacity = 0;
+      }
+
+      setTimeout(() => {
+        // DONE STATE
+        if (submitBtn) submitBtn.classList.remove('loading');
+        if (ctaText) {
+          ctaText.textContent = "Betaling gestart...";
+          ctaText.style.opacity = 1;
+        }
+
+        const banner = document.getElementById('ssedon-success-banner');
+        if (banner) {
+          banner.classList.remove('hidden');
+          banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        setTimeout(() => {
+          if (submitBtn) submitBtn.disabled = false;
+          if (banner) banner.classList.add('hidden');
+
+          const isMonthly = document.getElementById('freq-monthly').checked;
+          if (ctaText) ctaText.textContent = isMonthly ? "Doneer maandelijks met Stripe" : "Doneer nu met Stripe";
+        }, 6000);
+      }, 900);
+    });
+
+    // Init
+    updateImpact();
+  }
+});
+/* --- SSEABOUT - Interactive & Counters --- */
+document.addEventListener('DOMContentLoaded', () => {
+  const section = document.querySelector('.sseabout-section');
+  const counters = document.querySelectorAll('.sseabout-stat-number');
+
+  if (!section) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        section.classList.add('is-visible');
+
+        counters.forEach(counter => {
+          const target = +counter.getAttribute('data-target');
+          const suffix = counter.getAttribute('data-suffix') || '';
+          const duration = 1200;
+          const start = 0;
+          let startTime = null;
+
+          function step(timestamp) {
+            if (!startTime) startTime = timestamp;
+            const progress = timestamp - startTime;
+            const percentage = Math.min(progress / duration, 1);
+            const ease = 1 - Math.pow(1 - percentage, 4); // EaseOutQuart
+
+            counter.innerText = Math.floor(start + (target - start) * ease) + suffix;
+
+            if (percentage < 1) {
+              window.requestAnimationFrame(step);
+            }
+          }
+          window.requestAnimationFrame(step);
+        });
+
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  observer.observe(section);
 });

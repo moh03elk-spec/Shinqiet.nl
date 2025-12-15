@@ -1,20 +1,25 @@
 <!doctype html>
 <html lang="nl" dir="ltr">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Stichting Shinqiet – Educatie & Opvoeding</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css" />
-  <script type="module" src="assets/app.js" defer></script>
+  <script src="assets/app.js" defer></script>
   <meta name="theme-color" content="#B6382E" />
 </head>
+
 <body>
   <div class="top-bar">
     <div class="container">
-      <span>Welkom bij Stichting Shinqiet</span>
+      <span>Welkom bij Stichting Shinqiet — Samen bouwen we aan kennis, karakter en een veerkrachtige
+        gemeenschap.</span>
     </div>
   </div>
 
@@ -35,7 +40,10 @@
                 <li>
                   <button class="dropdown-submenu-toggle" data-target-level="2">
                     <span>Onderwijs</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
                   </button>
                 </li>
                 <li><a role="menuitem" href="#sport">Sportactiviteiten en excursies</a></li>
@@ -43,28 +51,59 @@
               </ul>
 
               <!-- Level 2 Panel (Onderwijs) -->
-              <ul class="dropdown-panel" data-level="2">
-                <li>
-                  <button class="dropdown-back" data-target-level="1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                    <span>Terug naar Onderwijs</span>
-                  </button>
+              <ul class="dropdown-panel dropdown-panel--submenu" data-level="2">
+                <li class="submenu-layout">
+                  <div class="submenu-sidebar">
+                    <button class="dropdown-back" data-target-level="1">
+                      <span class="back-arrow">‹</span>
+                      <span class="back-text">
+                        <strong>Terug naar</strong><br>
+                        Onderwijs
+                      </span>
+                    </button>
+                  </div>
+                  <div class="submenu-options">
+                    <a role="menuitem" href="#activiteiten" class="submenu-option">
+                      <div class="submenu-option-content">
+                        <strong>Taalonderwijs</strong>
+                        <span>voor diverse niveaus</span>
+                      </div>
+                      <div class="submenu-option-icon">📚</div>
+                    </a>
+                    <a role="menuitem" href="#activiteiten" class="submenu-option">
+                      <div class="submenu-option-content">
+                        <strong>Lezen, memoriseren</strong>
+                        <span>en tajweed</span>
+                      </div>
+                      <div class="submenu-option-icon">📖</div>
+                    </a>
+                    <a role="menuitem" href="#activiteiten" class="submenu-option">
+                      <div class="submenu-option-content">
+                        <strong>Geloofsleer</strong>
+                        <span>en fiqh</span>
+                      </div>
+                      <div class="submenu-option-icon">🕌</div>
+                    </a>
+                  </div>
                 </li>
-                <li role="separator"></li>
-                <li><a role="menuitem" href="#activiteiten">Taalonderwijs voor diverse niveaus</a></li>
-                <li><a role="menuitem" href="#activiteiten">Lezen, memoriseren en tajweed</a></li>
-                <li><a role="menuitem" href="#activiteiten">Geloofsleer en fiqh</a></li>
               </ul>
             </div>
           </li>
           <li><a href="#gebedstijden">Gebedstijden</a></li>
+          <li><a href="#programmagids">Programmagids</a></li>
           <li><a href="#over-ons">Over ons</a></li>
+          <li>
+            <button class="btn btn-outline nav-appointment-btn" type="button" data-open-appointment>
+              Plan afspraak
+            </button>
+          </li>
           <li><a href="#doneren" class="btn btn-donate">Doneren</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
 
-      <button id="nav-toggle" class="nav-toggle" aria-label="Menu openen/sluiten" aria-controls="nav-list" aria-expanded="false">
+      <button id="nav-toggle" class="nav-toggle" aria-label="Menu openen/sluiten" aria-controls="nav-list"
+        aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -74,7 +113,16 @@
     <section class="hero">
       <div class="container hero-inner">
         <div class="hero-copy">
-          <h1 class="welcome-title">Welkom bij <span>Stichting Shinqiet</span><br> Educatie & Opvoeding - SSEO</h1>
+          <h1 class="welcome-title">
+            <span class="title-line-1">Welkom bij <span class="brand-text">Stichting Shinqiet</span></span>
+            <span class="title-line-2">Educatie & Opvoeding</span>
+          </h1>
+
+          <p class="hero-subtitle-small">
+            Een warme thuisbasis waar leerlingen, ouders en vrijwilligers samen investeren in kennis, beweging en
+            betekenisvolle ontmoetingen.
+          </p>
+
           <div class="hero-cta">
             <a href="#activiteiten" class="btn">Bekijk alle activiteiten</a>
             <a href="#doneren" class="btn btn-outline">Steun met een donatie</a>
@@ -88,111 +136,687 @@
 
 
 
-<!-- BEGIN NIEUWE ACTIVITEITEN-SECTIE -->
-<section id="activiteiten" class="section neutral section-highlight-activities">
-  <div class="container">
-    <h2 class="section-title">Activiteiten</h2>
-    <p>Onze activiteiten zijn onderverdeeld in drie pijlers. Klik op een kaart om meer te zien.</p>
+    <!-- SSEIMP STATS SECTION (Redesign) -->
+    <section class="sseimp-section">
+      <div class="sseimp-container">
+        <!-- Card 1: Impact -->
+        <button class="sseimp-card" type="button" aria-label="Toon details over Impact">
+          <span class="sseimp-label">IMPACT</span>
+          <h3 class="sseimp-metric">1200+ lesuren per jaar</h3>
+          <p class="sseimp-text">
+            Gestructureerde trajecten met aandacht voor taalbeheersing, memorisatie en levensvaardigheden.
+          </p>
+          <div class="sseimp-icon-wrapper" aria-hidden="true">
+            <div class="sseimp-icon">❋</div>
+          </div>
+        </button>
 
-    <div class="cards-grid activity-card-grid">
-      <!-- Onderwijs -->
-      <button
-        class="card link-card activity-card"
-        type="button"
-        data-open-modal="onderwijs"
-      >
-        <span class="activity-card-glow"></span>
-        <span class="activity-card-inner">
-          <span class="activity-card-kicker">Pijler 1</span>
-          <span class="activity-card-title">Onderwijs</span>
-          <span class="activity-card-text">
-            Taalonderwijs, memoriseren en geloofsleer in één doorlopend traject.
-          </span>
-        </span>
-      </button>
+        <!-- Card 2: Gemeenschap -->
+        <button class="sseimp-card" type="button" aria-label="Toon details over Gemeenschap">
+          <span class="sseimp-label">GEMEENSCHAP</span>
+          <h3 class="sseimp-metric">15 wekelijkse activiteiten</h3>
+          <p class="sseimp-text">
+            Van leesclubs en fiqh-lessen tot sport en uitstapjes die de sociale cohesie versterken.
+          </p>
+          <div class="sseimp-icon-wrapper" aria-hidden="true">
+            <div class="sseimp-icon">✦</div>
+          </div>
+        </button>
 
-      <!-- Sportactiviteiten en excursies -->
-      <button
-        class="card link-card activity-card activity-card--sport"
-        type="button"
-        data-open-modal="sport"
-      >
-        <span class="activity-card-glow"></span>
-        <span class="activity-card-inner">
-          <span class="activity-card-kicker">Pijler 2</span>
-          <span class="activity-card-title">Sportactiviteiten en excursies</span>
-          <span class="activity-card-text">
-            Samen bewegen, ontdekken en groeien – binnen én buiten de wijk.
-          </span>
-        </span>
-      </button>
-
-      <!-- Bijles en boekenclub -->
-      <button
-        class="card link-card activity-card activity-card--bijles"
-        type="button"
-        data-open-modal="bijles"
-      >
-        <span class="activity-card-glow"></span>
-        <span class="activity-card-inner">
-          <span class="activity-card-kicker">Pijler 3</span>
-          <span class="activity-card-title">Bijles en boekenclub</span>
-          <span class="activity-card-text">
-            Extra ondersteuning en samen lezen in een warme, betrokken setting.
-          </span>
-        </span>
-      </button>
-    </div>
-  </div>
-</section>
-<!-- EINDE NIEUWE ACTIVITEITEN-SECTIE -->
-
-    <section id="gebedstijden" class="section neutral">
-      <div class="container">
-        <h2 class="section-title">Gebedstijden</h2>
-        <div class="prayer-times" aria-live="polite">
-          <div class="time-card"><strong>Fajr</strong> <span data-pt="fajr">—</span></div>
-          <div class="time-card"><strong>Dhuhr</strong> <span data-pt="dhuhr">—</span></div>
-          <div class="time-card"><strong>Asr</strong> <span data-pt="asr">—</span></div>
-          <div class="time-card"><strong>Maghrib</strong> <span data-pt="maghrib">—</span></div>
-          <div class="time-card"><strong>Isha</strong> <span data-pt="isha">—</span></div>
-        </div>
-        <p class="muted small">* Gebedstijden voor Utrecht. Voor een andere stad, gebruik een externe widget.</p>
+        <!-- Card 3: Begeleiding -->
+        <button class="sseimp-card" type="button" aria-label="Toon details over Begeleiding">
+          <span class="sseimp-label">BEGELEIDING</span>
+          <h3 class="sseimp-metric">6 leerroutes</h3>
+          <p class="sseimp-text">
+            Heldere routes per leeftijdsgroep met aandacht voor motivatie, discipline en vreugde in leren.
+          </p>
+          <div class="sseimp-icon-wrapper" aria-hidden="true">
+            <div class="sseimp-icon">➜</div>
+          </div>
+        </button>
       </div>
     </section>
 
-    <section id="doneren" class="section donate-section">
-      <div class="container grid-2">
-        <div>
-          <h2>Steun Stichting Shinqiet</h2>
-          <p>Met uw bijdrage maken we duurzaam onderwijs en maatschappelijke projecten mogelijk.</p>
-          <form id="donation-form" class="donation-form">
-            <label class="sr-only" for="amount">Bedrag</label>
-            <input id="amount" name="amount" type="number" min="2" step="1" value="10" placeholder="€ Bedrag" />
-            <button type="submit" class="btn btn-donate" id="donate-button">Doneren met Stripe</button>
-          </form>
-          <p class="muted small">ANBI</p>
-          <p class="muted small">Of gebruik onze <a id="payment-link" href="#">vaste betaallink</a>.</p>
+    <!-- SSEACT ACTIVITIES SECTION (Redesign) -->
+    <section id="activiteiten" class="sseact-section">
+      <div class="sseact-container">
+
+        <div class="sseact-header">
+          <h2 class="sseact-title">Activiteiten</h2>
+          <p class="sseact-subtitle">Onze activiteiten zijn onderverdeeld in drie pijlers. Klik op een kaart om meer te
+            zien.</p>
         </div>
-        <div class="card">
-          <h3>Transparantie</h3>
-          <ul class="checklist">
-            <li>Jaarverslagen openbaar</li>
-            <li>Projectgebonden donaties</li>
-            <li>Veilige betalingen via Stripe</li>
-          </ul>
+
+        <!-- Main Cards Grid (Top) -->
+        <div class="sseact-grid sseact-grid--main">
+          <!-- Card 1 -->
+          <button class="sseact-card" type="button" data-sseact-id="onderwijs" aria-label="Meer over Onderwijs">
+            <div class="sseact-card-top">
+              <span class="sseact-badge">Pijler 1</span>
+              <h3 class="sseact-card-title">Onderwijs</h3>
+            </div>
+            <p class="sseact-card-desc">Taalonderwijs, memoriseren en geloofsleer in één traject.</p>
+            <div class="sseact-card-footer">
+              <span class="sseact-link">Bekijk details</span>
+              <span class="sseact-arrow" aria-hidden="true">→</span>
+            </div>
+          </button>
+
+          <!-- Card 2 -->
+          <button class="sseact-card" type="button" data-sseact-id="sport" aria-label="Meer over Sport & Excursies">
+            <div class="sseact-card-top">
+              <span class="sseact-badge">Pijler 2</span>
+              <h3 class="sseact-card-title">Sport & Excursies</h3>
+            </div>
+            <p class="sseact-card-desc">Samen bewegen, ontdekken en groeien – binnen én buiten de wijk.</p>
+            <div class="sseact-card-footer">
+              <span class="sseact-link">Bekijk details</span>
+              <span class="sseact-arrow" aria-hidden="true">→</span>
+            </div>
+          </button>
+
+          <!-- Card 3 -->
+          <button class="sseact-card" type="button" data-sseact-id="bijles" aria-label="Meer over Bijles & Club">
+            <div class="sseact-card-top">
+              <span class="sseact-badge">Pijler 3</span>
+              <h3 class="sseact-card-title">Bijles & Club</h3>
+            </div>
+            <p class="sseact-card-desc">Extra ondersteuning en samen lezen in een warme, betrokken setting.</p>
+            <div class="sseact-card-footer">
+              <span class="sseact-link">Bekijk details</span>
+              <span class="sseact-arrow" aria-hidden="true">→</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- Sub Cards Grid (Bottom) -->
+        <div class="sseact-grid sseact-grid--sub">
+          <div class="sseact-card-sub" tabindex="0">
+            <h3 class="sseact-card-title-sm">Onderwijs & taal</h3>
+            <p class="sseact-card-desc-sm">Gestructureerde trajecten voor lezen, memoriseren en Arabisch met heldere
+              voortgang.</p>
+          </div>
+          <div class="sseact-card-sub" tabindex="0">
+            <h3 class="sseact-card-title-sm">Beweging & welzijn</h3>
+            <p class="sseact-card-desc-sm">Sportactiviteiten en uitstapjes die discipline en sociale vaardigheden
+              versterken.</p>
+          </div>
+          <div class="sseact-card-sub" tabindex="0">
+            <h3 class="sseact-card-title-sm">Mentoraat</h3>
+            <p class="sseact-card-desc-sm">Regelmatige voortgangsgesprekken, open inloopmomenten en ondersteuning bij
+              thuisstudie.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Overlay -->
+      <div id="sseact-modal-overlay" class="sseact-modal-overlay" aria-hidden="true">
+        <div class="sseact-modal" role="dialog" aria-modal="true" aria-labelledby="sseact-modal-title">
+          <header class="sseact-modal-header">
+            <h2 id="sseact-modal-title" class="sseact-modal-title">Activiteit Titel</h2>
+            <button id="sseact-modal-close" class="sseact-btn-close" type="button" aria-label="Sluit modal">
+              <span aria-hidden="true">×</span>
+            </button>
+          </header>
+
+          <div class="sseact-tabs" role="tablist">
+            <button id="tab-1" class="sseact-tab is-active" role="tab" aria-selected="true"
+              aria-controls="panel-1">Overzicht</button>
+            <button id="tab-2" class="sseact-tab" role="tab" aria-selected="false"
+              aria-controls="panel-2">Locaties</button>
+            <button id="tab-3" class="sseact-tab" role="tab" aria-selected="false"
+              aria-controls="panel-3">Media</button>
+          </div>
+
+          <div class="sseact-modal-body">
+            <!-- Panel 1: Content -->
+            <div id="panel-1" class="sseact-tab-panel is-active" role="tabpanel" aria-labelledby="tab-1">
+              <div class="sseact-layout-split">
+                <div class="sseact-content-text">
+                  <p id="sseact-modal-desc">Beschrijving van de activiteit komt hier.</p>
+                  <ul class="sseact-list">
+                    <li>Professionele begeleiding</li>
+                    <li>Veilige omgeving</li>
+                    <li>Focus op ontwikkeling</li>
+                  </ul>
+                  <a href="#" class="sseact-btn-primary">Meld je aan</a>
+                </div>
+                <!-- Desktop Sidebar / Placeholder -->
+                <div class="sseact-media-side">
+                  <div class="sseact-placeholder-img">
+                    <span>Afbeelding 1</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel 2: Locaties -->
+            <div id="panel-2" class="sseact-tab-panel" role="tabpanel" aria-labelledby="tab-2">
+              <p>Onze activiteiten vinden plaats op onze hoofdlocatie en diverse sportzalen in de wijk.</p>
+            </div>
+
+            <!-- Panel 3: Media -->
+            <div id="panel-3" class="sseact-tab-panel" role="tabpanel" aria-labelledby="tab-3">
+              <div class="sseact-media-grid">
+                <div class="sseact-placeholder-img"><span>Afbeelding 1</span></div>
+                <div class="sseact-placeholder-img"><span>Afbeelding 2</span></div>
+                <div class="sseact-placeholder-video"><span>Video Player</span></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="over-ons" class="section">
+
+    <!-- SSEPRAY PRAYER TIMES SECTION (New Premium) -->
+    <section id="gebedstijden" class="ssepray-section">
+      <div class="ssepray-container">
+        <header class="ssepray-header">
+          <div class="ssepray-header-content">
+            <span class="ssepray-eyebrow">Gebedstijden &amp; Locatie</span>
+            <h2 class="ssepray-title">
+              Gebedstijden
+              <svg class="ssepray-minaret-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L15 8H9L12 2Z" fill="var(--ssepray-gold)" />
+                <path d="M12 2V22" stroke="var(--ssepray-gold)" stroke-width="1.5" />
+                <path d="M7 22H17" stroke="var(--ssepray-gold)" stroke-width="1.5" stroke-linecap="round" />
+                <path d="M9 12H15" stroke="var(--ssepray-gold)" stroke-width="1.5" />
+                <path d="M10 16H14" stroke="var(--ssepray-gold)" stroke-width="1.5" />
+              </svg>
+            </h2>
+            <div class="ssepray-subtitle-row">
+              <div class="ssepray-select-wrapper">
+                <select id="ssepray-city-select" class="ssepray-select">
+                  <option value="utrecht">Utrecht</option>
+                  <option value="amsterdam">Amsterdam</option>
+                  <option value="rotterdam">Rotterdam</option>
+                  <option value="denhaag">Den Haag</option>
+                  <option value="eindhoven">Eindhoven</option>
+                </select>
+                <svg class="ssepray-select-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 6L8 10L12 6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <span class="ssepray-date" id="ssepray-current-date">Laden...</span>
+            </div>
+          </div>
+
+          <div class="ssepray-highlight-card">
+            <div class="ssepray-highlight-bg"></div>
+            <div class="ssepray-highlight-content">
+              <span class="ssepray-highlight-label">Volgende gebed</span>
+              <div class="ssepray-highlight-main">
+                <span id="ssepray-next-name" class="ssepray-next-name">...</span>
+                <span id="ssepray-next-time" class="ssepray-next-time">--:--</span>
+              </div>
+              <div class="ssepray-countdown-wrapper" aria-live="polite">
+                <span class="ssepray-countdown-label">Nog</span>
+                <span id="ssepray-countdown" class="ssepray-countdown">--:--:--</span>
+              </div>
+              <div class="ssepray-progress-bar">
+                <div id="ssepray-progress-fill" class="ssepray-progress-fill" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="ssepray-grid" id="ssepray-grid">
+          <!-- Cards injected by JS -->
+        </div>
+
+        <footer class="ssepray-footer">
+          <div class="ssepray-footer-info">
+            <span class="ssepray-update-time">Laatste update: <span id="ssepray-update-ts">--:--</span></span>
+            <span class="ssepray-method-badge">ISNA Methode</span>
+          </div>
+          <button id="ssepray-reminder-btn" class="ssepray-btn-text" aria-expanded="false"
+            aria-controls="ssepray-drawer">
+            Meld me aan voor herinnering
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" width="16" height="16">
+              <path
+                d="M10 14L10 14.01M10 17C10.5523 17 11 16.5523 11 16C11 15.4477 10.5523 15 10 15C9.44772 15 9 15.4477 9 16C9 16.5523 9.44772 17 10 17ZM10 3C7 3 5 6 5 9V12L4 14H16L15 12V9C15 6 13 3 10 3Z"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </footer>
+
+        <div id="ssepray-drawer" class="ssepray-drawer" hidden>
+          <div class="ssepray-drawer-content">
+            <div class="ssepray-drawer-header">
+              <h3 class="ssepray-drawer-title">Herinneringen</h3>
+              <p class="ssepray-drawer-desc">Kies welke tijden je wilt ontvangen.</p>
+            </div>
+            <form id="ssepray-reminder-form" class="ssepray-toggles-grid">
+              <!-- Toggles injected by JS -->
+            </form>
+            <div class="ssepray-drawer-actions">
+              <button type="button" id="ssepray-save-btn" class="ssepray-btn-primary">Bewaar voorkeuren</button>
+            </div>
+            <div id="ssepray-success-msg" class="ssepray-success-msg" hidden>
+              Instellingen bewaard!
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SSE DONATION SECTION (Premium Redesign) -->
+    <section id="doneren" class="ssedon-section">
+      <div class="ssedon-container">
+
+        <header class="ssedon-main-header">
+          <h2 class="ssedon-hero-title">Steun Stichting Shinqiet</h2>
+          <p class="ssedon-hero-subtitle">Met jouw bijdrage ondersteunen we duurzaam onderwijs, begeleiding en community
+            activiteiten.</p>
+          <p class="ssedon-community-text">Samen bouwen we aan een sterke gemeenschap, voor kennis, jeugd en de wijk.
+          </p>
+        </header>
+
+        <div class="ssedon-grid">
+
+          <!-- LEFT: Donation Panel -->
+          <div class="ssedon-card ssedon-panel-donate">
+            <form class="ssedon-form" id="ssedon-form" onsubmit="return false;">
+
+              <!-- Frequency -->
+              <div class="ssedon-group ssedon-freq-group">
+                <div class="ssedon-toggle-pill">
+                  <input type="radio" name="ssedon-freq" id="freq-once" value="once" checked>
+                  <label for="freq-once">Eenmalig</label>
+                  <input type="radio" name="ssedon-freq" id="freq-monthly" value="monthly">
+                  <label for="freq-monthly">Maandelijks <span class="ssedon-badge-impact">Meeste impact</span></label>
+                  <div class="ssedon-pill-bg"></div>
+                </div>
+                <div class="ssedon-freq-msg hidden" id="ssedon-freq-msg">Je kunt altijd stoppen.</div>
+              </div>
+
+              <!-- Amount -->
+              <div class="ssedon-group ssedon-amount-group">
+                <label class="ssedon-label">Kies bedrag</label>
+                <div class="ssedon-presets">
+                  <button type="button" class="ssedon-chip" data-amount="10">€10</button>
+                  <button type="button" class="ssedon-chip" data-amount="25">€25</button>
+                  <button type="button" class="ssedon-chip is-active" data-amount="50">€50</button>
+                  <button type="button" class="ssedon-chip" data-amount="100">€100</button>
+                  <button type="button" class="ssedon-chip" data-amount="custom">Anders</button>
+                </div>
+
+                <div class="ssedon-slider-row">
+                  <input type="range" id="ssedon-slider" min="5" max="250" step="1" value="50" class="ssedon-range">
+                </div>
+
+                <div class="ssedon-input-row">
+                  <div class="ssedon-input-wrapper">
+                    <span class="prefix">€</span>
+                    <input type="number" id="ssedon-input-amount" class="ssedon-input-display" value="50" min="5">
+                  </div>
+
+                  <div class="ssedon-toggles-extra">
+                    <label class="ssedon-switch-label" title="Rond af naar dichtstbijzijnde 5 of 10">
+                      <input type="checkbox" id="ssedon-roundup">
+                      <span class="ssedon-switch"></span>
+                      <span class="label-text">Rond af</span>
+                    </label>
+
+                    <label class="ssedon-switch-label" title="Dit is een symbolische optie">
+                      <input type="checkbox" id="ssedon-double">
+                      <span class="ssedon-switch"></span>
+                      <span class="label-text">Verdubbel mijn gift</span>
+                      <span class="ssedon-info-icon"
+                        aria-label="Symbolische optie tenzij sponsor match actief is">?</span>
+                    </label>
+                  </div>
+                </div>
+                <div id="ssedon-error" class="ssedon-error"></div>
+              </div>
+
+              <!-- Destination -->
+              <div class="ssedon-group ssedon-dest-group">
+                <label class="ssedon-label">Waar gaat mijn steun heen?</label>
+                <div class="ssedon-chips-scroll">
+                  <button type="button" class="ssedon-chip-dest is-active" data-dest="algemeen">Algemeen</button>
+                  <button type="button" class="ssedon-chip-dest" data-dest="onderwijs">Onderwijs</button>
+                  <button type="button" class="ssedon-chip-dest" data-dest="jeugd">Jeugd</button>
+                  <button type="button" class="ssedon-chip-dest" data-dest="moskee">Moskee</button>
+                  <button type="button" class="ssedon-chip-dest" data-dest="nood">Noodfonds</button>
+                </div>
+              </div>
+
+              <!-- Note -->
+              <div class="ssedon-group ssedon-note-group">
+                <details>
+                  <summary class="ssedon-link-trigger">Persoonlijke boodschap toevoegen</summary>
+                  <div class="ssedon-textarea-wrapper">
+                    <textarea id="ssedon-note" maxlength="140"
+                      placeholder="Laat een dua of bericht achter..."></textarea>
+                    <span id="ssedon-char-count" class="ssedon-char-count">0/140</span>
+                  </div>
+                </details>
+              </div>
+
+              <!-- Actions -->
+              <div class="ssedon-actions">
+                <button type="submit" id="ssedon-btn-primary" class="ssedon-btn-primary">
+                  <span class="btn-text">Doneer nu met Stripe</span>
+                  <span class="btn-spinner hidden"></span>
+                </button>
+                <button type="button" id="ssedon-btn-monthly" class="ssedon-btn-secondary hidden">Doneer
+                  Maandelijks</button>
+                <a href="#" class="ssedon-text-link">Of gebruik onze vaste betaallink</a>
+              </div>
+
+              <!-- Trust -->
+              <div class="ssedon-trust-row">
+                <span class="ssedon-trust-badge"><span class="icon">🛡️</span> Veilig</span>
+                <span class="ssedon-trust-badge"><span class="icon">✓</span> ANBI</span>
+                <span class="ssedon-trust-badge"><span class="icon">📄</span> Verslagen</span>
+              </div>
+
+              <div id="ssedon-success-banner" class="ssedon-success-banner hidden">
+                <span class="icon">✨</span> Bedankt! Jouw steun maakt het verschil.
+              </div>
+
+            </form>
+          </div>
+
+          <!-- RIGHT: Impact Panel -->
+          <div class="ssedon-card ssedon-panel-impact">
+            <h3 class="ssedon-impact-heading">Jouw Impact</h3>
+
+            <div class="ssedon-mini-story" id="ssedon-mini-story">
+              Jouw bijdrage ondersteunt de basis van onze stichting en helpt waar het nodig is.
+            </div>
+
+            <!-- Calculator Grid -->
+            <div class="ssedon-calc-grid">
+              <div class="ssedon-calc-item">
+                <div class="ssedon-icon-gold">
+                  <!-- Book Icon -->
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                  </svg>
+                </div>
+                <strong id="calc-val-1">4</strong>
+                <span id="calc-label-1">Lesuren</span>
+              </div>
+              <div class="ssedon-calc-item">
+                <div class="ssedon-icon-gold">
+                  <!-- Box/Material Icon -->
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                    </path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                  </svg>
+                </div>
+                <strong id="calc-val-2">2</strong>
+                <span id="calc-label-2">Pakketten</span>
+              </div>
+              <div class="ssedon-calc-item">
+                <div class="ssedon-icon-gold">
+                  <!-- Hand/Heart Icon -->
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                    </path>
+                  </svg>
+                </div>
+                <strong id="calc-val-3">1</strong>
+                <span id="calc-label-3">Begeleiding</span>
+              </div>
+            </div>
+
+            <!-- Progress Bars -->
+            <div class="ssedon-bars-group">
+              <div class="ssedon-bar-wrapper">
+                <div class="bar-header"><span>Onderwijs</span> <span id="bar-pct-1">50%</span></div>
+                <div class="bar-track">
+                  <div class="bar-fill" id="bar-fill-1" style="width: 50%"></div>
+                </div>
+              </div>
+              <div class="ssedon-bar-wrapper">
+                <div class="bar-header"><span>Begeleiding</span> <span id="bar-pct-2">30%</span></div>
+                <div class="bar-track">
+                  <div class="bar-fill" id="bar-fill-2" style="width: 30%"></div>
+                </div>
+              </div>
+              <div class="ssedon-bar-wrapper">
+                <div class="bar-header"><span>Gemeenschap</span> <span id="bar-pct-3">20%</span></div>
+                <div class="bar-track">
+                  <div class="bar-fill" id="bar-fill-3" style="width: 20%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Checklist -->
+            <div class="ssedon-checklist-box">
+              <ul class="ssedon-checklist">
+                <li>
+                  <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Jaarverslagen openbaar
+                </li>
+                <li>
+                  <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Projectgebonden donaties
+                </li>
+                <li>
+                  <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Veilig betalen via Stripe
+                </li>
+              </ul>
+            </div>
+
+            <!-- Decoration -->
+            <div class="ssedon-deco-mosque">
+              <svg viewBox="0 0 300 150" fill="none" stroke="currentColor" stroke-width="1" opacity="0.1">
+                <path d="M20,150 L20,80 L60,80 L60,40 L240,40 L240,80 L280,80 L280,150" />
+                <circle cx="150" cy="40" r="30" />
+                <path d="M150,10 L150,0" stroke-width="2" />
+                <circle cx="150" cy="0" r="3" fill="currentColor" />
+              </svg>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <section id="over-ons" class="sseabout-section">
+      <div class="sseabout-container">
+        <div class="sseabout-grid">
+          <!-- Left Column -->
+          <div class="sseabout-left">
+            <div class="sseabout-header-group">
+              <div class="sseabout-icon-wrapper">
+                <svg class="sseabout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                  <path d="M12 22v-6"></path>
+                </svg>
+              </div>
+              <span class="sseabout-eyebrow">Onze Identiteit</span>
+              <h2 class="sseabout-title">Over ons</h2>
+            </div>
+
+            <p class="sseabout-intro">
+              De stichting zet zich in om jongeren te inspireren tot liefde voor <span
+                class="sseabout-highlight">kennis</span> en tot het verrichten van goed en zinvol werk.
+            </p>
+
+            <div class="sseabout-separator"><span>✦</span></div>
+
+            <p class="sseabout-text">
+              Wij begeleiden hen bij het ontwikkelen van een levenshouding die rust op <span
+                class="sseabout-highlight">waardigheid</span>, <span class="sseabout-highlight">respect</span> en <span
+                class="sseabout-highlight">verantwoordelijkheid</span>. We versterken morele en spirituele waarden, en
+              stimuleren samenwerking en positiviteit als een weg naar persoonlijke groei en maatschappelijke
+              hervorming.
+            </p>
+
+            <div class="sseabout-stats">
+              <div class="sseabout-stat">
+                <span class="sseabout-stat-number" data-target="1200" data-suffix="+">0</span>
+                <span class="sseabout-stat-label">Onderwijs</span>
+              </div>
+              <div class="sseabout-stat">
+                <span class="sseabout-stat-divider"></span>
+              </div>
+              <div class="sseabout-stat">
+                <span class="sseabout-stat-number" data-target="15">0</span>
+                <span class="sseabout-stat-label">Activiteiten</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Values Card -->
+          <div class="sseabout-right">
+            <div class="sseabout-values-card">
+              <h3 class="sseabout-card-title">Onze Waarden</h3>
+              <ul class="sseabout-values-list">
+                <li class="sseabout-value-item" tabindex="0">
+                  <div class="sseabout-value-header">
+                    <span class="sseabout-check">✓</span>
+                    <span class="sseabout-value-name">Waardigheid</span>
+                  </div>
+                  <p class="sseabout-value-desc">We bouwen aan zelfrespect en goede omgangsvormen.</p>
+                </li>
+                <li class="sseabout-value-item" tabindex="0">
+                  <div class="sseabout-value-header">
+                    <span class="sseabout-check">✓</span>
+                    <span class="sseabout-value-name">Respect</span>
+                  </div>
+                  <p class="sseabout-value-desc">We leren luisteren, samenwerken en zorg dragen voor elkaar.</p>
+                </li>
+                <li class="sseabout-value-item" tabindex="0">
+                  <div class="sseabout-value-header">
+                    <span class="sseabout-check">✓</span>
+                    <span class="sseabout-value-name">Verantwoordelijkheid</span>
+                  </div>
+                  <p class="sseabout-value-desc">We stimuleren discipline en betrouwbaarheid in leren en leven.</p>
+                </li>
+              </ul>
+              <div class="sseabout-quote-box">
+                <p>"Een sterke basis voor een zinvolle toekomst"</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Row: Mini Cards -->
+        <div class="sseabout-bottom-grid">
+          <div class="sseabout-mini-card">
+            <h4 class="sseabout-mini-title">Missie</h4>
+            <p class="sseabout-mini-text">Liefde voor kennis en goed handelen versterken.</p>
+          </div>
+          <div class="sseabout-mini-card">
+            <h4 class="sseabout-mini-title">Visie</h4>
+            <p class="sseabout-mini-text">Jongeren die groeien in karakter, kennis en betrokkenheid.</p>
+          </div>
+          <div class="sseabout-mini-card">
+            <h4 class="sseabout-mini-title">Aanpak</h4>
+            <p class="sseabout-mini-text">Begeleiding, structuur en gemeenschap.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="programmagids" class="section program-guide">
       <div class="container">
-        <h2 class="section-title">Over ons</h2>
-        <div class="vision-statement">
-          <h3></h3>
-          <p>De stichting zet zich in om jongeren te inspireren tot liefde voor (islamitische) kennis en tot het verrichten van goed en zinvol werk.</p>
-          <p>Wij begeleiden hen bij het ontwikkelen van een levenshouding die rust op waardigheid, respect en verantwoordelijkheid.</p>
-          <p>We versterken morele en spirituele waarden, en stimuleren samenwerking en positiviteit als een weg naar persoonlijke groei en maatschappelijke hervorming.</p>
+        <div class="program-guide-header">
+          <div>
+            <p class="eyebrow">Programmagids</p>
+            <h2 class="section-title">Van inschrijving tot resultaat</h2>
+            <p class="program-guide-subtitle">
+              Een helder traject voor leerlingen en ouders, met vaste contactmomenten en evaluaties.
+            </p>
+          </div>
+          <a href="#contact" class="btn btn-outline program-guide-cta">
+            Maak een afspraak
+          </a>
+        </div>
+
+        <div class="program-steps">
+          <article class="program-step">
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <div class="program-step-number">01</div>
+            <h3 class="program-step-title">Intake</h3>
+            <p class="program-step-text">
+              We brengen niveau, wensen en leertempo in kaart en koppelen de juiste docent.
+            </p>
+          </article>
+
+          <article class="program-step">
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                <line x1="4" y1="22" x2="4" y2="15"></line>
+              </svg>
+            </div>
+            <div class="program-step-number">02</div>
+            <h3 class="program-step-title">Starttraject</h3>
+            <p class="program-step-text">
+              Leerlingen starten in een passende groep met duidelijke leerlijnen en weekdoelen.
+            </p>
+          </article>
+
+          <article class="program-step">
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <div class="program-step-number">03</div>
+            <h3 class="program-step-title">Mentorgesprek</h3>
+            <p class="program-step-text">
+              Tussentijdse evaluatie met ouders, inclusief praktische handvatten voor thuis.
+            </p>
+          </article>
+
+          <article class="program-step">
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="7"></circle>
+                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+              </svg>
+            </div>
+            <div class="program-step-number">04</div>
+            <h3 class="program-step-title">Certificering</h3>
+            <p class="program-step-text">
+              We vieren behaalde doelen en maken samen een vervolgstap naar verdieping.
+            </p>
+          </article>
         </div>
       </div>
     </section>
@@ -203,333 +827,229 @@
           <h2>Contact</h2>
           <address class="contact-details">
             <div class="contact-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
               <span>De Bazelstraat 39, Utrecht</span>
             </div>
             <div class="contact-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                </path>
+              </svg>
               <a href="tel:+31687097712">06 87097712</a>
             </div>
             <div class="contact-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
               <a href="mailto:stichtingsseo@gmail.com">stichtingsseo@gmail.com</a>
             </div>
           </address>
         </div>
-        <div>
-          <h2 class="section-title">Aanmelden voor les</h2>
-          <form id="aanmeld-formulier" class="card registration-form" aria-label="Aanmeldformulier voor lessen">
-            <div class="form-row">
-              <label for="voornaam">Voornaam</label>
-              <input id="voornaam" name="voornaam" type="text" required>
-            </div>
-            <div class="form-row">
-              <label for="achternaam">Achternaam</label>
-              <input id="achternaam" name="achternaam" type="text" required>
-            </div>
-            <div class="form-row">
-              <label for="geboortedatum">Geboortedatum</label>
-              <input id="geboortedatum" name="geboortedatum" type="date" required>
-            </div>
-            <div class="form-row">
-              <label for="email_aanmelden">E-mail</label>
-              <input id="email_aanmelden" name="email" type="email" required>
-            </div>
-            <div class="form-row">
-              <label for="telefoon">Telefoonnummer</label>
-              <input id="telefoon" name="telefoon" type="tel" required>
-            </div>
-            <div class="form-row">
-              <label for="activiteit">Kies een activiteit</label>
-              <select id="activiteit" name="activiteit" required>
-                <option value="" disabled selected>-- Maak een keuze --</option>
-                <option value="Koranles">Koranles: Lezen, memoriseren en Tajweed</option>
-                <option value="Islam">Islam: Geloofsleer, fiqh en leefstijl</option>
-                <option value="Arabisch">Arabisch: Taalonderwijs voor diverse niveaus</option>
-              </select>
-            </div>
-            <div class="form-row">
-              <label for="bericht_aanmelden">Bericht</label>
-              <textarea id="bericht_aanmelden" name="bericht" rows="4"></textarea>
-            </div>
-            <button class="btn" type="submit">Aanmelding versturen</button>
-          </form>
 
-          <h2 class="section-title" style="margin-top: var(--space-12);">Algemeen contact</h2>
-          <form class="card contact-form" aria-label="Contactformulier">
-            <label for="name">Naam</label>
-            <input id="name" type="text" required>
-            <label for="email">E-mail</label>
-            <input id="email" type="email" required>
-            <label for="message">Bericht</label>
-            <textarea id="message" rows="4" required></textarea>
-            <button class="btn" type="submit">Verstuur</button>
-          </form>
+        <div>
+          <!-- Luxury Form Wrapper -->
+          <div class="sse-form-wrapper">
+            <form id="sse-aanmeld-form" class="sse-form-card" novalidate>
+              <!-- Success Banner (Hidden by default) -->
+              <div class="sse-success-banner" id="sse-success-message" aria-hidden="true">
+                <div class="sse-success-icon">✓</div>
+                <div class="sse-success-text">
+                  <h3>Aanmelding ontvangen</h3>
+                  <p>Bedankt! We nemen spoedig contact met u op.</p>
+                </div>
+              </div>
+
+              <div class="sse-form-content">
+                <h2 class="sse-form-title">Aanmelden voor les</h2>
+                <p class="sse-form-subtitle">Vul uw gegevens in om u in te schrijven.</p>
+
+                <div class="sse-form-grid">
+                  <!-- Voornaam -->
+                  <div class="sse-field">
+                    <label for="sse-voornaam" class="sse-label">Voornaam</label>
+                    <input type="text" id="sse-voornaam" name="voornaam" class="sse-input" placeholder="Uw voornaam"
+                      required autocomplete="given-name">
+                    <div class="sse-error-message" id="error-voornaam">Minimaal 2 tekens vereist</div>
+                  </div>
+
+                  <!-- Achternaam -->
+                  <div class="sse-field">
+                    <label for="sse-achternaam" class="sse-label">Achternaam</label>
+                    <input type="text" id="sse-achternaam" name="achternaam" class="sse-input"
+                      placeholder="Uw achternaam" required autocomplete="family-name">
+                    <div class="sse-error-message" id="error-achternaam">Minimaal 2 tekens vereist</div>
+                  </div>
+                </div>
+
+                <!-- Geboortedatum (Full width) -->
+                <div class="sse-field">
+                  <label for="sse-geboortedatum" class="sse-label">Geboortedatum</label>
+                  <input type="date" id="sse-geboortedatum" name="geboortedatum" class="sse-input" required>
+                  <div class="sse-error-message" id="error-geboortedatum">Geldige datum vereist</div>
+                </div>
+
+                <!-- E-mail -->
+                <div class="sse-field">
+                  <label for="sse-email" class="sse-label">E-mailadres</label>
+                  <input type="email" id="sse-email" name="email" class="sse-input" placeholder="naam@voorbeeld.nl"
+                    required autocomplete="email">
+                  <div class="sse-error-message" id="error-email">Vul een geldig e-mailadres in</div>
+                </div>
+
+                <!-- Telefoonnummer -->
+                <div class="sse-field">
+                  <label for="sse-telefoon" class="sse-label">Telefoonnummer</label>
+                  <input type="tel" id="sse-telefoon" name="telefoon" class="sse-input" placeholder="06 12345678"
+                    required autocomplete="tel">
+                  <div class="sse-error-message" id="error-telefoon">Minimaal 8 cijfers vereist</div>
+                </div>
+
+                <!-- Activiteit -->
+                <div class="sse-field">
+                  <label for="sse-activiteit" class="sse-label">Kies een activiteit</label>
+                  <div class="sse-select-wrapper">
+                    <select id="sse-activiteit" name="activiteit" class="sse-input sse-select" required>
+                      <option value="" disabled selected>Selecteer uw voorkeur...</option>
+                      <option value="Koranles">Koranles: Lezen, memoriseren en Tajweed</option>
+                      <option value="Islam">Islam: Geloofsleer, fiqh en leefstijl</option>
+                      <option value="Arabisch">Arabisch: Taalonderwijs voor diverse niveaus</option>
+                    </select>
+                  </div>
+                  <div class="sse-error-message" id="error-activiteit">Maak een keuze</div>
+                </div>
+
+                <!-- Bericht -->
+                <div class="sse-field">
+                  <label for="sse-bericht" class="sse-label">Bericht (optioneel)</label>
+                  <textarea id="sse-bericht" name="bericht" class="sse-input sse-textarea" rows="4"
+                    placeholder="Typ hier uw opmerking of vraag..."></textarea>
+                  <div class="sse-error-message" id="error-bericht">Minimaal 10 tekens indien ingevuld</div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="sse-form-actions">
+                  <button type="submit" class="sse-btn-submit" id="sse-submit-btn">
+                    <span class="btn-text">Aanmelding versturen</span>
+                    <span class="btn-loader" aria-hidden="true"></span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-<!-- BEGIN NIEUWE ACTIVITEITEN-MODAL -->
-<div id="activity-modal" class="activity-modal-overlay" aria-hidden="true">
-  <div class="activity-modal" role="dialog" aria-modal="true" aria-labelledby="activity-modal-title">
-    <button class="activity-modal-close" type="button" data-close-modal aria-label="Venster sluiten">
-      &times;
-    </button>
+  <!-- NIEUWE MODAL STRUCTUUR (SSEACT) -->
+  <div id="sseact-modal-overlay" class="sseact-modal-overlay" aria-hidden="true" inert>
+    <div class="sseact-modal" role="dialog" aria-modal="true" aria-labelledby="sseact-modal-title">
+      <button class="sseact-modal-close" type="button" aria-label="Sluit modal">✕</button>
 
-    <!-- Onderwijs -->
-    <div class="activity-modal-content" data-modal-content="onderwijs">
-      <header class="activity-modal-header">
-        <h3 id="activity-modal-title" tabindex="-1">Onderwijs</h3>
-
-        <!-- Tabs voor Onderwijs -->
-        <div class="activity-tabs" role="tablist" aria-label="Onderwijsvormen">
-          <button
-            class="activity-tab is-active"
-            type="button"
-            role="tab"
-            aria-selected="true"
-            aria-controls="tab-onderwijs-taal"
-            data-tab="taal"
-          >
-            Taalonderwijs voor diverse niveaus
-          </button>
-          <button
-            class="activity-tab"
-            type="button"
-            role="tab"
-            aria-selected="false"
-            aria-controls="tab-onderwijs-memoriseren"
-            data-tab="memoriseer"
-          >
-            Leren memoriseren en tajweed
-          </button>
-          <button
-            class="activity-tab"
-            type="button"
-            role="tab"
-            aria-selected="false"
-            aria-controls="tab-onderwijs-geloofsleer"
-            data-tab="geloofsleer"
-          >
-            Geloofsleer en tajweed
-          </button>
+      <!-- CONTENT: ONDERWIJS -->
+      <div class="sseact-modal-content" data-sseact-content="onderwijs">
+        <div class="sseact-modal-header">
+          <h2 id="sseact-modal-title">Onderwijs</h2>
+          <div class="sseact-tabs" role="tablist">
+            <button class="sseact-tab is-active" role="tab" aria-selected="true" aria-controls="panel-taal"
+              data-tab="taal">Taal</button>
+            <button class="sseact-tab" role="tab" aria-selected="false" aria-controls="panel-memoriseren"
+              data-tab="memoriseren">Memoriseren</button>
+            <button class="sseact-tab" role="tab" aria-selected="false" aria-controls="panel-geloof"
+              data-tab="geloof">Geloofsleer</button>
+          </div>
         </div>
-      </header>
-
-      <div class="activity-tab-panels">
-        <!-- TAB 1: Taalonderwijs -->
-        <section
-          id="tab-onderwijs-taal"
-          class="activity-tab-panel is-active"
-          role="tabpanel"
-          data-tab-panel="taal"
-        >
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-            volutpat, sapien a hendrerit convallis, lacus lorem suscipit urna,
-            nec ullamcorper arcu urna id neque.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            potenti. Curabitur eget suscipit erat. Nulla facilisi. Vivamus a
-            lectus eget massa volutpat tincidunt.
-          </p>
-
-          <div class="activity-modal-layout">
-            <div class="activity-text">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-                consequat, lorem sed hendrerit tristique, lacus est varius nisl,
-                ac fermentum ipsum augue a risus.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-                aliquet, orci eget viverra luctus, erat ipsum faucibus purus, nec
-                auctor sapien nisi et augue.
-              </p>
+        <div class="sseact-modal-body">
+          <!-- Panels -->
+          <div id="panel-taal" class="sseact-tab-panel is-active" role="tabpanel">
+            <div class="sseact-layout-cols">
+              <div class="sseact-col-text">
+                <p>Onze taallessen zijn gericht op beheersing van het Arabisch op verschillende niveaus. Of je nu
+                  beginner bent of gevorderd, we bieden een gestructureerd programma.</p>
+                <p>Lespakketten omvatten grammatica, woordenschat en conversatie, gegeven door ervaren docenten.</p>
+              </div>
+              <div class="sseact-col-media">
+                <div class="sseact-placeholder-img"><span>Afbeelding Taal klas</span></div>
+                <div class="sseact-placeholder-img"><span>Afbeelding Lesmateriaal</span></div>
+              </div>
             </div>
+            <div class="sseact-placeholder-video"><span>Video impressie Taalonderwijs</span></div>
+          </div>
 
-            <div class="activity-images">
-              <div class="media-placeholder">Afbeelding 1</div>
-              <div class="media-placeholder">Afbeelding 2</div>
+          <div id="panel-memoriseren" class="sseact-tab-panel" role="tabpanel">
+            <div class="sseact-layout-cols">
+              <div class="sseact-col-text">
+                <p>Het memoriseren van de Koran gebeurt met aandacht voor Tajweed regels. We werken in kleine groepen
+                  zodat iedereen persoonlijke aandacht krijgt.</p>
+              </div>
+              <div class="sseact-col-media">
+                <div class="sseact-placeholder-img"><span>Afbeelding Memoriseren</span></div>
+              </div>
             </div>
           </div>
 
-          <div class="activity-video">
-            <div class="media-placeholder media-placeholder--wide">Video</div>
-          </div>
-        </section>
-
-        <!-- TAB 2: Memoriteren en tajweed -->
-        <section
-          id="tab-onderwijs-memoriseren"
-          class="activity-tab-panel"
-          role="tabpanel"
-          data-tab-panel="memoriseer"
-        >
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae
-            sodales eros. In non orci euismod, mattis nibh a, condimentum erat.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-            pharetra, elit in auctor dapibus, augue metus aliquet libero, nec
-            tristique dolor massa vitae leo.
-          </p>
-
-          <div class="activity-modal-layout activity-modal-layout--reverse">
-            <div class="activity-images">
-              <div class="media-placeholder">Afbeelding 1</div>
-              <div class="media-placeholder">Afbeelding 2</div>
-            </div>
-
-            <div class="activity-text">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                interdum bibendum augue quis facilisis.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                sed nisl ac velit fringilla volutpat vitae a urna.
-              </p>
+          <div id="panel-geloof" class="sseact-tab-panel" role="tabpanel">
+            <div class="sseact-layout-cols">
+              <div class="sseact-col-text">
+                <p>In de lessen Geloofsleer (Aqida) en Fiqh leren studenten de basisprincipes van hun geloof en hoe ze
+                  deze in het dagelijks leven kunnen toepassen.</p>
+              </div>
+              <div class="sseact-col-media">
+                <div class="sseact-placeholder-img"><span>Afbeelding Lezing</span></div>
+              </div>
             </div>
           </div>
-
-          <div class="activity-video">
-            <div class="media-placeholder media-placeholder--wide">Video</div>
-          </div>
-        </section>
-
-        <!-- TAB 3: Geloofsleer en tajweed -->
-        <section
-          id="tab-onderwijs-geloofsleer"
-          class="activity-tab-panel"
-          role="tabpanel"
-          data-tab-panel="geloofsleer"
-        >
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-            volutpat orci id magna molestie, sed iaculis sem malesuada.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id
-            mauris odio. Nam lectus arcu, fermentum vitae dui in, volutpat
-            dignissim arcu.
-          </p>
-
-          <div class="activity-modal-layout">
-            <div class="activity-text">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-                congue in mauris et volutpat. Suspendisse potenti.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                aliquam, nibh eget malesuada rhoncus, lorem sem ornare risus,
-                non auctor metus velit sit amet mi.
-              </p>
-            </div>
-
-            <div class="activity-images">
-              <div class="media-placeholder">Afbeelding 1</div>
-              <div class="media-placeholder">Afbeelding 2</div>
-            </div>
-          </div>
-
-          <div class="activity-video">
-            <div class="media-placeholder media-placeholder--wide">Video</div>
-          </div>
-        </section>
-      </div>
-    </div>
-
-    <!-- Sportactiviteiten en excursies -->
-    <div class="activity-modal-content" data-modal-content="sport">
-      <header class="activity-modal-header">
-        <h3 tabindex="-1">Sportactiviteiten en excursies</h3>
-      </header>
-
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-        volutpat, sapien a hendrerit convallis, lacus lorem suscipit urna, nec
-        ullamcorper arcu urna id neque.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-        potenti. Curabitur eget suscipit erat. Nulla facilisi. Vivamus a lectus
-        eget massa volutpat tincidunt.
-      </p>
-
-      <div class="activity-modal-layout activity-modal-layout--sport">
-        <div class="activity-text">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-            consequat, lorem sed hendrerit tristique, lacus est varius nisl, ac
-            fermentum ipsum augue a risus.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-            aliquet, orci eget viverra luctus, erat ipsum faucibus purus, nec
-            auctor sapien nisi et augue.
-          </p>
-        </div>
-
-        <div class="activity-images activity-images--stacked">
-          <div class="media-placeholder">Afbeelding 1</div>
-          <div class="media-placeholder">Afbeelding 2</div>
         </div>
       </div>
 
-      <div class="activity-video">
-        <div class="media-placeholder media-placeholder--wide">Video</div>
-      </div>
-    </div>
-
-    <!-- Bijles en boekenclub -->
-    <div class="activity-modal-content" data-modal-content="bijles">
-      <header class="activity-modal-header">
-        <h3 tabindex="-1">Bijles en boekenclub</h3>
-      </header>
-
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-        volutpat, sapien a hendrerit convallis, lacus lorem suscipit urna, nec
-        ullamcorper arcu urna id neque.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-        potenti. Curabitur eget suscipit erat. Nulla facilisi. Vivamus a lectus
-        eget massa volutpat tincidunt.
-      </p>
-
-      <div class="activity-modal-layout activity-modal-layout--bijles">
-        <div class="activity-text">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-            consequat, lorem sed hendrerit tristique, lacus est varius nisl, ac
-            fermentum ipsum augue a risus.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-            aliquet, orci eget viverra luctus, erat ipsum faucibus purus, nec
-            auctor sapien nisi et augue.
-          </p>
+      <!-- CONTENT: SPORT -->
+      <div class="sseact-modal-content" data-sseact-content="sport">
+        <div class="sseact-modal-header">
+          <h2>Sport & Excursies</h2>
         </div>
-
-        <div class="activity-images activity-images--columns">
-          <div class="media-placeholder">Afbeelding 1</div>
-          <div class="media-placeholder">Afbeelding 2</div>
+        <div class="sseact-modal-body">
+          <div class="sseact-layout-cols">
+            <div class="sseact-col-text">
+              <p>Naast inspanning is er ontspanning. We organiseren voetbaltoernooien, zwemuitjes en survivaldagen om de
+                band te versterken.</p>
+              <p>Gezonde geest in een gezond lichaam staat centraal.</p>
+            </div>
+            <div class="sseact-col-media">
+              <div class="sseact-placeholder-img"><span>Afbeelding Voetbal</span></div>
+              <div class="sseact-placeholder-img"><span>Afbeelding Excursie</span></div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="activity-video">
-        <div class="media-placeholder media-placeholder--wide">Video</div>
+      <!-- CONTENT: BIJLES -->
+      <div class="sseact-modal-content" data-sseact-content="bijles">
+        <div class="sseact-modal-header">
+          <h2>Bijles & Boekenclub</h2>
+        </div>
+        <div class="sseact-modal-body">
+          <div class="sseact-layout-cols">
+            <div class="sseact-col-text">
+              <p>Huiswerkbegeleiding voor middelbare scholieren en een boekenclub waar we samen inspirerende boeken
+                lezen en bespreken.</p>
+            </div>
+            <div class="sseact-col-media">
+              <div class="sseact-placeholder-img"><span>Afbeelding Studie</span></div>
+            </div>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
-</div>
-<!-- EINDE NIEUWE ACTIVITEITEN-MODAL -->
 
   <footer class="site-footer">
     <div class="container footer-grid">
@@ -540,11 +1060,20 @@
         </a>
         <p>KvK: <strong>88321746</strong></p>
         <div class="social-links">
-          <a href="https://www.facebook.com/profile.php?id=100089272375112" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          <a href="https://www.facebook.com/profile.php?id=100089272375112" aria-label="Facebook" target="_blank"
+            rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
           </a>
           <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
           </a>
         </div>
       </div>
@@ -583,5 +1112,69 @@
       </div>
     </div>
   </footer>
+  <!-- 2. MODAL + FORMULIER – PLAATS DIT VÓÓR </body>, ONDERAAN DE PAGINA -->
+  <div class="appointment-modal-backdrop" id="appointment-modal" aria-hidden="true">
+    <div class="appointment-modal" role="dialog" aria-modal="true" aria-labelledby="appointment-title">
+      <button class="appointment-close" type="button" aria-label="Sluit afspraakvenster" data-close-appointment>
+        ✕
+      </button>
+
+      <h2 id="appointment-title" class="appointment-title">
+        Plan een kennismakingsafspraak
+      </h2>
+      <p class="appointment-intro">
+        Kies een datum en vul je gegevens in. We ontvangen je aanvraag per e-mail en nemen zo snel mogelijk contact op.
+      </p>
+
+      <form id="appointment-form" class="card registration-form">
+        <div class="form-row">
+          <label for="afspraak_datum">Datum</label>
+          <input id="afspraak_datum" name="afspraak_datum" type="date" required>
+        </div>
+        <div class="form-row">
+          <label for="afspraak_tijd">Gewenste tijd</label>
+          <input id="afspraak_tijd" name="afspraak_tijd" type="time">
+        </div>
+
+        <div class="form-row">
+          <label for="voornaam_afspraak">Voornaam</label>
+          <input id="voornaam_afspraak" name="voornaam" type="text" required>
+        </div>
+        <div class="form-row">
+          <label for="achternaam_afspraak">Achternaam</label>
+          <input id="achternaam_afspraak" name="achternaam" type="text" required>
+        </div>
+        <div class="form-row">
+          <label for="email_afspraak">E-mail</label>
+          <input id="email_afspraak" name="email" type="email" required>
+        </div>
+        <div class="form-row">
+          <label for="telefoon_afspraak">Telefoonnummer</label>
+          <input id="telefoon_afspraak" name="telefoon" type="tel" required>
+        </div>
+
+        <div class="form-row">
+          <label for="activiteit_afspraak">Activiteit</label>
+          <select id="activiteit_afspraak" name="activiteit">
+            <option value="" disabled selected>-- Maak een keuze --</option>
+            <option value="Koranles">Koranles: Lezen, memoriseren en Tajweed</option>
+            <option value="Islam">Islam: Geloofsleer, fiqh en leefstijl</option>
+            <option value="Arabisch">Arabisch: Taalonderwijs voor diverse niveaus</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="bericht_afspraak">Opmerkingen</label>
+          <textarea id="bericht_afspraak" name="bericht" rows="4"
+            placeholder="Eventuele vragen of aanvullende informatie"></textarea>
+        </div>
+
+        <button class="btn" type="submit">
+          Afspraakaanvraag versturen
+        </button>
+      </form>
+    </div>
+  </div>
 </body>
+
 </html>

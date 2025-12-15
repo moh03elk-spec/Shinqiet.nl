@@ -6,6 +6,7 @@
 const express = require('express');
 const Stripe = require('stripe');
 const path = require('path');
+const fetch = require('node-fetch'); // Import node-fetch
 
 // Vervang dit met je ECHTE secret key in een .env bestand
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2024-06-20' });
@@ -15,6 +16,55 @@ const staticDir = path.resolve(__dirname, '..');
 
 app.use(express.json());
 app.use(express.static(staticDir)); // Serveert index.html en assets
+
+// Nieuw endpoint voor gebedstijden
+app.get('/api/prayer-times', async (req, res) => {
+  try {
+    const city = 'Utrecht';
+    const country = 'Netherlands';
+    const method = 5; // Egyptian General Authority of Survey (common for Europe)
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // Months are 0-indexed
+
+    const aladhanApiUrl = `http://api.aladhan.com/v1/calendarByCity?city=${city}&country=${country}&method=${method}&month=${month}&year=${year}`;
+    
+    const response = await fetch(aladhanApiUrl);
+    if (!response.ok) {
+      throw new Error(`AlAdhan API error: ${response.statusText}`);
+    }
+    const data = await response.json();
+
+    if (data.code !== 200 || !data.data) {
+      throw new Error(`AlAdhan API returned an error: ${data.status}`);
+    }
+
+    // Find today's prayer times
+    const today = date.getDate();
+    const todayPrayerTimes = data.data.find(day => day.date.gregorian.day == today);
+
+    if (!todayPrayerTimes) {
+      throw new Error('Could not find prayer times for today.');
+    }
+
+    const timings = todayPrayerTimes.timings;
+
+    // Extract and format the required prayer times
+    const prayerTimes = {
+      fajr: timings.Fajr.split(' ')[0],
+      dhuhr: timings.Dhuhr.split(' ')[0],
+      asr: timings.Asr.split(' ')[0],
+      maghrib: timings.Maghrib.split(' ')[0],
+      isha: timings.Isha.split(' ')[0],
+    };
+
+    res.json(prayerTimes);
+
+  } catch (error) {
+    console.error('Error fetching prayer times:', error.message);
+    res.status(500).json({ error: 'Failed to fetch prayer times', details: error.message });
+  }
+});
 
 app.post('/api/create-checkout-session', async (req, res) => {
   try {
