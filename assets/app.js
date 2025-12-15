@@ -584,94 +584,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const appointmentModal = document.getElementById("appointment-modal");
-  const appointmentForm = document.getElementById("appointment-form");
-  const openAppointmentButtons = document.querySelectorAll("[data-open-appointment]");
-  const closeAppointmentButtons = document.querySelectorAll("[data-close-appointment]");
-  const emailDestination = "stichtingsseo@gmail.com";
 
-  function openAppointmentModal() {
-    appointmentModal.classList.add("is-open");
-    appointmentModal.setAttribute("aria-hidden", "false");
-    const firstInput = appointmentModal.querySelector("input, select, textarea");
-    if (firstInput) firstInput.focus();
-  }
-
-  function closeAppointmentModal() {
-    appointmentModal.classList.remove("is-open");
-    appointmentModal.setAttribute("aria-hidden", "true");
-  }
-
-  openAppointmentButtons.forEach((btn) => {
-    btn.addEventListener("click", openAppointmentModal);
-  });
-
-  closeAppointmentButtons.forEach((btn) => {
-    btn.addEventListener("click", closeAppointmentModal);
-  });
-
-  appointmentModal.addEventListener("click", function (event) {
-    if (event.target === appointmentModal) {
-      closeAppointmentModal();
-    }
-  });
-
-  document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape" && appointmentModal.classList.contains("is-open")) {
-      closeAppointmentModal();
-    }
-  });
-
-  appointmentForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    const data = new FormData(appointmentForm);
-    const voornaam = data.get("voornaam") || "";
-    const achternaam = data.get("achternaam") || "";
-    const naam = (voornaam + " " + achternaam).trim();
-
-    const afspraakDatum = data.get("afspraak_datum") || "";
-    const afspraakTijd = data.get("afspraak_tijd") || "";
-    const email = data.get("email") || "";
-    const telefoon = data.get("telefoon") || "";
-    const activiteit = data.get("activiteit") || "";
-    const bericht = data.get("bericht") || "";
-
-    const subject =
-      "Afspraak plannen - " + (naam || "nieuwe aanmelding");
-
-    const bodyLines = [
-      "Er is een nieuwe afspraakaanvraag via de website:",
-      "",
-      "Naam: " + (naam || "-"),
-      "E-mail: " + (email || "-"),
-      "Telefoon: " + (telefoon || "-"),
-      "",
-      "Gewenste datum: " + (afspraakDatum || "-"),
-      "Gewenste tijd: " + (afspraakTijd || "-"),
-      "Activiteit: " + (activiteit || "-"),
-      "",
-      "Opmerkingen:",
-      bericht || "-",
-      "",
-      "Verzonden via: Plan afspraak formulier op de website."
-    ];
-
-    const mailtoUrl =
-      "mailto:" +
-      encodeURIComponent(emailDestination) +
-      "?subject=" +
-      encodeURIComponent(subject) +
-      "&body=" +
-      encodeURIComponent(bodyLines.join("\n"));
-
-
-
-    window.location.href = mailtoUrl;
-
-    appointmentForm.reset();
-    closeAppointmentModal();
-  });
 
   /* --- SSE Luxury Form Validation --- */
   const sseForm = document.getElementById('sse-aanmeld-form');
@@ -1065,3 +978,266 @@ document.addEventListener('DOMContentLoaded', () => {
 
   observer.observe(section);
 });
+
+/* --- SSEFLOW PROGRAM GUIDE INTERACTIVITY --- */
+(function () {
+  const container = document.querySelector('.sseflow-grid');
+  if (!container) return;
+
+  const cards = container.querySelectorAll('.sseflow-card');
+
+  // Activate card logic
+  function activateCard(card) {
+    cards.forEach(c => {
+      c.classList.remove('active');
+      c.setAttribute('aria-pressed', 'false');
+    });
+    card.classList.add('active');
+    card.setAttribute('aria-pressed', 'true');
+  }
+
+  cards.forEach(card => {
+    // Click
+    card.addEventListener('click', () => {
+      activateCard(card);
+    });
+
+    // Keyboard (Enter/Space)
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        activateCard(card);
+      }
+      // Arrow keys (Previous/Next)
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        const next = card.nextElementSibling;
+        if (next) { next.focus(); activateCard(next); }
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prev = card.previousElementSibling;
+        if (prev) { prev.focus(); activateCard(prev); }
+      }
+    });
+  });
+})();
+
+/* --- SSEFORM 3-COLUMN LOGIC --- */
+(function () {
+  const form = document.getElementById('sseform-form');
+  const successState = document.getElementById('sseform-success-state');
+  const childFields = document.getElementById('sseform-child-fields');
+
+  // Summary Elements
+  const sName = document.getElementById('summary-name');
+  const sRegistrant = document.getElementById('summary-registrant');
+  const sActivity = document.getElementById('summary-activity');
+  const sStart = document.getElementById('summary-start');
+
+  if (!form) return;
+
+  // 1. Live Summary Updates
+  function updateSummary() {
+    // Name
+    const fname = form.querySelector('[name="firstname"]').value;
+    const lname = form.querySelector('[name="lastname"]').value;
+    sName.textContent = (fname || lname) ? `${fname} ${lname}` : '-';
+
+    // Registrant
+    const reg = form.querySelector('[name="registrant"]:checked');
+    sRegistrant.textContent = reg ? (reg.value === 'self' ? 'Mijzelf' : 'Mijn kind') : '-';
+
+    // Toggle Child Fields
+    if (reg && reg.value === 'child') {
+      childFields.hidden = false;
+    } else {
+      childFields.hidden = true;
+    }
+
+    // Activity
+    const acts = Array.from(form.querySelectorAll('[name="activity"]:checked')).map(cb => cb.value);
+    sActivity.textContent = acts.length > 0 ? acts.join(', ') : '-';
+
+    // Start
+    const start = form.querySelector('[name="start_time"]:checked');
+    sStart.textContent = start ? start.value : '-';
+  }
+
+  form.addEventListener('input', updateSummary);
+  form.addEventListener('change', updateSummary);
+
+  // 2. Submit Handler
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('sseform-submit');
+
+    // Simple verification
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    setTimeout(() => {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      form.hidden = true;
+      successState.hidden = false;
+      successState.setAttribute('aria-hidden', 'false');
+
+      // Scroll to container
+      const container = document.getElementById('sseform-container');
+      if (container) container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 1500);
+  });
+
+  // 3. Reset
+  const resetBtn = document.getElementById('sseform-reset-btn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      form.reset();
+      form.hidden = false;
+      successState.hidden = true;
+      updateSummary();
+    });
+  }
+
+  // Initial update
+  updateSummary();
+
+})();
+
+/* --- SSEINTRO FORM LOGIC (Compact Form) --- */
+(function () {
+  const form = document.getElementById('sseintro-form');
+  const success = document.getElementById('sseintro-success');
+  const resetBtn = document.getElementById('sseintro-reset');
+
+  if (!form) return;
+
+  // Validation
+  function validate(input) {
+    if (input.required && !input.value.trim()) {
+      input.style.borderColor = '#d32f2f';
+      return false;
+    }
+    input.style.borderColor = '';
+    return true;
+  }
+
+  const inputs = form.querySelectorAll('input, select, textarea');
+  inputs.forEach(i => {
+    i.addEventListener('input', () => validate(i));
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let valid = true;
+    inputs.forEach(i => {
+      if (!validate(i)) valid = false;
+    });
+
+    if (!valid) return;
+
+    // Fake submit
+    const btn = form.querySelector('.sseintro-btn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = 'Even geduld...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+
+      // Hide form content properly
+      const content = form.querySelectorAll('.sseintro-field, .sseintro-footer');
+      content.forEach(el => el.style.display = 'none');
+      success.hidden = false;
+    }, 1000);
+  });
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      success.hidden = true;
+      const content = form.querySelectorAll('.sseintro-field, .sseintro-footer');
+      content.forEach(el => el.style.display = 'flex'); // or block, but check css
+      // Actually field is flex, footer is flex
+
+      form.reset();
+    });
+  }
+})();
+
+/* --- SSENAV HEADER LOGIC --- */
+(function () {
+  const header = document.getElementById('ssenav-header');
+  const toggle = document.querySelector('.ssenav-toggle');
+  const mobileMenu = document.querySelector('.ssenav-mobile-menu');
+
+  if (!header) return;
+
+  // 1. Sticky Scroll Effect
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      header.classList.add('is-scrolled');
+    } else {
+      header.classList.remove('is-scrolled');
+    }
+  });
+
+  // 2. Mobile Menu Toggle
+  if (toggle && mobileMenu) {
+    toggle.addEventListener('click', () => {
+      const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+      toggle.setAttribute('aria-expanded', !isExpanded);
+      mobileMenu.hidden = isExpanded; // If was expanded, now hidden
+
+      if (!isExpanded) {
+        mobileMenu.classList.add('is-open');
+        document.body.style.overflow = 'hidden'; // Lock scroll
+        toggle.innerHTML = '<span style="font-size:24px;line-height:1;">✕</span>'; // Simple close icon switch
+        mobileMenu.setAttribute('aria-hidden', 'false');
+      } else {
+        mobileMenu.classList.remove('is-open');
+        document.body.style.overflow = '';
+        // Restore bars
+        toggle.innerHTML = '<span class="ssenav-bar"></span><span class="ssenav-bar"></span><span class="ssenav-bar"></span>';
+        mobileMenu.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    // Close on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('is-open');
+        mobileMenu.hidden = true;
+        document.body.style.overflow = '';
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.innerHTML = '<span class="ssenav-bar"></span><span class="ssenav-bar"></span><span class="ssenav-bar"></span>';
+      });
+    });
+  }
+
+  // 3. Dropdown Keyboard Accessibility (simple)
+  const dropdownToggles = header.querySelectorAll('.ssenav-link[aria-expanded]');
+
+  dropdownToggles.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      // Toggle for touch/click (desktop hover is CSS, but click support is good)
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', !expanded);
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!btn.parentElement.contains(e.target)) {
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+})();

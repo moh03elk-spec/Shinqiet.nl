@@ -23,89 +23,124 @@
     </div>
   </div>
 
-  <header class="site-header" id="home">
-    <div class="container nav-container">
-      <a class="brand" href="#home">
-        <img src="assets/logo.jpg" alt="Stichting Shinqiet" />
-        <span class="brand-text">Stichting Shinqiet</span>
+  <header class="ssenav-header" id="ssenav-header">
+    <div class="ssenav-container">
+      <!-- 1. LEFT: BRAND -->
+      <a href="#home" class="ssenav-brand">
+        <img src="assets/logo.jpg" alt="Stichting Shinqiet Logo" class="ssenav-logo">
+        <span class="ssenav-brand-text">Stichting Shinqiet</span>
       </a>
 
-      <nav class="main-nav" aria-label="Hoofdmenu">
-        <ul id="nav-list">
-          <li class="has-dropdown">
-            <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Activiteiten</button>
-            <div class="dropdown" role="menu">
-              <!-- Level 1 Panel -->
-              <ul class="dropdown-panel is-active" data-level="1">
-                <li>
-                  <button class="dropdown-submenu-toggle" data-target-level="2">
-                    <span>Onderwijs</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                  </button>
-                </li>
-                <li><a role="menuitem" href="#sport">Sportactiviteiten en excursies</a></li>
-                <li><a role="menuitem" href="#bijles">Bijles en boekenclub</a></li>
-              </ul>
+      <!-- 2. CENTER: DESKTOP MENU -->
+      <nav class="ssenav-menu-desktop" aria-label="Hoofdmenu">
+        <ul class="ssenav-list">
 
-              <!-- Level 2 Panel (Onderwijs) -->
-              <ul class="dropdown-panel dropdown-panel--submenu" data-level="2">
-                <li class="submenu-layout">
-                  <div class="submenu-sidebar">
-                    <button class="dropdown-back" data-target-level="1">
-                      <span class="back-arrow">‹</span>
-                      <span class="back-text">
-                        <strong>Terug naar</strong><br>
-                        Onderwijs
-                      </span>
-                    </button>
-                  </div>
-                  <div class="submenu-options">
-                    <a role="menuitem" href="#activiteiten" class="submenu-option">
-                      <div class="submenu-option-content">
-                        <strong>Taalonderwijs</strong>
-                        <span>voor diverse niveaus</span>
-                      </div>
-                      <div class="submenu-option-icon">📚</div>
-                    </a>
-                    <a role="menuitem" href="#activiteiten" class="submenu-option">
-                      <div class="submenu-option-content">
-                        <strong>Lezen, memoriseren</strong>
-                        <span>en tajweed</span>
-                      </div>
-                      <div class="submenu-option-icon">📖</div>
-                    </a>
-                    <a role="menuitem" href="#activiteiten" class="submenu-option">
-                      <div class="submenu-option-content">
-                        <strong>Geloofsleer</strong>
-                        <span>en fiqh</span>
-                      </div>
-                      <div class="submenu-option-icon">🕌</div>
-                    </a>
-                  </div>
-                </li>
-              </ul>
+          <!-- Activiteiten (Dropdown) -->
+          <li class="ssenav-item has-dropdown">
+            <button class="ssenav-link" aria-expanded="false">
+              Activiteiten
+              <svg class="ssenav-caret" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor">
+                <path d="M1 1L5 5L9 1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="ssenav-dropdown">
+              <div class="ssenav-dropdown-grid">
+                <a href="#activiteiten" class="ssenav-drop-item">
+                  <span class="ssenav-drop-title">Onderwijs</span>
+                  <span class="ssenav-drop-desc">Arabisch, Koran & Islamstudies</span>
+                </a>
+                <a href="#activiteiten" class="ssenav-drop-item">
+                  <span class="ssenav-drop-title">Sport & Excursies</span>
+                  <span class="ssenav-drop-desc">Voetbal, zwemmen & survival</span>
+                </a>
+                <a href="#activiteiten" class="ssenav-drop-item">
+                  <span class="ssenav-drop-title">Bijles & Boekenclub</span>
+                  <span class="ssenav-drop-desc">Huiswerkbegeleiding & lezen</span>
+                </a>
+              </div>
             </div>
           </li>
-          <li><a href="#gebedstijden">Gebedstijden</a></li>
-          <li><a href="#programmagids">Programmagids</a></li>
-          <li><a href="#over-ons">Over ons</a></li>
-          <li>
-            <button class="btn btn-outline nav-appointment-btn" type="button" data-open-appointment>
-              Plan afspraak
-            </button>
+
+          <li class="ssenav-item">
+            <a href="#gebedstijden" class="ssenav-link">
+              Gebedstijden
+              <span class="ssenav-badge">Vandaag</span>
+            </a>
           </li>
-          <li><a href="#doneren" class="btn btn-donate">Doneren</a></li>
-          <li><a href="#contact">Contact</a></li>
+
+          <!-- Program Guide (Dropdown) -->
+          <li class="ssenav-item has-dropdown">
+            <button class="ssenav-link" aria-expanded="false">
+              Programmagids
+              <svg class="ssenav-caret" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor">
+                <path d="M1 1L5 5L9 1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="ssenav-dropdown wide">
+              <div class="ssenav-steps-grid">
+                <div class="ssenav-step-item">
+                  <span class="step-num">01</span>
+                  <strong class="step-title">Intake</strong>
+                </div>
+                <div class="ssenav-step-item">
+                  <span class="step-num">02</span>
+                  <strong class="step-title">Starttraject</strong>
+                </div>
+                <div class="ssenav-step-item">
+                  <span class="step-num">03</span>
+                  <strong class="step-title">Mentorgesprek</strong>
+                </div>
+                <div class="ssenav-step-item">
+                  <span class="step-num">04</span>
+                  <strong class="step-title">Certificering</strong>
+                </div>
+              </div>
+              <a href="#programmagids" class="ssenav-dropdown-cta">Bekijk het volledige traject &rarr;</a>
+            </div>
+          </li>
+
+          <li class="ssenav-item">
+            <a href="#over-ons" class="ssenav-link" title="Samen bouwen aan kennis en karakter">Over ons</a>
+          </li>
+
         </ul>
       </nav>
 
-      <button id="nav-toggle" class="nav-toggle" aria-label="Menu openen/sluiten" aria-controls="nav-list"
-        aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+      <!-- 3. RIGHT: ACTIONS -->
+      <div class="ssenav-actions">
+        <a href="#aanmeld-formulier" class="ssenav-btn-outline">Plan afspraak</a>
+        <a href="#doneren" class="ssenav-btn-primary">Doneren</a>
+
+        <!-- Mobile Toggle -->
+        <button class="ssenav-toggle" aria-label="Menu openen" aria-expanded="false">
+          <span class="ssenav-bar"></span>
+          <span class="ssenav-bar"></span>
+          <span class="ssenav-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div class="ssenav-mobile-menu" aria-hidden="true" hidden>
+      <div class="ssenav-mobile-inner">
+        <nav class="ssenav-mobile-nav">
+          <a href="#activiteiten" class="ssenav-mobile-link">Activiteiten</a>
+          <div class="ssenav-mobile-sub">
+            <a href="#activiteiten">Onderwijs</a>
+            <a href="#activiteiten">Sport & Excursies</a>
+            <a href="#activiteiten">Bijles & Boekenclub</a>
+          </div>
+
+          <a href="#gebedstijden" class="ssenav-mobile-link">Gebedstijden</a>
+          <a href="#programmagids" class="ssenav-mobile-link">Programmagids</a>
+          <a href="#over-ons" class="ssenav-mobile-link">Over ons</a>
+          <a href="#contact" class="ssenav-mobile-link">Contact</a>
+        </nav>
+        <div class="ssenav-mobile-actions">
+          <a href="#aanmeld-formulier" class="ssenav-btn-outline block">Plan afspraak</a>
+          <a href="#doneren" class="ssenav-btn-primary block">doneren</a>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -737,86 +772,102 @@
       </div>
     </section>
 
-    <section id="programmagids" class="section program-guide">
-      <div class="container">
-        <div class="program-guide-header">
-          <div>
-            <p class="eyebrow">Programmagids</p>
-            <h2 class="section-title">Van inschrijving tot resultaat</h2>
-            <p class="program-guide-subtitle">
+    <!-- SSEFLOW PROGRAM GUIDE (New Design) -->
+    <section id="programmagids" class="sseflow-section" aria-label="Programmagids">
+      <div class="sseflow-container">
+        <div class="sseflow-header">
+          <div class="sseflow-header-text">
+            <span class="sseflow-eyebrow">Programmagids</span>
+            <h2 class="sseflow-title">Van inschrijving tot resultaat</h2>
+            <p class="sseflow-subtitle">
               Een helder traject voor leerlingen en ouders, met vaste contactmomenten en evaluaties.
             </p>
           </div>
-          <a href="#contact" class="btn btn-outline program-guide-cta">
-            Maak een afspraak
-          </a>
+          <div class="sseflow-header-cta">
+            <a href="#aanmeld-formulier" class="sseflow-cta-btn">
+              Direct kennismaken
+              <span class="arrow-icon">→</span>
+            </a>
+          </div>
         </div>
 
-        <div class="program-steps">
-          <article class="program-step">
-            <div class="step-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
-                <polyline points="10 9 9 9 8 9"></polyline>
-              </svg>
-            </div>
-            <div class="program-step-number">01</div>
-            <h3 class="program-step-title">Intake</h3>
-            <p class="program-step-text">
-              We brengen niveau, wensen en leertempo in kaart en koppelen de juiste docent.
-            </p>
-          </article>
+        <!-- Process Flow -->
+        <div class="sseflow-steps-wrapper" role="region" aria-label="Traject stappen">
+          <div class="sseflow-timeline-line"></div>
 
-          <article class="program-step">
-            <div class="step-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
-                <line x1="4" y1="22" x2="4" y2="15"></line>
-              </svg>
+          <div class="sseflow-grid">
+            <!-- Step 1 -->
+            <div class="sseflow-card active" role="button" tabindex="0" aria-pressed="true" data-step="1">
+              <div class="sseflow-bg-number">01</div>
+              <div class="sseflow-badge">
+                <svg viewBox="0 0 24 24" fill="none" class="sseflow-icon">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                  <circle cx="8.5" cy="7" r="4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M20 8v6M23 11h-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="sseflow-content">
+                <h3 class="sseflow-card-title">Intake</h3>
+                <p class="sseflow-card-desc">We brengen niveau, wensen en leertempo in kaart en koppelen de juiste
+                  docent.</p>
+              </div>
             </div>
-            <div class="program-step-number">02</div>
-            <h3 class="program-step-title">Starttraject</h3>
-            <p class="program-step-text">
-              Leerlingen starten in een passende groep met duidelijke leerlijnen en weekdoelen.
-            </p>
-          </article>
 
-          <article class="program-step">
-            <div class="step-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                <circle cx="9" cy="7" r="4"></circle>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-              </svg>
+            <!-- Step 2 -->
+            <div class="sseflow-card" role="button" tabindex="0" aria-pressed="false" data-step="2">
+              <div class="sseflow-bg-number">02</div>
+              <div class="sseflow-badge">
+                <svg viewBox="0 0 24 24" fill="none" class="sseflow-icon">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="sseflow-content">
+                <h3 class="sseflow-card-title">Starttraject</h3>
+                <p class="sseflow-card-desc">Leerlingen starten in een passende groep met duidelijke leerlijnen en
+                  weekdoelen.</p>
+              </div>
             </div>
-            <div class="program-step-number">03</div>
-            <h3 class="program-step-title">Mentorgesprek</h3>
-            <p class="program-step-text">
-              Tussentijdse evaluatie met ouders, inclusief praktische handvatten voor thuis.
-            </p>
-          </article>
 
-          <article class="program-step">
-            <div class="step-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="8" r="7"></circle>
-                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-              </svg>
+            <!-- Step 3 -->
+            <div class="sseflow-card" role="button" tabindex="0" aria-pressed="false" data-step="3">
+              <div class="sseflow-bg-number">03</div>
+              <div class="sseflow-badge">
+                <svg viewBox="0 0 24 24" fill="none" class="sseflow-icon">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="sseflow-content">
+                <h3 class="sseflow-card-title">Mentorgesprek</h3>
+                <p class="sseflow-card-desc">Tussentijdse evaluatie met ouders, inclusief praktische handvatten voor
+                  thuis.</p>
+              </div>
             </div>
-            <div class="program-step-number">04</div>
-            <h3 class="program-step-title">Certificering</h3>
-            <p class="program-step-text">
-              We vieren behaalde doelen en maken samen een vervolgstap naar verdieping.
-            </p>
-          </article>
+
+            <!-- Step 4 -->
+            <div class="sseflow-card" role="button" tabindex="0" aria-pressed="false" data-step="4">
+              <div class="sseflow-bg-number">04</div>
+              <div class="sseflow-badge">
+                <svg viewBox="0 0 24 24" fill="none" class="sseflow-icon">
+                  <path d="M12 15l-2 5l2 2l2 -2l-2 -5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <circle cx="12" cy="8" r="5" stroke="currentColor" stroke-width="1.5" />
+                  <path d="M12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" stroke="currentColor" />
+                  <path d="M8 15h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+              </div>
+              <div class="sseflow-content">
+                <h3 class="sseflow-card-title">Certificering</h3>
+                <p class="sseflow-card-desc">We vieren behaalde doelen en maken samen een vervolgstap naar verdieping.
+                </p>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </section>
@@ -855,95 +906,325 @@
         </div>
 
         <div>
-          <!-- Luxury Form Wrapper -->
-          <div class="sse-form-wrapper">
-            <form id="sse-aanmeld-form" class="sse-form-card" novalidate>
-              <!-- Success Banner (Hidden by default) -->
-              <div class="sse-success-banner" id="sse-success-message" aria-hidden="true">
-                <div class="sse-success-icon">✓</div>
-                <div class="sse-success-text">
-                  <h3>Aanmelding ontvangen</h3>
-                  <p>Bedankt! We nemen spoedig contact met u op.</p>
+          <!-- DUAL FORM SECTION (Intro + Registration) -->
+          <div class="sseform-anchor" id="aanmeld-formulier"></div>
+          <section class="sseform-wrapper">
+            <div class="sseform-container">
+
+              <div class="sse-dual-layout">
+
+                <!-- 1. LEFT: Intro Form -->
+                <aside class="sseintro-panel" id="sseintro-panel">
+                  <header class="sseintro-header">
+                    <h3 class="sseintro-title">Plan een kennismaking</h3>
+                    <p class="sseintro-subtitle">Vrijblijvend gesprek. We denken graag met je mee.</p>
+                  </header>
+
+                  <form id="sseintro-form" class="sseintro-form" novalidate>
+                    <div class="sseintro-field">
+                      <label for="sseintro-date" class="sseintro-label">Datum</label>
+                      <input type="date" id="sseintro-date" name="intro_date" class="sseintro-input" required>
+                    </div>
+
+                    <div class="sseintro-field">
+                      <label class="sseintro-label">Voorkeur tijdstip</label>
+                      <div class="sseintro-chips">
+                        <label class="sseintro-chip">
+                          <input type="radio" name="intro_time" value="Ochtend" checked>
+                          <span>Ochtend</span>
+                        </label>
+                        <label class="sseintro-chip">
+                          <input type="radio" name="intro_time" value="Middag">
+                          <span>Middag</span>
+                        </label>
+                        <label class="sseintro-chip">
+                          <input type="radio" name="intro_time" value="Avond">
+                          <span>Avond</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="sseintro-field">
+                      <label for="sseintro-name" class="sseintro-label">Naam</label>
+                      <input type="text" id="sseintro-name" name="intro_name" class="sseintro-input"
+                        placeholder="Je naam" required>
+                    </div>
+
+                    <div class="sseintro-field">
+                      <label for="sseintro-email" class="sseintro-label">E-mailadres</label>
+                      <input type="email" id="sseintro-email" name="intro_email" class="sseintro-input"
+                        placeholder="naam@email.nl" required>
+                    </div>
+
+                    <div class="sseintro-field">
+                      <label for="sseintro-phone" class="sseintro-label">Telefoonnummer</label>
+                      <input type="tel" id="sseintro-phone" name="intro_phone" class="sseintro-input"
+                        placeholder="06..." required>
+                    </div>
+
+                    <div class="sseintro-field">
+                      <label for="sseintro-topic" class="sseintro-label">Interesse</label>
+                      <select id="sseintro-topic" name="intro_topic" class="sseintro-select">
+                        <option value="Algemeen">Algemeen advies</option>
+                        <option value="Koranles">Koranles informatie</option>
+                        <option value="Islamstudies">Islamstudies</option>
+                        <option value="Anders">Anders</option>
+                      </select>
+                    </div>
+
+                    <div class="sseintro-field">
+                      <label for="sseintro-note" class="sseintro-label">Vraag (optioneel)</label>
+                      <textarea id="sseintro-note" name="intro_note" class="sseintro-textarea" rows="2"></textarea>
+                    </div>
+
+                    <div class="sseintro-footer">
+                      <div class="sseintro-trust">
+                        <span>✓ Vrijblijvend</span>
+                        <span>✓ Snel reactie</span>
+                      </div>
+                      <button type="submit" class="sseintro-btn">
+                        <span>Plan kennismaking</span>
+                      </button>
+                    </div>
+                  </form>
+
+                  <!-- Intro Success -->
+                  <div id="sseintro-success" class="sseintro-success" hidden>
+                    <div class="sseintro-success-icon">✓</div>
+                    <h4>Aanvraag verstuurd</h4>
+                    <p>Bedankt! We nemen contact met je op.</p>
+                    <button type="button" class="sseintro-link-btn" id="sseintro-reset">Nieuwe afspraak</button>
+                  </div>
+                </aside>
+
+                <!-- 2. RIGHT: Main Registration Form -->
+                <!-- The Form Panel (Existing, slight adjustments via CSS) -->
+                <div> <!-- Wrapper for separation if needed -->
+
+                  <!-- Success State Main -->
+                  <div id="sseform-success-state" class="sseform-success-state" hidden aria-hidden="true">
+                    <div class="sseform-success-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M22 4L12 14.01l-3-3" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                    <h2 class="sseform-success-title">Aanmelding ontvangen</h2>
+                    <p class="sseform-success-text">Bedankt voor je inschrijving. We hebben je gegevens ontvangen en
+                      nemen contact op voor het gekozen moment.</p>
+                    <button type="button" class="sseform-btn-secondary" id="sseform-reset-btn">Nog iemand
+                      aanmelden</button>
+                  </div>
+
+                  <form id="sseform-form" class="sseform-panel" novalidate>
+
+                    <!-- Column 1: Personalia -->
+                    <div class="sseform-col">
+                      <header class="sseform-col-header">
+                        <span class="sseform-step-num">01</span>
+                        <h3 class="sseform-col-title">Persoonlijke gegevens</h3>
+                      </header>
+
+                      <div class="sseform-group">
+                        <label class="sseform-label">Wie schrijf je in?</label>
+                        <div class="sseform-chips fluid">
+                          <label class="sseform-chip-pill">
+                            <input type="radio" name="registrant" value="self" checked>
+                            <span>Mijzelf</span>
+                          </label>
+                          <label class="sseform-chip-pill">
+                            <input type="radio" name="registrant" value="child">
+                            <span>Mijn kind</span>
+                          </label>
+                        </div>
+                      </div>
+
+                      <div id="sseform-child-fields" hidden>
+                        <div class="sseform-group">
+                          <label for="sseform-child-name" class="sseform-label">Naam kind</label>
+                          <input type="text" id="sseform-child-name" name="child_name" class="sseform-input"
+                            placeholder="Voor- en achternaam">
+                        </div>
+                        <div class="sseform-group">
+                          <label for="sseform-child-dob" class="sseform-label">Geboortedatum kind</label>
+                          <input type="date" id="sseform-child-dob" name="child_dob" class="sseform-input">
+                        </div>
+                      </div>
+
+                      <div class="sseform-group">
+                        <label for="sseform-firstname" class="sseform-label">Voornaam</label>
+                        <input type="text" id="sseform-firstname" name="firstname" class="sseform-input" required
+                          autocomplete="given-name">
+                      </div>
+
+                      <div class="sseform-group">
+                        <label for="sseform-lastname" class="sseform-label">Achternaam</label>
+                        <input type="text" id="sseform-lastname" name="lastname" class="sseform-input" required
+                          autocomplete="family-name">
+                      </div>
+
+                      <div class="sseform-group" id="sseform-dob-wrapper">
+                        <label for="sseform-dob" class="sseform-label">Geboortedatum</label>
+                        <input type="date" id="sseform-dob" name="dob" class="sseform-input" required>
+                      </div>
+
+                      <div class="sseform-group">
+                        <label for="sseform-email" class="sseform-label">E-mailadres</label>
+                        <input type="email" id="sseform-email" name="email" class="sseform-input" required
+                          autocomplete="email">
+                      </div>
+
+                      <div class="sseform-group">
+                        <label for="sseform-phone" class="sseform-label">Telefoonnummer</label>
+                        <input type="tel" id="sseform-phone" name="phone" class="sseform-input" required
+                          autocomplete="tel">
+                      </div>
+                    </div>
+
+                    <!-- Column 2: Inschrijving -->
+                    <div class="sseform-col">
+                      <header class="sseform-col-header">
+                        <span class="sseform-step-num">02</span>
+                        <h3 class="sseform-col-title">Inschrijving & Voorkeur</h3>
+                      </header>
+
+                      <div class="sseform-group">
+                        <label class="sseform-label">Kies activiteit(en)</label>
+                        <div class="sseform-chips vertical">
+                          <label class="sseform-chip-box">
+                            <input type="checkbox" name="activity" value="Koranles">
+                            <span class="sseform-icon-check"></span>
+                            <div class="sseform-chip-content">
+                              <span class="chip-title">Koranles</span>
+                              <span class="chip-desc">Memoriseren & Tajweed</span>
+                            </div>
+                          </label>
+                          <label class="sseform-chip-box">
+                            <input type="checkbox" name="activity" value="Arabisch">
+                            <span class="sseform-icon-check"></span>
+                            <div class="sseform-chip-content">
+                              <span class="chip-title">Arabisch</span>
+                              <span class="chip-desc">Taal & Grammatica</span>
+                            </div>
+                          </label>
+                          <label class="sseform-chip-box">
+                            <input type="checkbox" name="activity" value="Islamstudies">
+                            <span class="sseform-icon-check"></span>
+                            <div class="sseform-chip-content">
+                              <span class="chip-title">Islamstudies</span>
+                              <span class="chip-desc">Fiqh & Aqida</span>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="sseform-group">
+                        <label class="sseform-label">Ervaringsniveau</label>
+                        <select class="sseform-select" name="level">
+                          <option value="Beginner">Beginner</option>
+                          <option value="Enige ervaring">Enige ervaring</option>
+                          <option value="Gevorderd">Gevorderd</option>
+                        </select>
+                      </div>
+
+                      <div class="sseform-group">
+                        <label class="sseform-label">Startmoment</label>
+                        <div class="sseform-chips fluid">
+                          <label class="sseform-chip-pill">
+                            <input type="radio" name="start_time" value="Z.s.m." checked>
+                            <span>Z.s.m.</span>
+                          </label>
+                          <label class="sseform-chip-pill">
+                            <input type="radio" name="start_time" value="Volgende maand">
+                            <span>Volgende maand</span>
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="sseform-group">
+                        <label class="sseform-label">Contactvoorkeur</label>
+                        <div class="sseform-chips fluid">
+                          <label class="sseform-chip-pill">
+                            <input type="radio" name="contact_pref" value="Bellen" checked>
+                            <span>Bellen</span>
+                          </label>
+                          <label class="sseform-chip-pill">
+                            <input type="radio" name="contact_pref" value="Whatsapp">
+                            <span>Whatsapp</span>
+                          </label>
+                          <label class="sseform-chip-pill">
+                            <input type="radio" name="contact_pref" value="E-mail">
+                            <span>E-mail</span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Column 3: Summary & Action -->
+                    <div class="sseform-col summary-col">
+                      <header class="sseform-col-header">
+                        <span class="sseform-step-num">03</span>
+                        <h3 class="sseform-col-title">Overzicht & Verzenden</h3>
+                      </header>
+
+                      <div class="sseform-summary-card">
+                        <div class="sseform-summary-row">
+                          <span class="sseform-summary-label">Naam</span>
+                          <span class="sseform-summary-value" id="summary-name">-</span>
+                        </div>
+                        <div class="sseform-summary-row">
+                          <span class="sseform-summary-label">Voor</span>
+                          <span class="sseform-summary-value" id="summary-registrant">Mijzelf</span>
+                        </div>
+                        <div class="sseform-summary-row">
+                          <span class="sseform-summary-label">Activiteit</span>
+                          <span class="sseform-summary-value" id="summary-activity">-</span>
+                        </div>
+                        <div class="sseform-summary-row">
+                          <span class="sseform-summary-label">Start</span>
+                          <span class="sseform-summary-value" id="summary-start">Z.s.m.</span>
+                        </div>
+
+                        <hr class="sseform-divider">
+
+                        <div class="sseform-group">
+                          <label for="sseform-note" class="sseform-label">Opmerking (optioneel)</label>
+                          <textarea id="sseform-note" name="note" class="sseform-textarea small" rows="2"
+                            placeholder="Bijv: Ik ben beschikbaar op woensdag..."></textarea>
+                        </div>
+
+                        <div class="sseform-trust-stacked">
+                          <div class="trust-row">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2">
+                              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            </svg>
+                            <span>Gegevens veilig & privé</span>
+                          </div>
+                          <div class="trust-row">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2">
+                              <circle cx="12" cy="12" r="10" />
+                              <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            <span>Reactie binnen 2 werkdagen</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <button type="submit" class="sseform-btn-submit" id="sseform-submit">
+                        <span>Aanmelding versturen</span>
+                        <div class="sseform-loader"></div>
+                      </button>
+
+                    </div>
+
+                  </form>
                 </div>
               </div>
 
-              <div class="sse-form-content">
-                <h2 class="sse-form-title">Aanmelden voor les</h2>
-                <p class="sse-form-subtitle">Vul uw gegevens in om u in te schrijven.</p>
-
-                <div class="sse-form-grid">
-                  <!-- Voornaam -->
-                  <div class="sse-field">
-                    <label for="sse-voornaam" class="sse-label">Voornaam</label>
-                    <input type="text" id="sse-voornaam" name="voornaam" class="sse-input" placeholder="Uw voornaam"
-                      required autocomplete="given-name">
-                    <div class="sse-error-message" id="error-voornaam">Minimaal 2 tekens vereist</div>
-                  </div>
-
-                  <!-- Achternaam -->
-                  <div class="sse-field">
-                    <label for="sse-achternaam" class="sse-label">Achternaam</label>
-                    <input type="text" id="sse-achternaam" name="achternaam" class="sse-input"
-                      placeholder="Uw achternaam" required autocomplete="family-name">
-                    <div class="sse-error-message" id="error-achternaam">Minimaal 2 tekens vereist</div>
-                  </div>
-                </div>
-
-                <!-- Geboortedatum (Full width) -->
-                <div class="sse-field">
-                  <label for="sse-geboortedatum" class="sse-label">Geboortedatum</label>
-                  <input type="date" id="sse-geboortedatum" name="geboortedatum" class="sse-input" required>
-                  <div class="sse-error-message" id="error-geboortedatum">Geldige datum vereist</div>
-                </div>
-
-                <!-- E-mail -->
-                <div class="sse-field">
-                  <label for="sse-email" class="sse-label">E-mailadres</label>
-                  <input type="email" id="sse-email" name="email" class="sse-input" placeholder="naam@voorbeeld.nl"
-                    required autocomplete="email">
-                  <div class="sse-error-message" id="error-email">Vul een geldig e-mailadres in</div>
-                </div>
-
-                <!-- Telefoonnummer -->
-                <div class="sse-field">
-                  <label for="sse-telefoon" class="sse-label">Telefoonnummer</label>
-                  <input type="tel" id="sse-telefoon" name="telefoon" class="sse-input" placeholder="06 12345678"
-                    required autocomplete="tel">
-                  <div class="sse-error-message" id="error-telefoon">Minimaal 8 cijfers vereist</div>
-                </div>
-
-                <!-- Activiteit -->
-                <div class="sse-field">
-                  <label for="sse-activiteit" class="sse-label">Kies een activiteit</label>
-                  <div class="sse-select-wrapper">
-                    <select id="sse-activiteit" name="activiteit" class="sse-input sse-select" required>
-                      <option value="" disabled selected>Selecteer uw voorkeur...</option>
-                      <option value="Koranles">Koranles: Lezen, memoriseren en Tajweed</option>
-                      <option value="Islam">Islam: Geloofsleer, fiqh en leefstijl</option>
-                      <option value="Arabisch">Arabisch: Taalonderwijs voor diverse niveaus</option>
-                    </select>
-                  </div>
-                  <div class="sse-error-message" id="error-activiteit">Maak een keuze</div>
-                </div>
-
-                <!-- Bericht -->
-                <div class="sse-field">
-                  <label for="sse-bericht" class="sse-label">Bericht (optioneel)</label>
-                  <textarea id="sse-bericht" name="bericht" class="sse-input sse-textarea" rows="4"
-                    placeholder="Typ hier uw opmerking of vraag..."></textarea>
-                  <div class="sse-error-message" id="error-bericht">Minimaal 10 tekens indien ingevuld</div>
-                </div>
-
-                <!-- Submit Button -->
-                <div class="sse-form-actions">
-                  <button type="submit" class="sse-btn-submit" id="sse-submit-btn">
-                    <span class="btn-text">Aanmelding versturen</span>
-                    <span class="btn-loader" aria-hidden="true"></span>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
+            </div>
+          </section>
         </div>
       </div>
     </section>
@@ -1112,69 +1393,7 @@
       </div>
     </div>
   </footer>
-  <!-- 2. MODAL + FORMULIER – PLAATS DIT VÓÓR </body>, ONDERAAN DE PAGINA -->
-  <div class="appointment-modal-backdrop" id="appointment-modal" aria-hidden="true">
-    <div class="appointment-modal" role="dialog" aria-modal="true" aria-labelledby="appointment-title">
-      <button class="appointment-close" type="button" aria-label="Sluit afspraakvenster" data-close-appointment>
-        ✕
-      </button>
 
-      <h2 id="appointment-title" class="appointment-title">
-        Plan een kennismakingsafspraak
-      </h2>
-      <p class="appointment-intro">
-        Kies een datum en vul je gegevens in. We ontvangen je aanvraag per e-mail en nemen zo snel mogelijk contact op.
-      </p>
-
-      <form id="appointment-form" class="card registration-form">
-        <div class="form-row">
-          <label for="afspraak_datum">Datum</label>
-          <input id="afspraak_datum" name="afspraak_datum" type="date" required>
-        </div>
-        <div class="form-row">
-          <label for="afspraak_tijd">Gewenste tijd</label>
-          <input id="afspraak_tijd" name="afspraak_tijd" type="time">
-        </div>
-
-        <div class="form-row">
-          <label for="voornaam_afspraak">Voornaam</label>
-          <input id="voornaam_afspraak" name="voornaam" type="text" required>
-        </div>
-        <div class="form-row">
-          <label for="achternaam_afspraak">Achternaam</label>
-          <input id="achternaam_afspraak" name="achternaam" type="text" required>
-        </div>
-        <div class="form-row">
-          <label for="email_afspraak">E-mail</label>
-          <input id="email_afspraak" name="email" type="email" required>
-        </div>
-        <div class="form-row">
-          <label for="telefoon_afspraak">Telefoonnummer</label>
-          <input id="telefoon_afspraak" name="telefoon" type="tel" required>
-        </div>
-
-        <div class="form-row">
-          <label for="activiteit_afspraak">Activiteit</label>
-          <select id="activiteit_afspraak" name="activiteit">
-            <option value="" disabled selected>-- Maak een keuze --</option>
-            <option value="Koranles">Koranles: Lezen, memoriseren en Tajweed</option>
-            <option value="Islam">Islam: Geloofsleer, fiqh en leefstijl</option>
-            <option value="Arabisch">Arabisch: Taalonderwijs voor diverse niveaus</option>
-          </select>
-        </div>
-
-        <div class="form-row">
-          <label for="bericht_afspraak">Opmerkingen</label>
-          <textarea id="bericht_afspraak" name="bericht" rows="4"
-            placeholder="Eventuele vragen of aanvullende informatie"></textarea>
-        </div>
-
-        <button class="btn" type="submit">
-          Afspraakaanvraag versturen
-        </button>
-      </form>
-    </div>
-  </div>
 </body>
 
 </html>
