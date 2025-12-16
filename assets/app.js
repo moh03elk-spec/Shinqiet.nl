@@ -890,7 +890,33 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // 7. Fake Submit
+    // 7. Round Up Logic (New)
+    const checkRoundUp = document.getElementById('ssedon-roundup');
+    if (checkRoundUp) {
+      checkRoundUp.addEventListener('change', () => {
+        if (checkRoundUp.checked) {
+          let val = parseInt(inputAmount.value) || 0;
+          let next = val;
+          if (val % 10 === 0) {
+            // Already round, maybe do nothing or add 10? 
+            // usually "Round Up" means to *next* round number.
+            // If 50, stays 50? Or 60? Let's say rounds to next 5.
+          } else if (val % 5 === 0) {
+            // Already multiple of 5.
+          } else {
+            // Round to next 5
+            next = Math.ceil(val / 5) * 5;
+            inputAmount.value = next;
+            // Trigger slider update manually if needed (slider usually linked to input)
+            // But slider is range... sync them.
+            if (slider) slider.value = next;
+            updateImpact();
+          }
+        }
+      });
+    }
+
+    // 8. Fake Submit
     ssedonForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const val = parseInt(inputAmount.value) || 0;
@@ -1241,3 +1267,75 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 })();
+
+/* --- SSEHERO HERO LOGIC --- */
+(function () {
+  const heroSection = document.querySelector('.ssehero-section');
+  if (!heroSection) return;
+
+  const logoContainer = heroSection.querySelector('.ssehero-logo-container');
+  const bgOrb = heroSection.querySelector('.ssehero-gradient-orb');
+
+  // Parallax on Mouse Move
+  document.addEventListener('mousemove', (e) => {
+    // Only if user prefers motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // Performance optimization: use requestAnimationFrame
+    requestAnimationFrame(() => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 20; // -10 to 10
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+      if (logoContainer) {
+        // Logo moves opposite to mouse slightly
+        logoContainer.style.transform = `translate(${-x}px, ${-y}px) translateY(var(--float-y, 0px))`;
+      }
+
+      if (bgOrb) {
+        bgOrb.style.transform = `translate(${x * 2}px, ${y * 2}px)`;
+      }
+    });
+  });
+
+  window.addEventListener('scroll', () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const scrolled = window.scrollY;
+    if (scrolled > 1000) return; // Stop calc if far down
+
+    const rateLogo = scrolled * 0.15;
+    const rateText = scrolled * 0.05;
+  });
+
+})();
+
+/* --- SSESUPPORT DYNAMIC REVEAL --- */
+document.addEventListener('DOMContentLoaded', () => {
+  const transitionLayer = document.querySelector('.ssesupport-transition-layer');
+  const donationCards = document.querySelectorAll('.ssedon-card');
+  const section = document.querySelector('.ssedon-section');
+
+  if (!transitionLayer || !section) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Trigger Line Animation
+        transitionLayer.classList.add('is-visible');
+
+        // Trigger Card Stagger after a slight delay matching the line animation
+        setTimeout(() => {
+          donationCards.forEach((card, index) => {
+            setTimeout(() => {
+              card.classList.add('is-visible');
+            }, index * 150); // Stagger 150ms
+          });
+        }, 800); // Wait for line to be partially down
+
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: "0px 0px -100px 0px" });
+
+  observer.observe(transitionLayer);
+});

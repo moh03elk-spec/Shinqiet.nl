@@ -145,28 +145,50 @@
   </header>
 
   <main>
-    <section class="hero">
-      <div class="container hero-inner">
-        <div class="hero-copy">
-          <h1 class="welcome-title">
-            <span class="title-line-1">Welkom bij <span class="brand-text">Stichting Shinqiet</span></span>
-            <span class="title-line-2">Educatie & Opvoeding</span>
-          </h1>
-
-          <p class="hero-subtitle-small">
-            Een warme thuisbasis waar leerlingen, ouders en vrijwilligers samen investeren in kennis, beweging en
-            betekenisvolle ontmoetingen.
-          </p>
-
-          <div class="hero-cta">
-            <a href="#activiteiten" class="btn">Bekijk alle activiteiten</a>
-            <a href="#doneren" class="btn btn-outline">Steun met een donatie</a>
-          </div>
-        </div>
-        <figure class="hero-figure" aria-hidden="true">
-          <img src="assets/logo.jpg" alt="Logo Stichting Shinqiet" loading="lazy" />
-        </figure>
+    <!-- SSEHERO SECTION -->
+    <section class="ssehero-section" id="home">
+      <!-- Geometric/Gradient Background -->
+      <div class="ssehero-bg" aria-hidden="true">
+        <div class="ssehero-gradient-orb"></div>
+        <div class="ssehero-pattern"></div>
       </div>
+
+      <div class="ssehero-content">
+        <div class="ssehero-grid">
+
+          <!-- Text Side (Left/Top) -->
+          <div class="ssehero-text-col">
+            <h1 class="ssehero-title">
+              <span class="ssehero-line" style="--delay: 0.1s">Welkom bij</span>
+              <span class="ssehero-line highlight" style="--delay: 0.2s">Stichting Shinqiet</span>
+              <span class="ssehero-line sub" style="--delay: 0.3s">Educatie & Opvoeding</span>
+            </h1>
+            <div class="ssehero-desc-wrapper" style="--delay: 0.5s">
+              <p class="ssehero-subtitle">
+                Een warme thuisbasis waar leerlingen, ouders en vrijwilligers samen investeren in kennis, beweging en
+                betekenisvolle ontmoetingen.
+              </p>
+            </div>
+          </div>
+
+          <!-- Visual Side (Center/Right) -->
+          <div class="ssehero-visual-col">
+            <div class="ssehero-logo-container">
+              <div class="ssehero-halo-ring ring-1"></div>
+              <div class="ssehero-halo-ring ring-2"></div>
+              <div class="ssehero-halo-glow"></div>
+              <img src="assets/logo.jpg" class="ssehero-logo" alt="Stichting Shinqiet Embleem">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Scroll Hint -->
+      <a href="#activiteiten" class="ssehero-scroll-hint" aria-label="Scroll naar beneden">
+        <span class="hint-text">Ontdek meer</span>
+        <span class="hint-line"></span>
+      </a>
     </section>
 
 
@@ -436,6 +458,14 @@
         </div>
       </div>
     </section>
+
+    <!-- SSESUPPORT TRANSITION -->
+    <div class="ssesupport-transition-layer" aria-hidden="true">
+      <div class="ssesupport-gradient"></div>
+      <!-- Golden Thread Animation -->
+      <div class="ssesupport-line"></div>
+      <div class="ssesupport-orb"></div>
+    </div>
 
     <!-- SSE DONATION SECTION (Premium Redesign) -->
     <section id="doneren" class="ssedon-section">
