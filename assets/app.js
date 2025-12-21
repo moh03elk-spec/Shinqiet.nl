@@ -1,14 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // --- Mobile Navigation Toggle ---
-  const navToggle = document.getElementById('nav-toggle');
-  const mainNav = document.querySelector('.main-nav');
-  if (navToggle && mainNav) {
-    navToggle.addEventListener('click', () => {
-      const isVisible = mainNav.getAttribute('data-visible') === 'true';
-      mainNav.setAttribute('data-visible', !isVisible);
-      navToggle.setAttribute('aria-expanded', !isVisible);
-    });
-  }
+
 
   // --- Dropdown Menu Logic ---
   // --- Dropdown Menu Logic ---
@@ -145,229 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* --- PRAYER TIMES LOGIC (New) --- */
-  (function () {
-    const settings = {
-      city: 'utrecht',
-      reminder: {}
-    };
 
-    // Dummy Data for API simulation
-    const prayerData = {
-      utrecht: {
-        date: 'Vandaag', // Will be dynamic
-        times: {
-          Fajr: '06:15',
-          Dhuhr: '12:30',
-          Asr: '14:45',
-          Maghrib: '18:10',
-          Isha: '19:45'
-        },
-        next: 'Maghrib'
-      },
-      default: {
-        Fajr: '06:00', Dhuhr: '12:30', Asr: '14:45', Maghrib: '18:00', Isha: '19:30'
-      }
-    };
-
-    // Icons SVG paths
-    const icons = {
-      Fajr: '<path d="M12 4V2M12 22V20M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M2 12H4M20 12H22M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22M12 16C9.79 16 8 14.21 8 12C8 9.79 9.79 8 12 8C14.21 8 16 9.79 16 12C16 14.21 14.21 16 12 16Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
-      Dhuhr: '<circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
-      Asr: '<path d="M17 18H21M3 18H14M17 18C17 14.6863 14.3137 12 11 12M11 12C7.68629 12 5 14.6863 5 18M11 12V3M11 3L8 6M11 3L14 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
-      Maghrib: '<path d="M17 18H22M2 18H14M17 18C17 14.6863 14.3137 12 11 12C7.686 12 5 14.686 5 18M22 22L2 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
-      Isha: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'
-    };
-
-    const elements = {
-      grid: document.getElementById('ssepray-grid'),
-      citySelect: document.getElementById('ssepray-city-select'),
-      dateDisplay: document.getElementById('ssepray-current-date'),
-      nextName: document.getElementById('ssepray-next-name'),
-      nextTime: document.getElementById('ssepray-next-time'),
-      countdown: document.getElementById('ssepray-countdown'),
-      progress: document.getElementById('ssepray-progress-fill'),
-      updateTime: document.getElementById('ssepray-update-ts'),
-      reminderBtn: document.getElementById('ssepray-reminder-btn'),
-      drawer: document.getElementById('ssepray-drawer'),
-      reminderForm: document.getElementById('ssepray-reminder-form'),
-      saveBtn: document.getElementById('ssepray-save-btn'),
-      successMsg: document.getElementById('ssepray-success-msg')
-    };
-
-    function init() {
-      if (!elements.grid) return; // Guard if section missing
-
-      // Set date
-      const now = new Date();
-      const options = { weekday: 'long', day: 'numeric', month: 'long' };
-      elements.dateDisplay.textContent = now.toLocaleDateString('nl-NL', options);
-
-      // Initial render
-      renderCards(settings.city);
-      renderReminderToggles();
-
-      // Listeners
-      if (elements.citySelect) {
-        elements.citySelect.addEventListener('change', (e) => {
-          settings.city = e.target.value;
-          renderCards(settings.city);
-        });
-      }
-
-      if (elements.reminderBtn) {
-        elements.reminderBtn.addEventListener('click', () => {
-          const isHidden = elements.drawer.hidden;
-          elements.drawer.hidden = !isHidden;
-          elements.reminderBtn.setAttribute('aria-expanded', isHidden);
-        });
-      }
-
-      if (elements.saveBtn) {
-        elements.saveBtn.addEventListener('click', () => {
-          elements.successMsg.hidden = false;
-          setTimeout(() => elements.successMsg.hidden = true, 3000);
-        });
-      }
-
-      // Start timer
-      setInterval(updateTimer, 1000);
-      updateTimer(); // run immediately
-    }
-
-    function renderCards(city) {
-      const data = prayerData[city] || prayerData.utrecht;
-      const times = data.times;
-
-      elements.grid.innerHTML = '';
-
-      Object.keys(times).forEach(prayer => {
-        const time = times[prayer];
-
-        const btn = document.createElement('button');
-        btn.className = 'ssepray-card';
-        btn.setAttribute('role', 'button');
-        btn.setAttribute('aria-pressed', 'false');
-        btn.dataset.prayer = prayer;
-
-        btn.innerHTML = `
-        <svg class="ssepray-card-icon" viewBox="0 0 24 24" width="32" height="32" fill="none">
-          ${icons[prayer] || icons.Dhuhr}
-        </svg>
-        <span class="ssepray-card-name">${prayer}</span>
-        <span class="ssepray-card-time">${time}</span>
-        <span class="ssepray-status-chip"></span>
-      `;
-
-        btn.addEventListener('click', () => {
-          elements.grid.querySelectorAll('.ssepray-card').forEach(b => {
-            if (b !== btn) b.setAttribute('aria-pressed', 'false');
-          });
-          const pressed = btn.getAttribute('aria-pressed') === 'true';
-          btn.setAttribute('aria-pressed', !pressed);
-        });
-
-        elements.grid.appendChild(btn);
-      });
-
-      updateActiveCard();
-      if (elements.updateTime) elements.updateTime.textContent = new Date().toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
-    }
-
-    function renderReminderToggles() {
-      if (!elements.reminderForm) return;
-      const prayers = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
-      elements.reminderForm.innerHTML = prayers.map(p => `
-      <label class="ssepray-toggle-label">
-        <input type="checkbox" class="ssepray-checkbox" name="${p}">
-        <span>${p}</span>
-      </label>
-    `).join('');
-    }
-
-    function updateActiveCard() {
-      const now = new Date();
-      const currentMinutes = now.getHours() * 60 + now.getMinutes();
-
-      const times = (prayerData[settings.city] || prayerData.utrecht).times;
-      let nextPrayer = null;
-      let minDiff = Infinity;
-
-      let foundNext = false;
-      Object.entries(times).forEach(([name, timeStr]) => {
-        const [h, m] = timeStr.split(':').map(Number);
-        const pMinutes = h * 60 + m;
-
-        let diff = pMinutes - currentMinutes;
-        if (diff > 0 && diff < minDiff) {
-          minDiff = diff;
-          nextPrayer = { name, time: timeStr, minutes: pMinutes };
-          foundNext = true;
-        }
-      });
-
-      if (!foundNext) {
-        const [h, m] = times.Fajr.split(':').map(Number);
-        nextPrayer = { name: 'Fajr', time: times.Fajr, minutes: (24 * 60) + (h * 60 + m) };
-      }
-
-      // Update Highlights
-      if (nextPrayer) {
-        if (elements.nextName) elements.nextName.textContent = nextPrayer.name;
-        if (elements.nextTime) elements.nextTime.textContent = nextPrayer.time;
-
-        const cards = elements.grid.querySelectorAll('.ssepray-card');
-        cards.forEach(card => {
-          const pName = card.dataset.prayer;
-          const chip = card.querySelector('.ssepray-status-chip');
-          if (!chip) return;
-
-          card.classList.remove('active', 'next');
-          chip.textContent = '';
-
-          if (pName === nextPrayer.name) {
-            card.classList.add('next');
-            chip.textContent = 'Volgend';
-          }
-        });
-      }
-    }
-
-    function updateTimer() {
-      const now = new Date();
-
-      // Quick next logic derived again for simplicity (or store from updateActiveCard)
-      // For demo, targeting Maghrib 18:10 fixed roughly
-      let target = new Date();
-      target.setHours(18, 10, 0);
-      if (now > target) {
-        target.setHours(19, 45, 0);
-        if (now > target) {
-          target.setHours(6, 15, 0);
-          target.setDate(target.getDate() + 1);
-        }
-      }
-
-      const diff = target - now;
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      if (elements.countdown) elements.countdown.textContent =
-        `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-
-      if (elements.progress) {
-        const totalWindow = 2 * 60 * 60 * 1000;
-        const passed = totalWindow - diff;
-        const pct = Math.max(0, Math.min(100, (passed / totalWindow) * 100));
-        elements.progress.style.width = `${pct}%`;
-      }
-
-      if (now.getSeconds() === 0) updateActiveCard();
-    }
-
-    init();
-  })();
 
   // --- Stripe Donation Logic ---
   // 1. Simple Payment Link
@@ -586,102 +355,153 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-  /* --- SSE Luxury Form Validation --- */
-  const sseForm = document.getElementById('sse-aanmeld-form');
-  if (sseForm) {
-    const inputs = sseForm.querySelectorAll('.sse-input');
-    const submitBtn = document.getElementById('sse-submit-btn');
-    const successBanner = document.getElementById('sse-success-message');
+  /* --- SSE FORMS LOGIC (Intro & Main Registration) --- */
 
-    // Validators
-    const validators = {
-      voornaam: (val) => val.trim().length >= 2,
-      achternaam: (val) => val.trim().length >= 2,
-      geboortedatum: (val) => val !== '',
-      email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val),
-      telefoon: (val) => /^[0-9\+\s]{8,}$/.test(val),
-      activiteit: (val) => val !== '',
-      bericht: (val) => val === '' || val.trim().length >= 10
-    };
+  // Helper: Simple Validator
+  const validateField = (input) => {
+    const val = input.value.trim();
+    const name = input.name;
+    let valid = true;
 
-    const setSelectError = (input, show) => {
-      if (input.classList.contains('sse-select')) {
-        const wrapper = input.parentElement;
-        const msg = wrapper.nextElementSibling;
-        if (msg) show ? msg.classList.add('show') : msg.classList.remove('show');
-      }
-    };
+    // Basic rules based on type/name
+    if (input.hasAttribute('required') && !val) valid = false;
+    if (input.type === 'email' && val && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) valid = false;
+    if (input.type === 'tel' && val && !/^[0-9\+\s]{8,}$/.test(val)) valid = false;
 
-    inputs.forEach(input => {
-      // Validate on blur
-      input.addEventListener('blur', () => {
-        const name = input.name;
-        if (validators[name]) {
-          const isValid = validators[name](input.value);
-          if (!isValid) {
-            input.classList.add('sse-error');
-            setSelectError(input, true);
-          } else {
-            input.classList.remove('sse-error');
-            setSelectError(input, false);
-          }
-        }
-      });
+    // Visual feedback
+    if (!valid) {
+      input.style.borderColor = '#d32f2f';
+      input.style.backgroundColor = '#fff8f8';
+    } else {
+      input.style.borderColor = '';
+      input.style.backgroundColor = '';
+    }
+    return valid;
+  };
 
-      // Clear error on input
-      input.addEventListener('input', () => {
-        if (input.classList.contains('sse-error')) {
-          const name = input.name;
-          if (validators[name] && validators[name](input.value)) {
-            input.classList.remove('sse-error');
-            setSelectError(input, false);
-          }
-        }
-      });
-    });
-
-    sseForm.addEventListener('submit', (e) => {
+  // 1. INTRO FORM (sseintro-form)
+  const introForm = document.getElementById('sseintro-form');
+  if (introForm) {
+    introForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      let isValid = true;
-      let firstInvalid = null;
+      const inputs = introForm.querySelectorAll('input, select, textarea');
+      let allValid = true;
+      inputs.forEach(i => { if (!validateField(i)) allValid = false; });
 
-      inputs.forEach(input => {
-        const name = input.name;
-        if (validators[name]) {
-          if (!validators[name](input.value)) {
-            isValid = false;
-            input.classList.add('sse-error');
-            setSelectError(input, true);
-            if (!firstInvalid) firstInvalid = input;
-          } else {
-            input.classList.remove('sse-error');
-            setSelectError(input, false);
-          }
-        }
-      });
-
-      if (!isValid) {
-        if (firstInvalid) firstInvalid.focus();
-        return;
-      }
-
-      // Valid submission
-      submitBtn.disabled = true;
-      submitBtn.classList.add('loading');
-
-      setTimeout(() => {
-        submitBtn.disabled = false;
-        submitBtn.classList.remove('loading');
-        sseForm.reset();
-        successBanner.classList.add('show');
-        // Scroll to banner
-        successBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (allValid) {
+        const btn = introForm.querySelector('.sseintro-btn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = 'Versturen...';
+        btn.disabled = true;
 
         setTimeout(() => {
-          successBanner.classList.remove('show');
-        }, 5000);
-      }, 900);
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+          introForm.reset();
+
+          // Show Success
+          const successMsg = document.getElementById('sseintro-success');
+          introForm.style.display = 'none';
+          if (successMsg) successMsg.hidden = false;
+        }, 1200);
+      }
     });
+
+    // Reset handler
+    const resetIntro = document.getElementById('sseintro-reset');
+    if (resetIntro) {
+      resetIntro.addEventListener('click', () => {
+        document.getElementById('sseintro-success').hidden = true;
+        introForm.style.display = 'flex';
+      });
+    }
+  }
+
+  // 2. MAIN FORM (sseform-form)
+  const mainForm = document.getElementById('sseform-form');
+  if (mainForm) {
+    const inputs = mainForm.querySelectorAll('.sseform-input, .sseform-select, .sseform-textarea');
+    const submitBtn = document.getElementById('sseform-submit');
+    const successState = document.getElementById('sseform-success-state');
+
+    // Live update summary
+    const updateSummary = () => {
+      // Name
+      const fn = document.getElementById('sseform-firstname')?.value || '';
+      const ln = document.getElementById('sseform-lastname')?.value || '';
+      const nameSum = document.getElementById('summary-name');
+      if (nameSum) nameSum.textContent = (fn || ln) ? `${fn} ${ln}` : '-';
+
+      // Registrant (Radio)
+      const reg = mainForm.querySelector('input[name="registrant"]:checked');
+      const regSum = document.getElementById('summary-registrant');
+      if (regSum && reg) regSum.textContent = reg.nextElementSibling.textContent;
+
+      // Activity (Checkbox)
+      const acts = Array.from(mainForm.querySelectorAll('input[name="activity"]:checked'))
+        .map(cb => cb.parentNode.querySelector('.chip-title').textContent);
+      const actSum = document.getElementById('summary-activity');
+      if (actSum) actSum.textContent = acts.length > 0 ? acts.join(', ') : '-';
+
+      // Start
+      const start = mainForm.querySelector('input[name="start_time"]:checked');
+      const startSum = document.getElementById('summary-start');
+      if (startSum && start) startSum.textContent = start.getAttribute('value');
+    };
+
+    inputs.forEach(input => input.addEventListener('input', updateSummary));
+    // Also listeners for radios/checkboxes
+    mainForm.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(i => {
+      i.addEventListener('change', updateSummary);
+    });
+
+    // Toggle Child Fields
+    const regRadios = mainForm.querySelectorAll('input[name="registrant"]');
+    const childFields = document.getElementById('sseform-child-fields');
+    regRadios.forEach(r => {
+      r.addEventListener('change', () => {
+        if (r.value === 'child' && r.checked) {
+          childFields.hidden = false;
+        } else if (r.value === 'self' && r.checked) {
+          childFields.hidden = true;
+        }
+      });
+    });
+
+    // Submit
+    mainForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let allValid = true;
+      inputs.forEach(i => {
+        // Skip child fields if hidden
+        if (childFields && childFields.hidden && (i.id.includes('child'))) return;
+        if (!validateField(i)) allValid = false;
+      });
+
+      if (allValid) {
+        submitBtn.classList.add('loading');
+        submitBtn.disabled = true;
+
+        setTimeout(() => {
+          submitBtn.classList.remove('loading');
+          submitBtn.disabled = false;
+          mainForm.reset();
+          // Hide form, show success
+          mainForm.style.display = 'none';
+          if (successState) successState.hidden = false;
+          successState.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 1500);
+      }
+    });
+
+    // Reset Main
+    const resetMain = document.getElementById('sseform-reset-btn');
+    if (resetMain) {
+      resetMain.addEventListener('click', () => {
+        if (successState) successState.hidden = true;
+        mainForm.style.display = 'grid'; // Restore grid layout
+      });
+    }
   }
   /* --- SSEIMP STATS INTERACTION (Redesign) --- */
   const sseimpCards = document.querySelectorAll('.sseimp-card');
@@ -802,13 +622,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateImpact() {
       let val = parseInt(inputAmount.value) || 0;
       let displayVal = val;
+      // Fake doubling removed: value is now updated directly in input
 
-      if (checkDouble && checkDouble.checked) {
-        // Logic: Double update? 
-        // User request: "Verdubbel mijn gift toggle: Fantasy feature... adjusts impact display"
-        // So we just multiply calculation base, not donation amount.
-        displayVal = val * 2;
-      }
 
       const isMonthly = document.getElementById('freq-monthly').checked;
       const multiplier = isMonthly ? 12 : 1;
@@ -823,7 +638,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (calcVal3) calcVal3.textContent = Math.max(1, Math.floor(totalVal / 50));
     }
 
-    if (checkDouble) checkDouble.addEventListener('change', updateImpact);
+    if (checkDouble) {
+      checkDouble.addEventListener('change', () => {
+        let currentVal = parseInt(inputAmount.value) || 0;
+        if (checkDouble.checked) {
+          updateAmount(currentVal * 2, 'preset');
+        } else {
+          updateAmount(Math.floor(currentVal / 2), 'preset');
+        }
+      });
+    }
 
     // 4. Frequency
     freqRadios.forEach(r => {

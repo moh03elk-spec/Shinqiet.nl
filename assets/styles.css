@@ -3997,87 +3997,226 @@ details>summary {
   }
 }
 
-/* --- SSEFORM 3-COLUMN LAYOUT --- */
+/* --- SSEFORM LUXURY REDESIGN --- */
 :root {
   --sseform-brand: #6b0f1a;
-  --sseform-brand-light: #8a1c2a;
-  --sseform-bg: #f6efe6;
-  --sseform-panel-bg: #fffdf9;
-  --sseform-text: #151214;
+  /* Deep Bordeaux */
+  --sseform-brand-soft: #8a1c2a;
+  /* Lighter Bordeaux for hover */
+  --sseform-gold: #c8a35a;
+  /* Elegant Gold */
+  --sseform-gold-light: #e6dcc5;
+  --sseform-bg: #fffbf7;
+  /* Warm Beige Page BG */
+  --sseform-panel-bg: #ffffff;
+  /* Crisp White Panels */
+  --sseform-text: #2c2420;
+  /* Dark Brown-Grey Text */
   --sseform-text-muted: #6b5f61;
-  --sseform-border: rgba(107, 95, 97, 0.15);
-  --sseform-focus: rgba(107, 15, 26, 0.1);
-  --sseform-radius: 12px;
+  --sseform-border: #e8e2d2;
+  /* Soft Tan Border */
+  --sseform-radius-sm: 12px;
+  --sseform-radius-lg: 24px;
+  --sseform-shadow: 0 12px 40px rgba(107, 15, 26, 0.03);
+  /* Subtle Bordeaux-tinted shadow */
+  --sseform-focus: rgba(107, 15, 26, 0.08);
 }
 
 .sseform-anchor {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 100px;
 }
 
 .sseform-wrapper {
   background: var(--sseform-bg);
-  padding: 4rem 2rem;
-  /* Seamless transition pattern */
-  background-image: linear-gradient(to bottom, transparent, rgba(107, 15, 26, 0.015) 100%);
-  font-family: system-ui, -apple-system, sans-serif;
+  padding: 6rem 1rem;
+  font-family: 'Poppins', system-ui, sans-serif;
   color: var(--sseform-text);
+  /* Organic background nuance */
+  background-image: radial-gradient(circle at top right, rgba(200, 163, 90, 0.05), transparent 40%);
 }
 
 .sseform-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: none;
+  width: 100%;
+  padding: 0 4rem 0 1.5rem;
+  /* Reduced left padding to move forms "meer naar links" */
+  box-sizing: border-box;
 }
 
-/* Panel Structure */
-.sseform-panel {
+/* --- DUAL LAYOUT GRID --- */
+.sse-dual-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr 340px;
-  /* 3 Columns: 1fr 1fr Fixed Summary */
-  gap: 3rem;
-  background: var(--sseform-panel-bg);
-  border-radius: 24px;
-  padding: 3rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-  /* Very subtle, "integrated" feel */
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  grid-template-columns: 450px 1fr;
+  /* Asymmetric: Left fixed/smaller, Right takes rest */
+  gap: 8rem;
+  /* Very wide gap for extreme luxury separation */
   align-items: start;
 }
 
-/* Success State */
-.sseform-success-state {
-  text-align: center;
-  padding: 6rem 1rem;
+/* --- PANEL 1: INTRO (Plan Kennismaking) --- */
+.sseintro-panel {
   background: var(--sseform-panel-bg);
-  border-radius: 24px;
-  max-width: 800px;
-  margin: 0 auto;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border-radius: var(--sseform-radius-lg);
+  padding: 2.5rem;
+  border: 1px solid white;
+  box-shadow: var(--sseform-shadow);
+  position: sticky;
+  top: 120px;
+  /* Sticky scroll behavior */
 }
 
-.sseform-success-icon {
-  width: 64px;
-  height: 64px;
-  background: #e6f7ed;
-  color: #1a8f4c;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1.5rem;
+.sseintro-header {
+  margin-bottom: 2rem;
 }
 
-.sseform-success-icon svg {
-  width: 32px;
-  height: 32px;
-}
-
-.sseform-success-title {
-  font-family: Georgia, serif;
+.sseintro-title {
+  font-family: 'Amiri', serif;
+  font-size: 1.8rem;
   color: var(--sseform-brand);
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
 }
 
-/* Columns */
+.sseintro-subtitle {
+  font-size: 0.95rem;
+  color: var(--sseform-text-muted);
+  line-height: 1.5;
+}
+
+.sseintro-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Fields */
+.sseintro-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sseintro-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--sseform-brand);
+  /* Accented Labels */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sseintro-input,
+.sseintro-select,
+.sseintro-textarea {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--sseform-border);
+  border-radius: var(--sseform-radius-sm);
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--sseform-text);
+  background: #fdfdfd;
+  transition: all 0.2s;
+}
+
+.sseintro-input:focus,
+.sseintro-select:focus,
+.sseintro-textarea:focus {
+  outline: none;
+  border-color: var(--sseform-brand);
+  background: #fff;
+  box-shadow: 0 0 0 4px var(--sseform-focus);
+}
+
+/* Chips (Ochtend/Middag/Avond) */
+.sseintro-chips {
+  display: flex;
+  gap: 0.5rem;
+  background: #fcfcfc;
+  padding: 0.3rem;
+  border: 1px solid var(--sseform-border);
+  border-radius: var(--sseform-radius-sm);
+}
+
+.sseintro-chip {
+  flex: 1;
+  position: relative;
+  cursor: pointer;
+}
+
+.sseintro-chip input {
+  position: absolute;
+  opacity: 0;
+}
+
+.sseintro-chip span {
+  display: block;
+  text-align: center;
+  padding: 0.6rem;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  /* Slightly inner radius */
+  color: var(--sseform-text-muted);
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.sseintro-chip input:checked+span {
+  background: var(--sseform-brand);
+  /* Filled style for strong choice */
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(107, 15, 26, 0.2);
+}
+
+/* Footer Intro */
+.sseintro-footer {
+  margin-top: 1.5rem;
+}
+
+.sseintro-btn {
+  width: 100%;
+  padding: 1rem;
+  background: transparent;
+  color: var(--sseform-brand);
+  border: 2px solid var(--sseform-brand);
+  border-radius: 50px;
+  /* Pill shape */
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 1rem;
+}
+
+.sseintro-btn:hover {
+  background: var(--sseform-brand);
+  color: white;
+}
+
+.sseintro-trust {
+  display: flex;
+  gap: 1.2rem;
+  font-size: 0.75rem;
+  color: var(--sseform-text-muted);
+  justify-content: center;
+}
+
+/* --- PANEL 2: MAIN FORM (Registratie) --- */
+.sseform-panel {
+  background: var(--sseform-panel-bg);
+  border-radius: var(--sseform-radius-lg);
+  padding: 3rem;
+  border: 1px solid white;
+  box-shadow: var(--sseform-shadow);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* 2 Column internal grid */
+  gap: 4rem;
+  position: relative;
+}
+
+/* Columns Headers */
 .sseform-col {
   display: flex;
   flex-direction: column;
@@ -4087,75 +4226,73 @@ details>summary {
 .sseform-col-header {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid var(--sseform-border);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.03);
 }
 
 .sseform-step-num {
-  font-family: Georgia, serif;
-  font-size: 0.9rem;
-  color: #c8a35a;
-  font-weight: bold;
+  font-family: 'Amiri', serif;
+  font-size: 1.2rem;
+  color: var(--sseform-gold);
   background: rgba(200, 163, 90, 0.1);
-  padding: 0.2rem 0.6rem;
-  border-radius: 4px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-weight: 700;
 }
 
 .sseform-col-title {
-  font-family: Georgia, serif;
-  font-size: 1.25rem;
+  font-family: 'Amiri', serif;
+  font-size: 1.5rem;
   color: var(--sseform-brand);
   margin: 0;
 }
 
-/* Inputs & Groups */
+/* Shared Input Styles from Intro apply here as well, 
+   but specific structure tweaks for main form */
 .sseform-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 .sseform-label {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--sseform-text);
+  margin-left: 4px;
 }
 
 .sseform-input,
-.sseform-select,
-.sseform-textarea {
+.sseform-select {
   width: 100%;
-  padding: 0.8rem 1rem;
+  padding: 1rem 1.2rem;
   border: 1px solid var(--sseform-border);
-  border-radius: var(--sseform-radius);
-  font-family: inherit;
+  border-radius: var(--sseform-radius-sm);
+  background: #fdfdfd;
   font-size: 0.95rem;
-  transition: all 0.2s;
-  background: #fff;
+  font-family: inherit;
+  transition: 0.2s;
 }
 
 .sseform-input:focus,
-.sseform-select:focus,
-.sseform-textarea:focus {
+.sseform-select:focus {
   outline: none;
   border-color: var(--sseform-brand);
-  box-shadow: 0 0 0 3px var(--sseform-focus);
+  background: #fff;
+  box-shadow: 0 0 0 4px var(--sseform-focus);
 }
 
-/* Chips */
-.sseform-chips {
-  display: flex;
-  gap: 0.5rem;
-}
-
+/* Pill Chips (Mijzelf/Kind, Startmoment) */
 .sseform-chips.fluid {
+  display: flex;
   flex-wrap: wrap;
-}
-
-.sseform-chips.vertical {
-  flex-direction: column;
+  gap: 0.8rem;
 }
 
 .sseform-chip-pill {
@@ -4166,64 +4303,83 @@ details>summary {
 .sseform-chip-pill input {
   position: absolute;
   opacity: 0;
-  width: 0;
 }
 
 .sseform-chip-pill span {
   display: block;
-  padding: 0.6rem 1.2rem;
+  padding: 0.8rem 1.5rem;
   background: #fff;
   border: 1px solid var(--sseform-border);
   border-radius: 50px;
-  font-size: 0.9rem;
+  /* Full pill */
+  color: var(--sseform-text);
   transition: all 0.2s;
+  font-weight: 500;
 }
 
 .sseform-chip-pill input:checked+span {
   background: var(--sseform-brand);
-  color: white;
+  color: #fff;
   border-color: var(--sseform-brand);
+  box-shadow: 0 4px 12px rgba(107, 15, 26, 0.15);
+  transform: translateY(-1px);
 }
 
-/* Box Chips (Activity) */
+/* Activity Box Chips */
+.sseform-chips.vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
 .sseform-chip-box {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  /* Top align icon */
   gap: 1rem;
-  padding: 0.8rem 1rem;
+  padding: 1rem;
   background: #fff;
   border: 1px solid var(--sseform-border);
-  border-radius: var(--sseform-radius);
+  border-radius: var(--sseform-radius-sm);
   cursor: pointer;
   transition: all 0.2s;
   position: relative;
 }
 
+.sseform-chip-box:hover {
+  border-color: #d0c4b4;
+  background: #fdfcf9;
+}
+
 .sseform-chip-box input {
   position: absolute;
   opacity: 0;
-  width: 0;
 }
 
+/* Custom Check Circle */
 .sseform-icon-check {
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--sseform-border);
+  width: 24px;
+  height: 24px;
+  border: 2px solid #ddd;
   border-radius: 50%;
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-top: 2px;
+  position: relative;
+  transition: 0.2s;
 }
 
 .sseform-icon-check::after {
+  /* The dot */
   content: '';
-  width: 10px;
-  height: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 12px;
+  height: 12px;
   background: var(--sseform-brand);
   border-radius: 50%;
-  transform: scale(0);
-  transition: transform 0.2s;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .sseform-chip-box input:checked+.sseform-icon-check {
@@ -4231,127 +4387,158 @@ details>summary {
 }
 
 .sseform-chip-box input:checked+.sseform-icon-check::after {
-  transform: scale(1);
-}
-
-.sseform-chip-box input:checked {
-  background: var(--sseform-brand-soft);
-  border-color: var(--sseform-brand);
-}
-
-.sseform-chip-content {
-  display: flex;
-  flex-direction: column;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .chip-title {
-  font-weight: 600;
-  font-size: 0.95rem;
+  display: block;
+  font-weight: 700;
+  color: var(--sseform-brand);
+  margin-bottom: 0.2rem;
 }
 
 .chip-desc {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--sseform-text-muted);
+  line-height: 1.4;
 }
 
-/* Summary Column */
+/* Summary Box (Integrated into col 3 logic from previous, but now bottom of 2nd col or 3rd col depending on width) */
+/* We keep the 'summary-col' classes but restyle them */
 .summary-col {
-  background: #faf7f2;
-  /* Slightly darker/warmed panel */
-  margin: -1.5rem -1.5rem -1.5rem 0;
-  /* Bleed to right edge */
-  padding: 1.5rem;
-  border-radius: 0 24px 24px 0;
-  /* Match parent radius */
-  border-left: 1px solid var(--sseform-border);
-  height: calc(100% + 3rem);
+  grid-column: 1 / -1;
+  /* Spans full width at bottom of card */
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px dashed var(--sseform-border);
+  background: transparent;
+  /* No separate background in this design */
+  border-radius: 0;
+  height: auto;
 }
 
+.summary-col .sseform-col-header {
+  display: none;
+  /* Hide header '03' for integrated feel */
+}
+
+/* Compact summary Grid */
 .sseform-summary-card {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  background: #fdfaf6;
+  /* Light Accent BG */
+  border: 1px solid rgba(200, 163, 90, 0.2);
+  border-radius: var(--sseform-radius-sm);
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  align-items: center;
 }
 
 .sseform-summary-row {
   display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
-  border-bottom: 1px dashed rgba(0, 0, 0, 0.05);
-  padding-bottom: 0.5rem;
+  flex-direction: column;
+  gap: 0.4rem;
+  border: none;
+  padding: 0;
 }
 
 .sseform-summary-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
   color: var(--sseform-text-muted);
+  letter-spacing: 0.05em;
 }
 
 .sseform-summary-value {
-  font-weight: 600;
-  text-align: right;
+  font-weight: 700;
+  color: var(--sseform-brand);
+  font-size: 1.1rem;
+  text-align: left;
 }
 
 .sseform-divider {
-  border: none;
-  border-top: 1px solid var(--sseform-border);
-  margin: 1rem 0;
+  display: none;
 }
+
+/* Hide old divider */
 
 .sseform-textarea.small {
   min-height: 80px;
-  font-size: 0.85rem;
-}
-
-.sseform-trust-stacked {
+  grid-column: 1 / -1;
+  /* Note full width */
   margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
 }
 
-.trust-row {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  font-size: 0.8rem;
-  color: var(--sseform-text-muted);
-}
-
+/* Submit Button Main */
 .sseform-btn-submit {
   width: 100%;
-  background: var(--sseform-brand);
-  color: white;
+  background: linear-gradient(135deg, var(--sseform-brand), #8e2a21);
+  color: #fff;
   border: none;
   padding: 1.2rem;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 600;
-  margin-top: 2rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 15px rgba(107, 15, 26, 0.25);
   cursor: pointer;
-  transition: transform 0.2s, background 0.2s;
+  transition: all 0.3s;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .sseform-btn-submit:hover {
-  background: var(--sseform-brand-light);
   transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(107, 15, 26, 0.35);
+  filter: brightness(1.1);
 }
 
-/* Loader */
 .sseform-loader {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-top-color: #fff;
   border-radius: 50%;
-  display: none;
   animation: sspin 0.8s infinite linear;
+  display: none;
 }
 
 .sseform-btn-submit.loading .sseform-loader {
   display: block;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .sse-dual-layout {
+    grid-template-columns: 1fr;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .sseintro-panel {
+    position: static;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sseform-panel {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+
+  .sseform-summary-card {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sseintro-panel {
+    padding: 1.5rem;
+  }
 }
 
 @keyframes sspin {
@@ -4360,289 +4547,18 @@ details>summary {
   }
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .sseform-panel {
-    grid-template-columns: 1fr 1fr;
-    /* 2 Cols */
-    gap: 2rem;
-    padding: 2rem;
+@keyframes sseform-fadeup {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
 
-  .summary-col {
-    grid-column: 1 / -1;
-    /* Full width bottom */
-    margin: 0;
-    border: none;
-    border-top: 1px solid var(--sseform-border);
-    border-radius: 0 0 24px 24px;
-    background: transparent;
-    padding: 2rem 0 0 0;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (max-width: 600px) {
-  .sseform-panel {
-    grid-template-columns: 1fr;
-    /* 1 Col */
-    padding: 1.5rem;
-  }
-}
-
-/* --- DUAL SECTION LAYOUT --- */
-.sse-dual-layout {
-  display: grid;
-  grid-template-columns: 360px 1fr;
-  /* Intro fixed/min-width, Main takes rest */
-  gap: 2.5rem;
-  align-items: start;
-}
-
-/* Main form adaptation for dual layout */
-/* When inside dual layout, force the main panel to behave strictly */
-.sse-dual-layout .sseform-panel {
-  grid-template-columns: 1fr 1fr;
-  /* Stack summary below */
-  padding: 2.5rem;
-}
-
-.sse-dual-layout .sseform-panel .summary-col {
-  grid-column: 1 / -1;
-  margin: 0;
-  border: none;
-  border-top: 1px solid var(--sseform-border);
-  border-radius: 0 0 24px 24px;
-  background: transparent;
-  padding: 2rem 0 0 0;
-}
-
-/* --- SSEINTRO FORM STYLES --- */
-:root {
-  --sseintro-bg: #fffbf7;
-  /* Slightly warmer/lighter than main card */
-  --sseintro-border: rgba(107, 95, 97, 0.1);
-}
-
-.sseintro-panel {
-  background: var(--sseintro-panel-bg, #fffbf7);
-  border-radius: 24px;
-  padding: 2rem;
-  box-shadow: 0 10px 40px rgba(15, 10, 12, 0.04);
-  border: 1px solid var(--sseform-border);
-  height: fit-content;
-  position: sticky;
-  top: 100px;
-  /* Nice sticky effect if main form is long */
-}
-
-.sseintro-header {
-  margin-bottom: 1.5rem;
-  text-align: left;
-}
-
-.sseintro-title {
-  font-family: Georgia, serif;
-  font-size: 1.5rem;
-  color: var(--sseform-brand);
-  margin: 0 0 0.5rem 0;
-}
-
-.sseintro-subtitle {
-  font-size: 0.9rem;
-  color: var(--sseform-text-muted);
-  line-height: 1.4;
-}
-
-.sseintro-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.sseintro-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.sseintro-label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--sseform-text);
-}
-
-.sseintro-input,
-.sseintro-select,
-.sseintro-textarea {
-  font-family: inherit;
-  font-size: 0.9rem;
-  padding: 0.6rem 0.8rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  /* Slightly tighter radius */
-  background: white;
-  transition: all 0.2s;
-  width: 100%;
-}
-
-.sseintro-input:focus,
-.sseintro-select:focus,
-.sseintro-textarea:focus {
-  outline: none;
-  border-color: var(--sseform-brand);
-  box-shadow: 0 0 0 2px var(--sseform-focus);
-}
-
-/* Chips for Intro */
-.sseintro-chips {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.sseintro-chip {
-  cursor: pointer;
-  flex: 1;
-}
-
-.sseintro-chip input {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-}
-
-.sseintro-chip span {
-  display: block;
-  text-align: center;
-  padding: 0.5rem 0.2rem;
-  font-size: 0.85rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  background: white;
-  transition: all 0.2s;
-}
-
-.sseintro-chip input:checked+span {
-  background: var(--sseform-brand-soft, rgba(107, 15, 26, 0.05));
-  color: var(--sseform-brand);
-  border-color: var(--sseform-brand);
-  font-weight: 500;
-}
-
-.sseintro-footer {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.sseintro-trust {
-  display: flex;
-  gap: 1rem;
-  font-size: 0.8rem;
-  color: var(--sseform-text-muted);
-}
-
-.sseintro-btn {
-  width: 100%;
-  background: transparent;
-  color: var(--sseform-brand);
-  border: 1px solid var(--sseform-brand);
-  padding: 0.8rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.sseintro-btn:hover {
-  background: var(--sseform-brand-soft, rgba(107, 15, 26, 0.05));
-}
-
-.sseintro-btn:active {
-  transform: translateY(1px);
-}
-
-/* Success State */
-.sseintro-success {
-  text-align: center;
-  padding: 2rem 0;
-  animation: sseform-fadeup 0.4s;
-}
-
-.sseintro-success-icon {
-  width: 40px;
-  height: 40px;
-  background: #e6f7ed;
-  color: #1a8f4c;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1rem;
-  font-weight: bold;
-}
-
-.sseintro-success h4 {
-  font-family: Georgia, serif;
-  color: var(--sseform-brand);
-  margin: 0 0 0.5rem;
-}
-
-.sseintro-success p {
-  font-size: 0.9rem;
-  color: var(--sseform-text-muted);
-  margin-bottom: 1.5rem;
-}
-
-.sseintro-link-btn {
-  background: none;
-  border: none;
-  text-decoration: underline;
-  color: var(--sseform-text-muted);
-  cursor: pointer;
-  font-size: 0.85rem;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .sseform-panel {
-    grid-template-columns: 1fr 1fr;
-    /* 2 Cols */
-    gap: 2rem;
-    padding: 2rem;
-  }
-
-  .summary-col {
-    grid-column: 1 / -1;
-    /* Full width bottom */
-    margin: 0;
-    border: none;
-    border-top: 1px solid var(--sseform-border);
-    border-radius: 0 0 24px 24px;
-    background: transparent;
-    padding: 2rem 0 0 0;
-  }
-
-  .sse-dual-layout {
-    grid-template-columns: 1fr;
-    /* Stacked */
-    gap: 3rem;
-  }
-
-  .sseintro-panel {
-    order: -1;
-    /* Ensure intro is top on mobile/tablet unless specified */
-    position: static;
-  }
-}
-
-@media (max-width: 600px) {
-  .sseform-panel {
-    grid-template-columns: 1fr;
-    /* 1 Col */
-    padding: 1.5rem;
-  }
-}
 
 /* --- SSENAV HEADER STYLES --- */
 :root {
@@ -4891,6 +4807,7 @@ details>summary {
 
 .ssenav-btn-outline:hover {
   background: rgba(107, 15, 26, 0.05);
+  text-decoration: none;
 }
 
 .ssenav-btn-primary {
@@ -4906,6 +4823,7 @@ details>summary {
 
 .ssenav-btn-primary:hover {
   background: #8a1c2a;
+  text-decoration: none;
 }
 
 /* Mobile Toggle */
@@ -5396,3 +5314,51 @@ details>summary {
     position: relative;
     z-index: 1;
   }
+}
+
+/* --- TRANSITION WAVE (Next Level) --- */
+.sse-transition-wave {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  margin-top: -175px;
+  /* Overlap previous section */
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sse-transition-wave svg {
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 100%;
+}
+
+.sse-wave-path {
+  fill: var(--ssehero-bg);
+  /* Matches Donation Section */
+  filter: drop-shadow(0 -4px 10px rgba(0, 0, 0, 0.02));
+}
+
+/* Increase padding for About Us to accommodate wave overlap */
+.sseabout-section {
+  padding-bottom: 12rem !important;
+}
+
+/* --- GLOBAL BUTTON FIXes --- */
+/* Remove underline from all button-like elements on hover */
+a[class*="btn"]:hover,
+button[class*="btn"]:hover,
+.sseflow-cta-btn:hover,
+.ssenav-btn-primary:hover,
+.ssenav-btn-outline:hover,
+.ssedon-btn-primary:hover,
+.ssedon-btn-secondary:hover,
+.sseact-btn-primary:hover,
+.sseintro-btn:hover,
+.sseact-link:hover,
+.ssedon-chip:hover,
+.ssedon-chip-dest:hover,
+.sseform-btn-submit:hover {
+  text-decoration: none !important;
+}
