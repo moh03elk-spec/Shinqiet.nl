@@ -16,12 +16,18 @@
 </head>
 
 <body>
-  <div class="top-bar">
-    <div class="container">
+  <div id="top-announcement-bar" class="top-bar">
+    <div class="container container-flex-center">
       <span>Welkom bij Stichting Shinqiet — Samen bouwen we aan kennis, karakter en een veerkrachtige
         gemeenschap.</span>
+      <button id="close-announcement" class="top-bar-close" aria-label="Sluit melding">✕</button>
     </div>
   </div>
+  <script>
+    document.getElementById('close-announcement').addEventListener('click', function () {
+      document.getElementById('top-announcement-bar').style.display = 'none';
+    });
+  </script>
 
   <header class="ssenav-header" id="ssenav-header">
     <div class="ssenav-container">
@@ -786,362 +792,277 @@
       </div>
     </section>
 
-    <section id="contact" class="section">
-      <div class="container grid-2">
-        <div>
-          <h2>Contact</h2>
-          <address class="contact-details">
-            <div class="contact-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-              </svg>
-              <span>De Bazelstraat 39, Utrecht</span>
-            </div>
-            <div class="contact-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path
-                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-                </path>
-              </svg>
-              <a href="tel:+31687097712">06 87097712</a>
-            </div>
-            <div class="contact-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
-              <a href="mailto:stichtingsseo@gmail.com">stichtingsseo@gmail.com</a>
-            </div>
-          </address>
-        </div>
+    <!-- NEW FORM SECTION (Redesigned) -->
+    <div class="sseform-anchor" id="aanmeld-formulier"></div>
+    <section class="sse-new-section">
+      <div class="sse-container">
 
-        <div>
-          <!-- DUAL FORM SECTION (Intro + Registration) -->
-          <div class="sseform-anchor" id="aanmeld-formulier"></div>
-          <section class="sseform-wrapper">
-            <div class="sseform-container">
+        <div class="sse-dual-layout">
 
-              <div class="sse-dual-layout">
+          <!-- LEFT: Intro Form -->
+          <div class="sse-card sse-card-left">
+            <header class="sse-intro-header">
+              <h2 class="sse-title-serif">Plan een kennismaking</h2>
+              <p class="sse-subtitle">Vrijblijvend gesprek. We denken graag met je mee.</p>
+            </header>
 
-                <!-- 1. LEFT: Intro Form -->
-                <aside class="sseintro-panel" id="sseintro-panel">
-                  <header class="sseintro-header">
-                    <h3 class="sseintro-title">Plan een kennismaking</h3>
-                    <p class="sseintro-subtitle">Vrijblijvend gesprek. We denken graag met je mee.</p>
-                  </header>
+            <form id="sseintro-form" class="sse-form-stack" novalidate>
+              <input type="hidden" name="intro_topic" value="Algemeen">
 
-                  <form id="sseintro-form" class="sseintro-form" novalidate>
-                    <div class="sseintro-field">
-                      <label for="sseintro-date" class="sseintro-label">Datum</label>
-                      <input type="date" id="sseintro-date" name="intro_date" class="sseintro-input" required>
-                    </div>
-
-                    <div class="sseintro-field">
-                      <label class="sseintro-label">Voorkeur tijdstip</label>
-                      <div class="sseintro-chips">
-                        <label class="sseintro-chip">
-                          <input type="radio" name="intro_time" value="Ochtend" checked>
-                          <span>Ochtend</span>
-                        </label>
-                        <label class="sseintro-chip">
-                          <input type="radio" name="intro_time" value="Middag">
-                          <span>Middag</span>
-                        </label>
-                        <label class="sseintro-chip">
-                          <input type="radio" name="intro_time" value="Avond">
-                          <span>Avond</span>
-                        </label>
-                      </div>
-                    </div>
-
-                    <div class="sseintro-field">
-                      <label for="sseintro-name" class="sseintro-label">Naam</label>
-                      <input type="text" id="sseintro-name" name="intro_name" class="sseintro-input"
-                        placeholder="Je naam" required>
-                    </div>
-
-                    <div class="sseintro-field">
-                      <label for="sseintro-email" class="sseintro-label">E-mailadres</label>
-                      <input type="email" id="sseintro-email" name="intro_email" class="sseintro-input"
-                        placeholder="naam@email.nl" required>
-                    </div>
-
-                    <div class="sseintro-field">
-                      <label for="sseintro-phone" class="sseintro-label">Telefoonnummer</label>
-                      <input type="tel" id="sseintro-phone" name="intro_phone" class="sseintro-input"
-                        placeholder="06..." required>
-                    </div>
-
-                    <div class="sseintro-field">
-                      <label for="sseintro-topic" class="sseintro-label">Interesse</label>
-                      <select id="sseintro-topic" name="intro_topic" class="sseintro-select">
-                        <option value="Algemeen">Algemeen advies</option>
-                        <option value="Koranles">Koranles informatie</option>
-                        <option value="Islamstudies">Islamstudies</option>
-                        <option value="Anders">Anders</option>
-                      </select>
-                    </div>
-
-                    <div class="sseintro-field">
-                      <label for="sseintro-note" class="sseintro-label">Vraag (optioneel)</label>
-                      <textarea id="sseintro-note" name="intro_note" class="sseintro-textarea" rows="2"></textarea>
-                    </div>
-
-                    <div class="sseintro-footer">
-                      <div class="sseintro-trust">
-                        <span>✓ Vrijblijvend</span>
-                        <span>✓ Snel reactie</span>
-                      </div>
-                      <button type="submit" class="sseintro-btn">
-                        <span>Plan kennismaking</span>
-                      </button>
-                    </div>
-                  </form>
-
-                  <!-- Intro Success -->
-                  <div id="sseintro-success" class="sseintro-success" hidden>
-                    <div class="sseintro-success-icon">✓</div>
-                    <h4>Aanvraag verstuurd</h4>
-                    <p>Bedankt! We nemen contact met je op.</p>
-                    <button type="button" class="sseintro-link-btn" id="sseintro-reset">Nieuwe afspraak</button>
-                  </div>
-                </aside>
-
-                <!-- 2. RIGHT: Main Registration Form -->
-                <!-- The Form Panel (Existing, slight adjustments via CSS) -->
-                <div> <!-- Wrapper for separation if needed -->
-
-                  <!-- Success State Main -->
-                  <div id="sseform-success-state" class="sseform-success-state" hidden aria-hidden="true">
-                    <div class="sseform-success-icon">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M22 4L12 14.01l-3-3" stroke-linecap="round" stroke-linejoin="round" />
-                      </svg>
-                    </div>
-                    <h2 class="sseform-success-title">Aanmelding ontvangen</h2>
-                    <p class="sseform-success-text">Bedankt voor je inschrijving. We hebben je gegevens ontvangen en
-                      nemen contact op voor het gekozen moment.</p>
-                    <button type="button" class="sseform-btn-secondary" id="sseform-reset-btn">Nog iemand
-                      aanmelden</button>
-                  </div>
-
-                  <form id="sseform-form" class="sseform-panel" novalidate>
-
-                    <!-- Column 1: Personalia -->
-                    <div class="sseform-col">
-                      <header class="sseform-col-header">
-                        <span class="sseform-step-num">01</span>
-                        <h3 class="sseform-col-title">Persoonlijke gegevens</h3>
-                      </header>
-
-                      <div class="sseform-group">
-                        <label class="sseform-label">Wie schrijf je in?</label>
-                        <div class="sseform-chips fluid">
-                          <label class="sseform-chip-pill">
-                            <input type="radio" name="registrant" value="self" checked>
-                            <span>Mijzelf</span>
-                          </label>
-                          <label class="sseform-chip-pill">
-                            <input type="radio" name="registrant" value="child">
-                            <span>Mijn kind</span>
-                          </label>
-                        </div>
-                      </div>
-
-                      <div id="sseform-child-fields" hidden>
-                        <div class="sseform-group">
-                          <label for="sseform-child-name" class="sseform-label">Naam kind</label>
-                          <input type="text" id="sseform-child-name" name="child_name" class="sseform-input"
-                            placeholder="Voor- en achternaam">
-                        </div>
-                        <div class="sseform-group">
-                          <label for="sseform-child-dob" class="sseform-label">Geboortedatum kind</label>
-                          <input type="date" id="sseform-child-dob" name="child_dob" class="sseform-input">
-                        </div>
-                      </div>
-
-                      <div class="sseform-group">
-                        <label for="sseform-firstname" class="sseform-label">Voornaam</label>
-                        <input type="text" id="sseform-firstname" name="firstname" class="sseform-input" required
-                          autocomplete="given-name">
-                      </div>
-
-                      <div class="sseform-group">
-                        <label for="sseform-lastname" class="sseform-label">Achternaam</label>
-                        <input type="text" id="sseform-lastname" name="lastname" class="sseform-input" required
-                          autocomplete="family-name">
-                      </div>
-
-                      <div class="sseform-group" id="sseform-dob-wrapper">
-                        <label for="sseform-dob" class="sseform-label">Geboortedatum</label>
-                        <input type="date" id="sseform-dob" name="dob" class="sseform-input" required>
-                      </div>
-
-                      <div class="sseform-group">
-                        <label for="sseform-email" class="sseform-label">E-mailadres</label>
-                        <input type="email" id="sseform-email" name="email" class="sseform-input" required
-                          autocomplete="email">
-                      </div>
-
-                      <div class="sseform-group">
-                        <label for="sseform-phone" class="sseform-label">Telefoonnummer</label>
-                        <input type="tel" id="sseform-phone" name="phone" class="sseform-input" required
-                          autocomplete="tel">
-                      </div>
-                    </div>
-
-                    <!-- Column 2: Inschrijving -->
-                    <div class="sseform-col">
-                      <header class="sseform-col-header">
-                        <span class="sseform-step-num">02</span>
-                        <h3 class="sseform-col-title">Inschrijving & Voorkeur</h3>
-                      </header>
-
-                      <div class="sseform-group">
-                        <label class="sseform-label">Kies activiteit(en)</label>
-                        <div class="sseform-chips vertical">
-                          <label class="sseform-chip-box">
-                            <input type="checkbox" name="activity" value="Koranles">
-                            <span class="sseform-icon-check"></span>
-                            <div class="sseform-chip-content">
-                              <span class="chip-title">Koranles</span>
-                              <span class="chip-desc">Memoriseren & Tajweed</span>
-                            </div>
-                          </label>
-                          <label class="sseform-chip-box">
-                            <input type="checkbox" name="activity" value="Arabisch">
-                            <span class="sseform-icon-check"></span>
-                            <div class="sseform-chip-content">
-                              <span class="chip-title">Arabisch</span>
-                              <span class="chip-desc">Taal & Grammatica</span>
-                            </div>
-                          </label>
-                          <label class="sseform-chip-box">
-                            <input type="checkbox" name="activity" value="Islamstudies">
-                            <span class="sseform-icon-check"></span>
-                            <div class="sseform-chip-content">
-                              <span class="chip-title">Islamstudies</span>
-                              <span class="chip-desc">Fiqh & Aqida</span>
-                            </div>
-                          </label>
-                        </div>
-                      </div>
-
-                      <div class="sseform-group">
-                        <label class="sseform-label">Ervaringsniveau</label>
-                        <select class="sseform-select" name="level">
-                          <option value="Beginner">Beginner</option>
-                          <option value="Enige ervaring">Enige ervaring</option>
-                          <option value="Gevorderd">Gevorderd</option>
-                        </select>
-                      </div>
-
-                      <div class="sseform-group">
-                        <label class="sseform-label">Startmoment</label>
-                        <div class="sseform-chips fluid">
-                          <label class="sseform-chip-pill">
-                            <input type="radio" name="start_time" value="Z.s.m." checked>
-                            <span>Z.s.m.</span>
-                          </label>
-                          <label class="sseform-chip-pill">
-                            <input type="radio" name="start_time" value="Volgende maand">
-                            <span>Volgende maand</span>
-                          </label>
-                        </div>
-                      </div>
-
-                      <div class="sseform-group">
-                        <label class="sseform-label">Contactvoorkeur</label>
-                        <div class="sseform-chips fluid">
-                          <label class="sseform-chip-pill">
-                            <input type="radio" name="contact_pref" value="Bellen" checked>
-                            <span>Bellen</span>
-                          </label>
-                          <label class="sseform-chip-pill">
-                            <input type="radio" name="contact_pref" value="Whatsapp">
-                            <span>Whatsapp</span>
-                          </label>
-                          <label class="sseform-chip-pill">
-                            <input type="radio" name="contact_pref" value="E-mail">
-                            <span>E-mail</span>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Column 3: Summary & Action -->
-                    <div class="sseform-col summary-col">
-                      <header class="sseform-col-header">
-                        <span class="sseform-step-num">03</span>
-                        <h3 class="sseform-col-title">Overzicht & Verzenden</h3>
-                      </header>
-
-                      <div class="sseform-summary-card">
-                        <div class="sseform-summary-row">
-                          <span class="sseform-summary-label">Naam</span>
-                          <span class="sseform-summary-value" id="summary-name">-</span>
-                        </div>
-                        <div class="sseform-summary-row">
-                          <span class="sseform-summary-label">Voor</span>
-                          <span class="sseform-summary-value" id="summary-registrant">Mijzelf</span>
-                        </div>
-                        <div class="sseform-summary-row">
-                          <span class="sseform-summary-label">Activiteit</span>
-                          <span class="sseform-summary-value" id="summary-activity">-</span>
-                        </div>
-                        <div class="sseform-summary-row">
-                          <span class="sseform-summary-label">Start</span>
-                          <span class="sseform-summary-value" id="summary-start">Z.s.m.</span>
-                        </div>
-
-                        <hr class="sseform-divider">
-
-                        <div class="sseform-group">
-                          <label for="sseform-note" class="sseform-label">Opmerking (optioneel)</label>
-                          <textarea id="sseform-note" name="note" class="sseform-textarea small" rows="2"
-                            placeholder="Bijv: Ik ben beschikbaar op woensdag..."></textarea>
-                        </div>
-
-                        <div class="sseform-trust-stacked">
-                          <div class="trust-row">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                              stroke-width="2">
-                              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                            </svg>
-                            <span>Gegevens veilig & privé</span>
-                          </div>
-                          <div class="trust-row">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                              stroke-width="2">
-                              <circle cx="12" cy="12" r="10" />
-                              <polyline points="12 6 12 12 16 14" />
-                            </svg>
-                            <span>Reactie binnen 2 werkdagen</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <button type="submit" class="sseform-btn-submit" id="sseform-submit">
-                        <span>Aanmelding versturen</span>
-                        <div class="sseform-loader"></div>
-                      </button>
-
-                    </div>
-
-                  </form>
+              <div class="sse-field">
+                <label class="sse-label" for="sseintro-date">DATUM</label>
+                <div class="sse-input-icon-wrapper">
+                  <input type="date" id="sseintro-date" name="intro_date" class="sse-input" required
+                    placeholder="dd-mm-jjjj">
+                  <span class="sse-icon-right">📅</span>
                 </div>
               </div>
 
+              <div class="sse-field">
+                <label class="sse-label">VOORKEUR TIJDSTIP</label>
+                <div class="sse-seg-control">
+                  <label class="sse-seg-item">
+                    <input type="radio" name="intro_time" value="Ochtend" checked class="sr-only peer">
+                    <span class="sse-seg-btn">Ochtend</span>
+                  </label>
+                  <label class="sse-seg-item">
+                    <input type="radio" name="intro_time" value="Middag" class="sr-only peer">
+                    <span class="sse-seg-btn">Middag</span>
+                  </label>
+                  <label class="sse-seg-item">
+                    <input type="radio" name="intro_time" value="Avond" class="sr-only peer">
+                    <span class="sse-seg-btn">Avond</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="sse-field">
+                <label class="sse-label" for="sseintro-name">NAAM</label>
+                <input type="text" id="sseintro-name" name="intro_name" class="sse-input" placeholder="Je naam"
+                  required>
+              </div>
+
+              <div class="sse-field">
+                <label class="sse-label" for="sseintro-email">E-MAILADRES</label>
+                <input type="email" id="sseintro-email" name="intro_email" class="sse-input" placeholder="naam@email.nl"
+                  required>
+              </div>
+
+              <div class="sse-field">
+                <label class="sse-label" for="sseintro-phone">TELEFOONNUMMER</label>
+                <input type="tel" id="sseintro-phone" name="intro_phone" class="sse-input" placeholder="06..." required>
+              </div>
+
+              <div class="sse-action-row">
+                <button type="submit" class="sseintro-btn sse-btn-primary full">
+                  <span>Afspraak bevestigen</span>
+                </button>
+              </div>
+            </form>
+
+            <div id="sseintro-success" class="sse-success-msg" hidden>
+              <div class="icon">✓</div>
+              <p>Aanvraag verstuurd! We nemen contact op.</p>
+              <button type="button" id="sseintro-reset" class="text-link">Nieuwe afspraak</button>
             </div>
-          </section>
+          </div>
+
+          <!-- RIGHT: Registration Form -->
+          <div class="sse-card sse-card-right" id="sse-register-card">
+
+            <!-- Custom Tab Header for Steps -->
+            <div class="sse-steps-header">
+              <button type="button" class="sse-step-tab active" data-step="1">
+                <span class="step-num">01</span>
+                <span class="step-txt">Persoonlijke gegevens</span>
+              </button>
+              <button type="button" class="sse-step-tab" data-step="2">
+                <span class="step-num">02</span>
+                <span class="step-txt">Inschrijving & Voorkeur</span>
+              </button>
+            </div>
+
+            <form id="sseform-form" class="sse-form-stack sse-form-register" novalidate>
+
+              <!-- STEP 1 -->
+              <div class="sse-step-content active" data-step="1">
+                <div class="sse-field">
+                  <label class="sse-label-lg">Wie schrijf je in?</label>
+                  <div class="sse-chip-row">
+                    <label class="sse-chip-pill">
+                      <input type="radio" name="registrant" value="self" checked class="sr-only peer">
+                      <span class="sse-chip-btn">Mijzelf</span>
+                    </label>
+                    <label class="sse-chip-pill">
+                      <input type="radio" name="registrant" value="child" class="sr-only peer">
+                      <span class="sse-chip-btn">Mijn kind</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div id="sseform-child-fields" hidden>
+                  <div class="sse-field">
+                    <label for="sseform-child-name" class="sse-label-lg">Naam kind</label>
+                    <input type="text" id="sseform-child-name" name="child_name" class="sse-input">
+                  </div>
+                  <div class="sse-field">
+                    <label for="sseform-child-dob" class="sse-label-lg">Geboortedatum kind</label>
+                    <input type="date" id="sseform-child-dob" name="child_dob" class="sse-input">
+                  </div>
+                </div>
+
+                <div class="sse-row-2">
+                  <div class="sse-field">
+                    <label for="sseform-firstname" class="sse-label-lg">Voornaam</label>
+                    <input type="text" id="sseform-firstname" name="firstname" class="sseform-input sse-input" required
+                      autocomplete="given-name">
+                  </div>
+                  <div class="sse-field">
+                    <label for="sseform-lastname" class="sse-label-lg">Achternaam</label>
+                    <input type="text" id="sseform-lastname" name="lastname" class="sseform-input sse-input" required
+                      autocomplete="family-name">
+                  </div>
+                </div>
+
+                <div class="sse-field">
+                  <label for="sseform-dob" class="sse-label-lg">Geboortedatum</label>
+                  <div class="sse-input-icon-wrapper">
+                    <input type="date" id="sseform-dob" name="dob" class="sse-input" required>
+                    <span class="sse-icon-right">📅</span>
+                  </div>
+                </div>
+
+                <div class="sse-field">
+                  <label for="sseform-email" class="sse-label-lg">E-mailadres</label>
+                  <input type="email" id="sseform-email" name="email" class="sse-input sseform-input" required
+                    autocomplete="email">
+                </div>
+
+                <div class="sse-field">
+                  <label for="sseform-phone" class="sse-label-lg">Telefoonnummer</label>
+                  <input type="tel" id="sseform-phone" name="phone" class="sse-input sseform-input" required
+                    autocomplete="tel">
+                </div>
+
+                <div class="sse-step-footer right">
+                  <button type="button" class="sse-btn-next"
+                    onclick="const t=document.querySelector('.sse-step-tab[data-step=\'2\']'); if(t) t.click();">
+                    Volgende stap →
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 2 -->
+              <div class="sse-step-content" data-step="2">
+
+                <div class="sse-field">
+                  <label class="sse-label-lg">Kies activiteit(en)</label>
+                  <div class="sse-card-radios">
+                    <!-- Option 1 -->
+                    <label class="sse-card-radio">
+                      <input type="checkbox" name="activity" value="Koranles" class="sr-only peer">
+                      <div class="sse-radio-box">
+                        <div class="sse-check-circle">✓</div>
+                        <div class="sse-radio-txt">
+                          <span class="chip-title title">Koranles</span>
+                          <span class="desc">Memoriseren & Tajweed</span>
+                        </div>
+                      </div>
+                    </label>
+                    <!-- Option 2 -->
+                    <label class="sse-card-radio">
+                      <input type="checkbox" name="activity" value="Arabisch" class="sr-only peer">
+                      <div class="sse-radio-box">
+                        <div class="sse-check-circle">✓</div>
+                        <div class="sse-radio-txt">
+                          <span class="chip-title title">Arabisch</span>
+                          <span class="desc">Taal & Grammatica</span>
+                        </div>
+                      </div>
+                    </label>
+                    <!-- Option 3 -->
+                    <label class="sse-card-radio">
+                      <input type="checkbox" name="activity" value="Islamstudies" class="sr-only peer">
+                      <div class="sse-radio-box">
+                        <div class="sse-check-circle">✓</div>
+                        <div class="sse-radio-txt">
+                          <span class="chip-title title">Islamstudies</span>
+                          <span class="desc">Fiqh & Aqida</span>
+                        </div>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="sse-field">
+                  <label class="sse-label-lg">Ervaringsniveau</label>
+                  <div class="sse-select-wrapper">
+                    <select class="sse-select sseform-select" name="level">
+                      <option value="Beginner">Beginner</option>
+                      <option value="Enige ervaring">Enige ervaring</option>
+                      <option value="Gevorderd">Gevorderd</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="sse-field">
+                  <label class="sse-label-lg">Startmoment</label>
+                  <div class="sse-chip-row">
+                    <label class="sse-chip-pill">
+                      <input type="radio" name="start_time" value="Z.s.m." checked class="sr-only peer">
+                      <span class="sse-chip-btn">Z.s.m.</span>
+                    </label>
+                    <label class="sse-chip-pill">
+                      <input type="radio" name="start_time" value="Volgende maand" class="sr-only peer">
+                      <span class="sse-chip-btn">Volgende maand</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Contact Preference -->
+                <div class="sse-field">
+                  <label class="sse-label-lg">Contactvoorkeur</label>
+                  <div class="sse-chip-row">
+                    <label class="sse-chip-pill"><input type="radio" name="contact_pref" value="Bellen" checked
+                        class="sr-only peer"><span class="sse-chip-btn">Bellen</span></label>
+                    <label class="sse-chip-pill"><input type="radio" name="contact_pref" value="Whatsapp"
+                        class="sr-only peer"><span class="sse-chip-btn">Whatsapp</span></label>
+                    <label class="sse-chip-pill"><input type="radio" name="contact_pref" value="E-mail"
+                        class="sr-only peer"><span class="sse-chip-btn">E-mail</span></label>
+                  </div>
+                </div>
+
+                <div class="sse-summary-mini hidden">
+                  <!-- Hidden summary for JS to update if needed, but UI style is clean -->
+                  <span id="summary-name" hidden></span>
+                  <span id="summary-activity" hidden></span>
+                  <span id="summary-start" hidden></span>
+                  <span id="summary-registrant" hidden></span>
+                </div>
+
+                <div class="sse-step-footer">
+                  <button type="submit" id="sseform-submit" class="sse-btn-primary full">
+                    Aanmelding versturen
+                    <div class="sseform-loader"></div>
+                  </button>
+                </div>
+
+              </div>
+            </form>
+
+            <div id="sseform-success-state" class="sse-success-msg" hidden>
+              <div class="icon">✨</div>
+              <h3>Aanmelding ontvangen</h3>
+              <p>We hebben je gegevens en nemen contact op.</p>
+              <button type="button" id="sseform-reset-btn" class="sse-btn-text">Nog iemand aanmelden</button>
+            </div>
+
+          </div>
         </div>
       </div>
     </section>
+
+
   </main>
 
   <!-- NIEUWE MODAL STRUCTUUR (SSEACT) -->
@@ -1246,67 +1167,110 @@
     </div>
   </div>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div class="footer-org">
-        <a class="brand" href="#home">
-          <img src="assets/logo.jpg" alt="Stichting Shinqiet" />
-          <span class="brand-text">Stichting Shinqiet</span>
-        </a>
-        <p>KvK: <strong>88321746</strong></p>
-        <div class="social-links">
-          <a href="https://www.facebook.com/profile.php?id=100089272375112" aria-label="Facebook" target="_blank"
-            rel="noopener noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-            </svg>
+  <!-- NIEUWE FOOTER (Next Level Design) -->
+  <footer class="sse-footer">
+    <div class="sse-container">
+
+      <!-- Top Section -->
+      <div class="sse-footer-grid">
+
+        <!-- Kolom 1: Identiteit -->
+        <div class="sse-footer-col identity">
+          <a href="#home" class="sse-footer-brand">
+            <div class="sse-footer-logo-circle">S</div>
+            <span class="sse-footer-brand-text">Stichting Shinqiet</span>
           </a>
-          <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-            </svg>
-          </a>
+          <p class="sse-footer-desc">
+            Samen bouwen we aan een sterke basis voor de toekomst, geworteld in kennis, geloof en gemeenschap.
+          </p>
         </div>
-      </div>
-      <nav class="footer-links" aria-label="Secundair menu">
-        <div>
-          <h4>Leden</h4>
-          <ul>
-            <li><a href="#">Lid worden</a></li>
-            <li><a href="#">Vrijwilliger worden</a></li>
-            <li><a href="#">Vacatures</a></li>
-            <li><a href="#gebedstijden">Gebedstijden</a></li>
-            <li><a href="#contact">Uitschrijven</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Onderwijs</h4>
-          <ul>
-            <li><a href="#activiteiten">Activiteitenaanbod</a></li>
-            <li><a href="#">Activiteitengids</a></li>
+
+        <!-- Kolom 2: Navigatie -->
+        <div class="sse-footer-col">
+          <h4 class="sse-footer-heading">Navigatie</h4>
+          <ul class="sse-footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#programmagids">Programma</a></li>
+            <li><a href="#activiteiten">Activiteiten</a></li>
+            <li><a href="#over-ons">Over ons</a></li>
             <li><a href="#doneren">Doneren</a></li>
           </ul>
         </div>
-        <div>
-          <h4>Beleid</h4>
-          <ul>
-            <li><a href="#">ANBI-status</a></li>
-            <li><a href="#">Privacybeleid</a></li>
-            <li><a href="#">Disclaimer</a></li>
+
+        <!-- Kolom 3: Contact -->
+        <div class="sse-footer-col">
+          <h4 class="sse-footer-heading">Contact</h4>
+          <ul class="sse-footer-contact">
+            <li>
+              <span class="sse-icon-mini">📍</span>
+              <div>
+                <strong>Bezoekadres</strong>
+                <span>De Bazelstraat 39, Utrecht</span>
+              </div>
+            </li>
+            <li>
+              <span class="sse-icon-mini">✉️</span>
+              <a href="mailto:info@shinqiet.nl">info@shinqiet.nl</a>
+            </li>
+            <li>
+              <span class="sse-icon-mini">📞</span>
+              <a href="tel:+31687097712">06 87097712</a>
+            </li>
           </ul>
         </div>
-      </nav>
-    </div>
-    <div class="copyright">
-      <div class="container">
-        &copy; <span id="year"></span> Stichting Shinqiet. Alle rechten voorbehouden.
+
+        <!-- Kolom 4: Gegevens & Social -->
+        <div class="sse-footer-col">
+          <h4 class="sse-footer-heading">Gegevens</h4>
+          <ul class="sse-footer-meta">
+            <li>KvK: <strong>88321746</strong></li>
+            <li>RSIN/ANBI: Beschikbaar</li>
+          </ul>
+
+          <div class="sse-footer-socials">
+            <a href="https://www.facebook.com/profile.php?id=100089272375112" target="_blank" aria-label="Facebook"
+              class="sse-social-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+              </svg>
+            </a>
+            <a href="#" aria-label="Instagram" class="sse-social-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="mailto:info@shinqiet.nl" aria-label="Email" class="sse-social-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+
       </div>
+
+      <!-- Bottom Bar -->
+      <div class="sse-footer-bottom">
+        <p>&copy; <span id="year-new"></span> Stichting Shinqiet. Alle rechten voorbehouden.</p>
+        <div class="sse-footer-bottom-links">
+          <a href="#">Privacybeleid</a>
+          <a href="#">Algemene Voorwaarden</a>
+          <a href="#">Disclaimer</a>
+        </div>
+      </div>
+
     </div>
   </footer>
+
+  <script>
+    document.getElementById('year-new').textContent = new Date().getFullYear();
+  </script>
 
 </body>
 

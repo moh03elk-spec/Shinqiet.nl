@@ -1163,3 +1163,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   observer.observe(transitionLayer);
 });
+
+/* --- SSE STEPS TABS LOGIC --- */
+document.addEventListener('DOMContentLoaded', () => {
+  const tabs = document.querySelectorAll('.sse-step-tab');
+  const contents = document.querySelectorAll('.sse-step-content');
+
+  if (tabs.length > 0) {
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const step = tab.dataset.step;
+
+        // Switch tabs
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // Switch content
+        contents.forEach(c => c.classList.remove('active'));
+        const target = document.querySelector(`.sse-step-content[data-step="${step}"]`);
+        if (target) target.classList.add('active');
+      });
+    });
+  }
+});
