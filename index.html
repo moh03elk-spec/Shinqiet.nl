@@ -625,7 +625,7 @@
                   <button type="button" class="ssedon-chip-dest is-active" data-dest="algemeen">Algemeen</button>
                   <button type="button" class="ssedon-chip-dest" data-dest="onderwijs">Onderwijs</button>
                   <button type="button" class="ssedon-chip-dest" data-dest="jeugd">Jeugd</button>
-                  <button type="button" class="ssedon-chip-dest" data-dest="moskee">Moskee</button>
+                  <button type="button" class="ssedon-chip-dest" data-dest="stichting">Stichting</button>
                   <button type="button" class="ssedon-chip-dest" data-dest="nood">Noodfonds</button>
                 </div>
               </div>
@@ -910,20 +910,24 @@
               </div>
 
               <div class="sse-field">
-                <label class="sse-label">VOORKEUR TIJDSTIP</label>
-                <div class="sse-seg-control">
-                  <label class="sse-seg-item">
-                    <input type="radio" name="intro_time" value="Ochtend" checked class="sr-only peer">
-                    <span class="sse-seg-btn">Ochtend</span>
-                  </label>
-                  <label class="sse-seg-item">
-                    <input type="radio" name="intro_time" value="Middag" class="sr-only peer">
-                    <span class="sse-seg-btn">Middag</span>
-                  </label>
-                  <label class="sse-seg-item">
-                    <input type="radio" name="intro_time" value="Avond" class="sr-only peer">
-                    <span class="sse-seg-btn">Avond</span>
-                  </label>
+                <label class="sse-label">VOORKEUR TIJDSTIP (Weekend 08:30 - 15:00)</label>
+                <div class="sse-select-wrapper">
+                  <select class="sse-select sseform-select" name="intro_time" id="sseintro-time">
+                    <option value="08:30">08:30</option>
+                    <option value="09:00">09:00</option>
+                    <option value="09:30">09:30</option>
+                    <option value="10:00">10:00</option>
+                    <option value="10:30">10:30</option>
+                    <option value="11:00">11:00</option>
+                    <option value="11:30">11:30</option>
+                    <option value="12:00">12:00</option>
+                    <option value="12:30">12:30</option>
+                    <option value="13:00">13:00</option>
+                    <option value="13:30">13:30</option>
+                    <option value="14:00">14:00</option>
+                    <option value="14:30">14:30</option>
+                    <option value="15:00">15:00</option>
+                  </select>
                 </div>
               </div>
 
@@ -1051,12 +1055,11 @@
                   <div class="sse-card-radios">
                     <!-- Option 1 -->
                     <label class="sse-card-radio">
-                      <input type="checkbox" name="activity" value="Koranles" class="sr-only peer">
+                      <input type="checkbox" name="activity" value="Memoriseren & Tajweed" class="sr-only peer">
                       <div class="sse-radio-box">
                         <div class="sse-check-circle">✓</div>
                         <div class="sse-radio-txt">
-                          <span class="chip-title title">Koranles</span>
-                          <span class="desc">Memoriseren & Tajweed</span>
+                          <span class="chip-title title">Memoriseren & Tajweed</span>
                         </div>
                       </div>
                     </label>
@@ -1066,7 +1069,7 @@
                       <div class="sse-radio-box">
                         <div class="sse-check-circle">✓</div>
                         <div class="sse-radio-txt">
-                          <span class="chip-title title">Arabisch</span>
+                          <span class="chip-title title">Taalonderwijs</span>
                           <span class="desc">Taal & Grammatica</span>
                         </div>
                       </div>
@@ -1077,7 +1080,7 @@
                       <div class="sse-radio-box">
                         <div class="sse-check-circle">✓</div>
                         <div class="sse-radio-txt">
-                          <span class="chip-title title">Islamstudies</span>
+                          <span class="chip-title title">Fiqh & Aqida Studies</span>
                           <span class="desc">Fiqh & Aqida</span>
                         </div>
                       </div>
@@ -1383,20 +1386,36 @@
         });
       });
     }
-  
-    
+
+
     // Mobile Orbit Interaction
     document.addEventListener('DOMContentLoaded', () => {
-        const heroLogo = document.querySelector('.ssehero-logo');
-        const orbitContainer = document.querySelector('.ssehero-orbit-container');
-        
-        if (heroLogo && orbitContainer) {
-          heroLogo.addEventListener('click', () => {
-            orbitContainer.classList.toggle('is-visible');
-          });
-        }
+      const heroLogo = document.querySelector('.ssehero-logo');
+      const orbitContainer = document.querySelector('.ssehero-orbit-container');
+
+      if (heroLogo && orbitContainer) {
+        heroLogo.addEventListener('click', () => {
+          orbitContainer.classList.toggle('is-visible');
+        });
+      }
     });
 
+  </script>
+
+
+  <script>
+    // Weekend Only Validation for Intro Date
+    const dateInput = document.getElementById('sseintro-date');
+    if (dateInput) {
+      dateInput.addEventListener('input', function (e) {
+        const date = new Date(this.value);
+        const day = date.getDay(); // 0 = Sunday, 6 = Saturday
+        if (day !== 0 && day !== 6) {
+          alert('Kies a.u.b. een datum in het weekend (Zaterdag of Zondag).');
+          this.value = ''; // Reset
+        }
+      });
+    }
   </script>
 
 </body>
