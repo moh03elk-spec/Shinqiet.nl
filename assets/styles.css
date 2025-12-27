@@ -6007,3 +6007,762 @@ button[class*="btn"]:hover,
 .top-bar-close:hover {
   color: white;
 }
+
+
+/* --- Dynamic Orbiting Logo Icons --- */
+.ssehero-logo-container {
+  position: relative;
+  /* Ensure container establishes a positioning context */
+}
+
+/* Wrapper for the orbit to handle the breathing (in/out) independent of rotation if needed, 
+   but we can just animate width/height on the container directly for simplicity. */
+.ssehero-orbit-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  /* Compact size: inside the halo rings (rings are ~75-85% size visually) */
+  width: 85%;
+  height: 85%;
+  
+  /* Animations: 
+     1. Spin (Rotation) - Very slow (120s)
+     2. Breathe (Distance in/out) - Very subtle now
+  */
+  animation: 
+    ssehero-orbit-spin 120s linear infinite, 
+    ssehero-orbit-breathe 8s ease-in-out infinite alternate;
+    
+  pointer-events: none;
+  z-index: 10;
+}
+
+.ssehero-orbit-item {
+  position: absolute;
+  width: 36px; /* Slightly smaller for compact look */
+  height: 36px;
+  color: var(--ssenav-gold);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  padding: 7px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Counter spin must match the orbit speed (120s) to keep icons upright relative to screen */
+  animation: ssehero-orbit-counter-spin 120s linear infinite;
+}
+
+/* Positioning 6 items in a hexagon (0, 60, 120, 180, 240, 300 degrees) */
+/* 1: Top (0 deg) */
+.ssehero-orbit-item.item-1 { top: 0; left: 50%; margin-left: -18px; margin-top: -18px; }
+/* 2: Top-Right (60 deg) -> x: 93.3%, y: 25% */
+.ssehero-orbit-item.item-2 { top: 25%; left: 93.3%; margin-left: -18px; margin-top: -18px; }
+/* 3: Bottom-Right (120 deg) -> x: 93.3%, y: 75% */
+.ssehero-orbit-item.item-3 { top: 75%; left: 93.3%; margin-left: -18px; margin-top: -18px; }
+/* 4: Bottom (180 deg) */
+.ssehero-orbit-item.item-4 { top: 100%; left: 50%; margin-left: -18px; margin-top: -18px; }
+/* 5: Bottom-Left (240 deg) -> x: 6.7%, y: 75% */
+.ssehero-orbit-item.item-5 { top: 75%; left: 6.7%; margin-left: -18px; margin-top: -18px; }
+/* 6: Top-Left (300 deg) -> x: 6.7%, y: 25% */
+.ssehero-orbit-item.item-6 { top: 25%; left: 6.7%; margin-left: -18px; margin-top: -18px; }
+
+@keyframes ssehero-orbit-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes ssehero-orbit-counter-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes ssehero-orbit-breathe {
+  0% { width: 85%; height: 85%; }
+  100% { width: 95%; height: 95%; } /* Stays compact */
+}
+
+
+/* --- Mobile Layout Fixes (Final Polish) --- */
+@media (max-width: 968px) {
+  /* 1. Spacing & Centering */
+  .ssehero-section {
+    padding-top: 140px !important; /* Push content down further from fixed header */
+    padding-bottom: 6rem !important; /* Space for scroll hint */
+    height: auto; /* Allow growth */
+    min-height: 90vh;
+  }
+  
+  .ssehero-grid {
+    gap: 4rem !important; /* More space between logo and text */
+  }
+  
+  .ssehero-text-col {
+    order: 2; /* Text below logo */
+    padding: 0 1rem; /* Horizontal breathing room */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center text align */
+    text-align: center;
+  }
+  
+  /* 2. Logo & Orbit Sizing */
+  .ssehero-visual-col {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .ssehero-logo-container {
+    width: 240px !important; /* Compact container */
+    height: 240px !important;
+  }
+  
+  .ssehero-logo {
+    width: 120px !important; /* Smaller logo */
+  }
+  
+  /* Bring icons closer on mobile */
+  .ssehero-orbit-container {
+    width: 135% !important; /* Tighter orbit radius relative to container */
+    height: 135% !important;
+  }
+  
+  .ssehero-orbit-item {
+    width: 32px !important; /* Smaller icons */
+    height: 32px !important;
+    padding: 6px !important;
+  }
+  
+  /* 3. Text Readability */
+  .ssehero-title {
+    margin-bottom: 1.5rem;
+  }
+  
+  .ssehero-line {
+    font-size: 2rem !important; /* Readable but not huge */
+  }
+  
+  .ssehero-line.highlight {
+    font-size: 2.5rem !important;
+  }
+  
+  .ssehero-subtitle {
+     font-size: 1rem !important;
+     padding: 0 1rem !important; /* No left border indentation on mobile */
+     border: none !important;
+  }
+  
+  /* 4. Scroll Hint */
+  .ssehero-scroll-hint {
+    bottom: 2rem !important;
+  }
+}
+
+
+/* --- Mobile Spacing Adjustment (Move Up) --- */
+@media (max-width: 968px) {
+  .ssehero-section {
+    padding-top: 90px !important; /* Reduced from 140px to move up */
+    padding-bottom: 4rem !important; 
+  }
+  
+  .ssehero-visual-col {
+    margin-top: 0 !important; /* Remove extra margin above logo */
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .ssehero-grid {
+    gap: 2rem !important; /* Reduced gap between logo and text */
+  }
+}
+
+
+/* --- Mobile Spacing V2 & Text Styling --- */
+@media (max-width: 968px) {
+  /* 1. Even higher up */
+  .ssehero-section {
+    padding-top: 50px !important; /* Reduced from 90px to 50px */
+    min-height: auto !important;
+  }
+  
+  .ssehero-visual-col {
+    margin-bottom: 1rem !important; /* Tighter gap below logo */
+  }
+  
+  /* 2. Specific Text Styling */
+  /* "Een warme thuisbasis..." is inside .ssehero-subtitle */
+  .ssehero-subtitle {
+    color: #777 !important; /* Grijs */
+    font-size: 0.85rem !important; /* Kleiner */
+    line-height: 1.5 !important;
+    font-weight: 400 !important;
+    max-width: 90%; /* Prevent too wide text */
+    margin-inline: auto; /* Keep centered */
+  }
+  
+  /* Ensure title is also tight */
+  .ssehero-title {
+    margin-bottom: 1rem !important;
+  }
+}
+
+
+/* --- Mobile Spacing V3 & Scroll Hint Fix --- */
+@media (max-width: 968px) {
+  /* 1. Position Content Lower (75px) */
+  .ssehero-section {
+    padding-top: 75px !important; 
+    padding-bottom: 4rem !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Ensure top alignment */
+  }
+
+  /* 2. Scroll Hint: Flow naturally below text */
+  .ssehero-scroll-hint {
+    position: static !important; /* No longer absolute at bottom */
+    transform: none !important;
+    margin-top: 2rem !important; /* Space from text */
+    margin-inline: auto !important; /* Centered */
+    opacity: 1 !important; /* Ensure visible */
+    animation: none !important; /* Simplify mobile paint */
+  }
+  
+  /* Ensure text column takes height needed */
+  .ssehero-text-col {
+    margin-bottom: 2rem;
+  }
+}
+
+
+/* --- Mobile Interactive Orbit Interaction --- */
+@media (max-width: 968px) {
+  .ssehero-logo {
+    cursor: pointer; /* Indication it is clickable */
+    /* Add a subtle pulse or hint? Optional. */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .ssehero-orbit-container {
+    /* Hide by default on mobile */
+    opacity: 0;
+    visibility: hidden;
+    /* transform scale 0.8 disabled */ /* Start small */
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy pop */
+  }
+
+  .ssehero-orbit-container.is-visible {
+    opacity: 1;
+    visibility: visible;
+    /* transform scale 1 disabled */
+  }
+}
+
+
+/* --- Fix Mobile Orbit Animation (Remove Transform Conflict) --- */
+@media (max-width: 968px) {
+  .ssehero-orbit-container {
+    /* Reset transform to rely on animation only */
+    /* transform !important removed to allow rotation */ 
+    
+    /* Hide by shrinking to center */
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0;
+    visibility: hidden;
+    
+    /* Smooth transition for size and fade */
+    transition: 
+        width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+        height 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.4s ease;
+  }
+
+  .ssehero-orbit-container.is-visible {
+    /* Expand to target size */
+    width: 90% !important;
+    height: 90% !important;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+
+/* --- Mobile Donation Section Fixes --- */
+@media (max-width: 968px) {
+  /* 1. Container & Grid */
+  .ssedonate-section {
+    padding: 3rem 1rem;
+    background-size: cover; /* Ensure no white patches if bg image used */
+  }
+
+  .ssedon-container {
+      width: 100%;
+      padding: 0;
+  }
+
+  .ssedon-grid {
+    grid-template-columns: 1fr; /* Stack Left and Right panels */
+    gap: 2rem;
+  }
+
+  /* 2. Card Styling */
+  .ssedon-card {
+    padding: 1.5rem; /* Reduce padding from desktop size */
+    border-radius: 20px;
+  }
+  
+  .ssedon-heading {
+      font-size: 2rem;
+      text-align: center;
+  }
+  
+  .ssedon-intro {
+      text-align: center;
+      font-size: 1rem;
+  }
+
+  /* 3. Interval Toggle (Eenmalig / Maandelijks) */
+  .ssedon-interval-toggle {
+    display: flex;
+    width: 100%;
+    margin-bottom: 2rem;
+    padding: 4px;
+    height: auto;
+    border-radius: 99px;
+  }
+  
+  .toggle-option {
+    flex: 1; /* Each takes 50% */
+    text-align: center;
+    padding: 10px 0;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  /* 4. Amount Grid (Buttons €10, €25, etc) */
+  .ssedon-amount-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cols fits nicely */
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .amount-btn {
+      width: 100%; 
+      font-size: 1rem;
+      padding: 0.75rem 0;
+  }
+
+  /* 5. Custom Amount & Switches Row */
+  .ssedon-custom-row {
+    flex-direction: column; /* Stack input on top of switches */
+    align-items: stretch;
+    gap: 1.5rem;
+  }
+
+  .ssedon-input-group {
+    width: 100%;
+  }
+  
+  .ssedon-input-wrapper {
+      width: 100%;
+  }
+
+  .ssedon-switches {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Stack switches vertically for clarity or row if fits */
+    gap: 1rem;
+  }
+  
+  .ssedon-switch-group {
+      width: 100%;
+      justify-content: space-between; /* Label left, toggle right */
+  }
+  
+  .switch-label {
+      font-size: 0.9rem;
+  }
+
+  /* 6. Allocation Buttons (Algemeen, Onderwijs etc) */
+  .ssedon-allocation-grid {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 0.5rem;
+    justify-content: center;
+  }
+  
+  .alloc-btn {
+      flex: 1 1 auto; /* Grow/shrink */
+      min-width: 80px;
+      font-size: 0.85rem;
+      padding: 0.5rem 1rem;
+  }
+  
+  /* 7. Impact Panel (Right side) */
+  .ssedon-panel-impact {
+      margin-top: 1rem;
+  }
+  
+  .ssedon-mini-story {
+      text-align: center;
+  }
+  
+  .ssedon-calc-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+  }
+  
+  .ssedon-calc-item {
+      padding: 0.5rem;
+  }
+  
+  .ssedon-bars-group {
+      padding: 0 1rem;
+  }
+}
+
+
+/* --- Mobile Donation Section Fixes (FORCED) --- */
+@media (max-width: 968px) {
+  /* Force Stack Grid */
+  .ssedon-grid {
+    grid-template-columns: 1fr !important; 
+    gap: 2rem !important;
+  }
+  
+  /* Force Toggle Widths */
+  .ssedon-interval-toggle {
+    display: flex !important;
+    width: 100% !important;
+  }
+  .toggle-option {
+    flex: 1 1 0px !important; /* Force equal width */
+    width: 50% !important; 
+    min-width: 0 !important;
+  }
+
+  /* Force 3-col buttons */
+  .ssedon-amount-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    display: grid !important;
+  }
+  
+  /* Force Stack Custom Row */
+  .ssedon-custom-row {
+    flex-direction: column !important;
+    display: flex !important;
+  }
+  
+  .ssedon-switches {
+     flex-direction: column !important;
+     width: 100% !important;
+  }
+  
+  .ssedon-switch-group {
+      width: 100% !important;
+  }
+  
+  /* Force Container Padding */
+  .ssedon-card {
+      padding: 1.25rem !important;
+  }
+}
+
+
+/* --- Mobile Donation Section Fixes (CORRECTED) --- */
+@media (max-width: 968px) {
+  /* 1. Stack Left/Right Layout */
+  .ssedon-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  
+  /* 2. Fix Frequency Toggle Widths */
+  /* Structure: .ssedon-toggle-pill > input + label + input + label ... */
+  .ssedon-toggle-pill {
+    display: flex !important;
+    width: 100% !important;
+    padding: 4px !important;
+    position: relative !important;
+  }
+  
+  .ssedon-toggle-pill label {
+    flex: 1 !important; /* Force equal width */
+    text-align: center !important;
+    z-index: 2;
+    padding: 10px 0 !important;
+    font-size: 0.9rem !important;
+    width: 50% !important;
+  }
+  /* Ensure background pill also respects width if absolute */
+  /* Assuming .ssedon-pill-bg moves via JS or CSS peer checked */
+  
+  /* 3. Fix Amount Grid (Chips) */
+  .ssedon-presets {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important; /* 3 columns grid */
+    gap: 0.5rem !important;
+    flex-wrap: wrap !important; /* Override flex if it was flex */
+  }
+  
+  .ssedon-chip {
+    width: 100% !important;
+    padding: 0.75rem 0 !important;
+    margin: 0 !important; /* Reset any margins */
+    text-align: center !important;
+  }
+  
+  /* 4. Fix Input and Switches Row */
+  .ssedon-input-row {
+    flex-direction: column !important; /* Stack input on top of switches */
+    align-items: stretch !important;
+    gap: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  .ssedon-input-wrapper {
+      width: 100% !important;
+  }
+
+  .ssedon-toggles-extra {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.75rem !important;
+    margin-left: 0 !important; /* Reset margin */
+  }
+  
+  .ssedon-switch-label {
+      width: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important; /* Toggle ends */
+  }
+
+  .ssedon-actions {
+      flex-direction: column !important;
+  }
+}
+
+
+/* --- Mobile Impact Panel Fixes --- */
+@media (max-width: 968px) {
+  /* 1. Calc Grid (3 calculator cards) */
+  .ssedon-calc-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  .ssedon-calc-item {
+    padding: 0.75rem 0.25rem !important; /* Tighter padding */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 0 !important; /* Allow shrinking */
+  }
+  
+  .ssedon-calc-item strong {
+      font-size: 1.5rem !important;
+      line-height: 1.2 !important;
+  }
+  
+  .ssedon-calc-item span {
+      font-size: 0.75rem !important; /* Smaller label text */
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      max-width: 100%;
+  }
+
+  /* 2. Progress Bars */
+  .ssedon-bars-group {
+    padding: 0 !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  .ssedon-bar-wrapper {
+      margin-bottom: 1rem !important;
+  }
+  
+  .bar-header {
+      font-size: 0.9rem !important;
+      margin-bottom: 0.25rem !important;
+  }
+  
+  /* 3. Checklist */
+  .ssedon-checklist-box {
+      border: 1px solid rgba(0,0,0,0.05) !important;
+      border-radius: 12px !important;
+      padding: 1rem !important;
+  }
+  
+  .ssedon-checklist li {
+      font-size: 0.9rem !important;
+      margin-bottom: 0.5rem !important;
+  }
+  
+  /* 4. Mini Story Text */
+  .ssedon-mini-story {
+      font-size: 0.95rem !important;
+      line-height: 1.5 !important;
+      padding: 0 0.5rem !important;
+      margin-bottom: 1.5rem !important;
+  }
+}
+
+
+/* --- Final Mobile Donation Responsiveness Fix --- */
+@media (max-width: 968px) {
+  /* 1. Global Section & Container Resets */
+  .ssedon-section,
+  .ssedon-container,
+  .ssedon-grid {
+    width: 100% !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    padding-left: 0 !important; /* Managed by inner container */
+    padding-right: 0 !important;
+    display: block !important; /* Ensure block flow for containers */
+  }
+  
+  /* 2. Grid Stack override */
+  .ssedon-grid {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 1.5rem !important;
+      padding: 0 1rem !important; /* Side padding for the content */
+  }
+
+  /* 3. Cards - Allow full shrink */
+  .ssedon-card,
+  .ssedon-panel-donate,
+  .ssedon-panel-impact {
+    width: 100% !important;
+    min-width: 0 !important; /* Critical: remove preventing shrink */
+    max-width: 100% !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    height: auto !important;
+    overflow: hidden !important; /* Clip content */
+  }
+
+  /* 4. Form Elements - Responsive widths */
+  .ssedon-form {
+      width: 100% !important;
+  }
+  
+  .ssedon-slider-row input[type=range] {
+      width: 100% !important;
+  }
+  
+  /* 5. Force text wrapping */
+  .ssedon-hero-title, 
+  .ssedon-hero-subtitle, 
+  .ssedon-community-text {
+      word-wrap: break-word !important;
+      overflow-wrap: break-word !important;
+      max-width: 100% !important;
+  }
+  
+  /* Ensure no fixed widths on children */
+  .ssedon-group,
+  .ssedon-input-wrapper,
+  .ssedon-toggle-pill,
+  .ssedon-presets,
+  .ssedon-toggles-extra,
+  .ssedon-actions,
+  .ssedon-trust-row {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+  }
+}
+
+
+/* --- Hide Top Announcement Bar on Mobile --- */
+@media (max-width: 968px) {
+  .top-bar {
+    display: none !important;
+  }
+}
+
+
+/* --- Fix Mobile Orbit Rotation (Reinforcement) --- */
+@media (max-width: 968px) {
+  .ssehero-orbit-container.is-visible {
+       /* Ensure animation plays when visible */
+       animation-play-state: running !important;
+  }
+  
+  .ssehero-orbit-item {
+      /* Force counter-spin to keep icons upright */
+      animation: ssehero-orbit-counter-spin 120s linear infinite !important;
+  }
+}
+
+
+/* --- Refine Mobile Toggle (Premium Look) --- */
+@media (max-width: 968px) {
+  .ssedon-toggle-pill {
+    background-color: #f7f3f0 !important; /* Lighter beige for contrast */
+    border: 1px solid rgba(0,0,0,0.05) !important;
+    border-radius: 999px !important;
+    padding: 6px !important;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.03) !important;
+    height: 54px !important; /* Fixed height for consistency */
+    display: flex !important;
+    align-items: center !important;
+  }
+  
+  .ssedon-toggle-pill label {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100% !important;
+    border-radius: 999px !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    color: #555 !important;
+    transition: all 0.3s ease !important;
+    position: relative !important; /* For badge positioning */
+    z-index: 2;
+  }
+  
+  /* Active State (Visualized via the checked input's sibling label usually, 
+     but since we have a sliding pill bg, we just ensure text contrast) */
+  /* Assuming the sliding bg handles the red background. */
+  /* If the text color isn't changing, we can force it: */
+  input:checked + label {
+      color: white !important;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+  }
+
+  /* Refine the Badge */
+  .ssedon-badge-impact {
+      position: absolute !important;
+      top: -8px !important;
+      right: 0 !important;
+      font-size: 0.6rem !important;
+      padding: 2px 6px !important;
+      background: #B6382E !important;
+      color: white !important;
+      border-radius: 10px !important;
+      box-shadow: 0 2px 4px rgba(182, 56, 46, 0.3) !important;
+      white-space: nowrap !important;
+      transform: scale(0.9) !important;
+      /* Ensure it doesn't overlap text too much */
+      pointer-events: none !important;
+  }
+  
+  /* If badge is inside the label, just scaling it down helps */
+}
